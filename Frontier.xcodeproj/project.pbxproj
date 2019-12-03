@@ -8,13 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		418AE8322388BFFA00E13BC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418AE8312388BFFA00E13BC3 /* AppDelegate.swift */; };
-		418AE8342388BFFA00E13BC3 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418AE8332388BFFA00E13BC3 /* FirstViewController.swift */; };
-		418AE8362388BFFA00E13BC3 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418AE8352388BFFA00E13BC3 /* SecondViewController.swift */; };
 		418AE8392388BFFA00E13BC3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 418AE8372388BFFA00E13BC3 /* Main.storyboard */; };
 		418AE83B2388BFFB00E13BC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 418AE83A2388BFFB00E13BC3 /* Assets.xcassets */; };
 		418AE83E2388BFFB00E13BC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 418AE83C2388BFFB00E13BC3 /* LaunchScreen.storyboard */; };
 		418AE8492388BFFB00E13BC3 /* FrontierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418AE8482388BFFB00E13BC3 /* FrontierTests.swift */; };
 		418AE8542388BFFB00E13BC3 /* FrontierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418AE8532388BFFB00E13BC3 /* FrontierUITests.swift */; };
+		41B6432A238B87E500F95C95 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B64329238B87E500F95C95 /* SupportViewController.swift */; };
+		41B6432C238B9C1F00F95C95 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B6432B238B9C1F00F95C95 /* LoginViewController.swift */; };
+		41B64332238BC87B00F95C95 /* GuideTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B64331238BC87B00F95C95 /* GuideTableViewController.swift */; };
+		41B64334238BC9D400F95C95 /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B64333238BC9D400F95C95 /* GuideViewController.swift */; };
+		41E84C53238D072D004A4392 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E84C52238D072D004A4392 /* SearchTableViewController.swift */; };
+		41E84C55238D088A004A4392 /* HorseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E84C54238D088A004A4392 /* HorseViewController.swift */; };
+		41EA351F2394BDDF00264344 /* CustomTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EA351E2394BDDF00264344 /* CustomTopCell.swift */; };
+		41EA35212394C74B00264344 /* CustomLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EA35202394C74B00264344 /* CustomLeftCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +43,6 @@
 /* Begin PBXFileReference section */
 		418AE82E2388BFFA00E13BC3 /* Frontier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Frontier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		418AE8312388BFFA00E13BC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		418AE8332388BFFA00E13BC3 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		418AE8352388BFFA00E13BC3 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		418AE8382388BFFA00E13BC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		418AE83A2388BFFB00E13BC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		418AE83D2388BFFB00E13BC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +53,14 @@
 		418AE84F2388BFFB00E13BC3 /* FrontierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FrontierUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		418AE8532388BFFB00E13BC3 /* FrontierUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontierUITests.swift; sourceTree = "<group>"; };
 		418AE8552388BFFB00E13BC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		41B64329238B87E500F95C95 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
+		41B6432B238B9C1F00F95C95 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		41B64331238BC87B00F95C95 /* GuideTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideTableViewController.swift; sourceTree = "<group>"; };
+		41B64333238BC9D400F95C95 /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
+		41E84C52238D072D004A4392 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
+		41E84C54238D088A004A4392 /* HorseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseViewController.swift; sourceTree = "<group>"; };
+		41EA351E2394BDDF00264344 /* CustomTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTopCell.swift; sourceTree = "<group>"; };
+		41EA35202394C74B00264344 /* CustomLeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLeftCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +111,14 @@
 		418AE8302388BFFA00E13BC3 /* Frontier */ = {
 			isa = PBXGroup;
 			children = (
+				41B6432B238B9C1F00F95C95 /* LoginViewController.swift */,
+				41EA35242394EFB400264344 /* Guide */,
+				41EA35262394EFDF00264344 /* Search */,
+				41EA352B2394F16800264344 /* Support */,
 				418AE8312388BFFA00E13BC3 /* AppDelegate.swift */,
-				418AE8332388BFFA00E13BC3 /* FirstViewController.swift */,
-				418AE8352388BFFA00E13BC3 /* SecondViewController.swift */,
 				418AE8372388BFFA00E13BC3 /* Main.storyboard */,
+				41EA351E2394BDDF00264344 /* CustomTopCell.swift */,
+				41EA35202394C74B00264344 /* CustomLeftCell.swift */,
 				418AE83A2388BFFB00E13BC3 /* Assets.xcassets */,
 				418AE83C2388BFFB00E13BC3 /* LaunchScreen.storyboard */,
 				418AE83F2388BFFB00E13BC3 /* Info.plist */,
@@ -126,6 +142,32 @@
 				418AE8552388BFFB00E13BC3 /* Info.plist */,
 			);
 			path = FrontierUITests;
+			sourceTree = "<group>";
+		};
+		41EA35242394EFB400264344 /* Guide */ = {
+			isa = PBXGroup;
+			children = (
+				41B64331238BC87B00F95C95 /* GuideTableViewController.swift */,
+				41B64333238BC9D400F95C95 /* GuideViewController.swift */,
+			);
+			name = Guide;
+			sourceTree = "<group>";
+		};
+		41EA35262394EFDF00264344 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				41E84C52238D072D004A4392 /* SearchTableViewController.swift */,
+				41E84C54238D088A004A4392 /* HorseViewController.swift */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
+		41EA352B2394F16800264344 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				41B64329238B87E500F95C95 /* SupportViewController.swift */,
+			);
+			name = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +301,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				418AE8362388BFFA00E13BC3 /* SecondViewController.swift in Sources */,
+				41B64332238BC87B00F95C95 /* GuideTableViewController.swift in Sources */,
+				41E84C53238D072D004A4392 /* SearchTableViewController.swift in Sources */,
+				41E84C55238D088A004A4392 /* HorseViewController.swift in Sources */,
 				418AE8322388BFFA00E13BC3 /* AppDelegate.swift in Sources */,
-				418AE8342388BFFA00E13BC3 /* FirstViewController.swift in Sources */,
+				41B6432A238B87E500F95C95 /* SupportViewController.swift in Sources */,
+				41B6432C238B9C1F00F95C95 /* LoginViewController.swift in Sources */,
+				41EA351F2394BDDF00264344 /* CustomTopCell.swift in Sources */,
+				41EA35212394C74B00264344 /* CustomLeftCell.swift in Sources */,
+				41B64334238BC9D400F95C95 /* GuideViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
