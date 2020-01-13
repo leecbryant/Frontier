@@ -82,8 +82,15 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! HorseViewController
-        vc.data = data
+        switch segue.identifier {
+            case "horseView":
+                let vc = segue.destination as! HorseViewController
+                vc.data = data
+            case "historySegue": break
+                //let vc = segue.destination as! FeatureSe
+            default: break
+            // Unreachable
+        }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -99,6 +106,10 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
             })
             tableView.reloadData()
         }
+    }
+    
+    @IBAction func advancedClick() {
+        performSegue(withIdentifier: "showAdvanced", sender: self)
     }
 
 }
