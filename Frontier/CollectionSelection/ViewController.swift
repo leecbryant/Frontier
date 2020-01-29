@@ -24,10 +24,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var currFeature: String = ""
     var data: [String] = []
     
-    private let sectionInsets = UIEdgeInsets(top:10.0,
+    /*private let sectionInsets = UIEdgeInsets(top: 10.0,
                                              left: 10.0,
                                              bottom: 10.0,
-                                             right: 0.0)
+                                             right: 10.0)*/
     private let itemsPerRow: CGFloat = 3
     
     private let relativeFontConstant:CGFloat = 0.046
@@ -158,8 +158,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         //Set Font-size of submit button (at bottom) relative to screensize
         submitBtn.titleLabel?.font = submitBtn.titleLabel?.font.withSize(self.view.frame.height * relativeFontConstant)
         
-        // Do any additional setup after loading the view.
+        
     }
+    
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -171,11 +172,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         //Define the current cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
-        
         //Populate cell with information/formatting
         cell.contentLabel.text = myLabels[indexPath.item]
         cell.contentLabel.font = cell.contentLabel.font.withSize(self.view.frame.height * relativeFontConstant / itemsPerRow)
         cell.contentImageView.image = myImages[indexPath.item]
+        
+        
         
         //Determine Cell-Color based on whether or not a feature is active
         if (data.filter { $0 == cell.contentLabel.text}).count == 1 {
@@ -184,9 +186,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         //Disable gestures (needed to allow users to click on a cell)
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(_:))))
-        
+        cell.myView.frame = cell.bounds
+        cell.myView.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
         return cell
     }
+    
     
     
     // Function is ran whenever a user taps on a cell
@@ -227,15 +231,28 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView( _ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-      //calculate available screen size
+      /*/calculate available screen size
       let paddingSpace = sectionInsets.left  * (itemsPerRow + 1)
-      let availableWidth = view.frame.width - paddingSpace
+      let availableWidth = view.frame.width - paddingSpace - 10
       let widthPerItem = availableWidth / itemsPerRow
-        //Assign Cell a width/height
-        return CGSize(width: widthPerItem, height: widthPerItem * 1.15)
+        //Assign Cell a width/height*/
+        //return cCGSizeMake(collectionView.frame.width/2, CUSTOM_HEIGHT);
+        
+        let customSize = collectionView.frame.width/3
+        return CGSize(width: customSize, height: customSize)
     }
+    
 
-    //Needed to assign custom insets
+    
+    //Dynamically Size each cell relative to screen size
+    private func collectionView( _ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection indexPath: IndexPath) -> CGSize {
+        let customSize = collectionView.frame.width/3
+        return CGSize(width: customSize, height: customSize)
+    }
+    
+    /*/Needed to assign custom insets
     func collectionView( _ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -248,7 +265,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
       return sectionInsets.left
-    }
+    }*/
     
     
     @IBAction func submitFeature(_ sender: Any) {

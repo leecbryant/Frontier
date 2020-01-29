@@ -13,4 +13,17 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var contentLabel: UILabel!
     
     @IBOutlet weak var myView: UIView!
+    
+    override var bounds: CGRect {
+        didSet {
+          contentView.frame = bounds
+        }
+    }
+    
+    func setBounds(bounds:CGRect) {
+        super.bounds = bounds
+        self.contentView.frame = bounds;
+    }
+    
+    
 }
