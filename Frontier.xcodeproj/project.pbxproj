@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		417E9B2723EA860800308EBE /* ButtonBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417E9B2623EA860800308EBE /* ButtonBadge.swift */; };
 		418224EB23CA94C80043A086 /* FeatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224E823CA94C70043A086 /* FeatureCell.swift */; };
 		418224EC23CA94C80043A086 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224E923CA94C80043A086 /* Feature.swift */; };
 		418224ED23CA94C80043A086 /* FeatureListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224EA23CA94C80043A086 /* FeatureListScreen.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		417E9B2623EA860800308EBE /* ButtonBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBadge.swift; sourceTree = "<group>"; };
 		418224E823CA94C70043A086 /* FeatureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureCell.swift; sourceTree = "<group>"; };
 		418224E923CA94C80043A086 /* Feature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
 		418224EA23CA94C80043A086 /* FeatureListScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureListScreen.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				418224E723CA94BC0043A086 /* AdvancedSearch */,
 				41E84C52238D072D004A4392 /* SearchTableViewController.swift */,
 				41E84C54238D088A004A4392 /* HorseViewController.swift */,
+				417E9B2623EA860800308EBE /* ButtonBadge.swift */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				418224F523CA95180043A086 /* CollectionView.swift in Sources */,
 				418224ED23CA94C80043A086 /* FeatureListScreen.swift in Sources */,
 				41B6432C238B9C1F00F95C95 /* LoginViewController.swift in Sources */,
+				417E9B2723EA860800308EBE /* ButtonBadge.swift in Sources */,
 				418224F323CA95180043A086 /* ViewController.swift in Sources */,
 				41EA351F2394BDDF00264344 /* CustomTopCell.swift in Sources */,
 				418224F423CA95180043A086 /* CollectionViewCell.swift in Sources */,

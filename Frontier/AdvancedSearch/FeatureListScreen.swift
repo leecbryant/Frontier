@@ -8,37 +8,37 @@
 
 import UIKit
 
-class FeatureListScreen: UIViewController,CanRecieve {
+protocol PassDataToSearch {
+    func advancedPassBack(userInput: Features)
+}
+
+class FeatureListScreen: UIViewController, CanRecieve {
     
+     var delegate:PassDataToSearch?
+    var selectedFeatures = Features(Color: [], Mane: [], Face: [], Whorl: [], rightFront: [], rightBack: [], leftFront: [], leftBack: [])
+
     func passDataBack(currFeature: String, data: [String]) {
-        print ("Features from " + currFeature + ":")
-        for element in data {
-            print(element)
-        }
         switch currFeature {
-        
-        case "color":
-            colorFeatures = data
-        case "mane":
-            maneFeatures = data
-        case "face":
-            faceFeatures = data
-        case "whorl":
-            whorlFeatures = data
-        case "rfFeet":
-            rfFeetFeatures = data
-        case "rrFeet":
-            rrFeetFeatures = data
-        case "lfFeet":
-            lfFeetFeatures = data
-        case "lrFeet":
-            lrFeetFeatures = data
-            
-        default:
-            print("Error: invalid feature selection passback")
-        
+            case "color":
+                colorFeatures = data
+            case "mane":
+                maneFeatures = data
+            case "face":
+                faceFeatures = data
+            case "whorl":
+                whorlFeatures = data
+            case "rfFeet":
+                rfFeetFeatures = data
+            case "rrFeet":
+                rrFeetFeatures = data
+            case "lfFeet":
+                lfFeetFeatures = data
+            case "lrFeet":
+                lrFeetFeatures = data
+                
+            default:
+                print("Error: invalid feature selection passback")
         }
-        //Update table to display active filters
         self.tableView.reloadData()
     }
     
@@ -57,15 +57,20 @@ class FeatureListScreen: UIViewController,CanRecieve {
     var lfFeetFeatures: [String] = []
     var lrFeetFeatures: [String] = []
     
-    func passDataBack(date: String){
-        
-    }
-    
     override func viewDidLoad() {
         navigationItem.title = "Advanced Search"
         
         super.viewDidLoad()
-
+        
+        colorFeatures = selectedFeatures.Color
+        maneFeatures = selectedFeatures.Mane
+        faceFeatures = selectedFeatures.Face
+        whorlFeatures = selectedFeatures.Whorl
+        rfFeetFeatures = selectedFeatures.rightFront
+        rrFeetFeatures = selectedFeatures.rightBack
+        lfFeetFeatures = selectedFeatures.leftFront
+        lrFeetFeatures = selectedFeatures.leftBack
+        
         features = createArray()
         // Do any additional setup after loading the view.
     }
@@ -259,6 +264,14 @@ extension FeatureListScreen: UITableViewDataSource, UITableViewDelegate {
         
         
         secondVC.delegate = self
+    }
+    
+    @IBAction func onSubmit(_ sender: Any) {
+        let selectedFeatures = Features(Color: colorFeatures, Mane: maneFeatures, Face: faceFeatures, Whorl: whorlFeatures, rightFront: rfFeetFeatures, rightBack: rrFeetFeatures, leftFront: lfFeetFeatures, leftBack: lrFeetFeatures)
+        
+        delegate?.advancedPassBack(userInput: selectedFeatures)
+        presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

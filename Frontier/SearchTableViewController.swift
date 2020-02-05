@@ -26,15 +26,29 @@ struct HorseData {
     var DartDate: String?
 }
 
+struct Features {
+    var Color: [String]
+    var Mane: [String]
+    var Face: [String]
+    var Whorl: [String]
+    var rightFront: [String]
+    var rightBack: [String]
+    var leftFront: [String]
+    var leftBack: [String]
+}
+
+
 var selectedIndex = 0
 
 class SearchTableViewController: UITableViewController, UISearchBarDelegate {
     
+    @IBOutlet weak var AdvancedButton: UIBarButtonItem!
     @IBOutlet weak var searchBar: UISearchBar!
     
     var data = [HorseData]()
     var filteredData = [HorseData]()
-    
+    var advancedFeatures = Features(Color: [], Mane: [], Face: [], Whorl: [], rightFront: [], rightBack: [], leftFront: [], leftBack: [])
+    var count = 0
     
     var isSearching = false
     
@@ -48,7 +62,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         data.append(HorseData(id: 2, Name: "Alexis", Image: UIImage(named: "alexis"), Band: 1, Color: "Brown", Location: "Tahoe", Darted: false, DartDate: ""))
         
         //Always make filteredData a copy of data when there is no filter applied
-        filteredData=data
+        filteredData = data
         
         searchBar.delegate = self
         
@@ -97,6 +111,12 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
             case "horseView":
                 let vc = segue.destination as! HorseViewController
                 vc.data = filteredData
+            break
+            case "showAdvanced":
+                let vc = segue.destination as! FeatureListScreen
+                vc.selectedFeatures = advancedFeatures
+                vc.delegate = self
+            break
             case "historySegue": break
                 //let vc = segue.destination as! FeatureSe
             default: break
@@ -141,4 +161,30 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         performSegue(withIdentifier: "showAdvanced", sender: self)
     }
 
+}
+
+extension SearchTableViewController: PassDataToSearch {
+    func advancedPassBack(userInput: Features) {
+        advancedFeatures = userInput
+        
+        print(advancedFeatures.Color)
+        
+        print(advancedFeatures.Color[0])
+        
+        count = advancedFeatures.Color.count + advancedFeatures.Mane.count +
+            advancedFeatures.Face.count + advancedFeatures.Whorl.count +
+            advancedFeatures.rightFront.count + advancedFeatures.rightBack.count +
+            advancedFeatures.leftFront.count + advancedFeatures.leftBack.count
+        if(count > 0) {
+            AdvancedButton?.addBadge(text: String(count))
+            isSearching = true
+            filteredData = data.filter({ horse -> Bool in
+                return advancedFeatures.Color.contains(horse.Color)
+            })
+            tableView.reloadData()
+        } else {
+            isSearching = false
+            AdvancedButton?.removeBadge()
+        }
+    }
 }
