@@ -14,13 +14,13 @@ struct HorseData: Decodable {
     var Image: String
     var Band: Int
     var Color: String
-    var Mane: String?
-    var Face: String?
-    var Whorl: String?
-    var rfFeet: String?
-    var rrFeet: String?
-    var lfFeet: String?
-    var lrFeet: String?
+    var Mane: String
+    var Face: String
+    var Whorl: String
+    var rfFeet: String
+    var rrFeet: String
+    var lfFeet: String
+    var lrFeet: String
     var Location: String
     var DartStatus: String
     var DartDate: String
@@ -68,21 +68,20 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
         navigationItem.title = "Search"
         
-        // Init Data
-        //        data.append(HorseData(id: 0, Name: "Joe", Image: UIImage(named: "joe"), Band: 0, Color: "Black", Location: "Virginia", DartStatus: "true", DartDate: "11.30.2019"))
-        //        data.append(HorseData(id: 1, Name: "Alex", Image: UIImage(named: "alex"), Band: 0, Color: "Appaloosa", Location: "Virginia", DartStatus: "true", DartDate: "12.01.2019"))
-        //        data.append(HorseData(id: 2, Name: "Alexis", Image: UIImage(named: "alexis"), Band: 1, Color: "Brown", Location: "Tahoe", DartStatus: "false", DartDate: ""))
-        
         parseJSON(withCompletion: { horseData, error in
             if error != nil {
                 print(error!)
-            } else if let horseData = horseData {
-                self.data = horseData
-                self.filteredData = horseData
-                self.tableView.reloadData()
+                self.createAlert(title: "Error", message: "Error loading horse data")
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.removeFromSuperview()
                 UIApplication.shared.endIgnoringInteractionEvents()
+            } else if let horseData = horseData {
+                self.data = horseData
+                self.filteredData = horseData
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.removeFromSuperview()
+                UIApplication.shared.endIgnoringInteractionEvents()
+                self.tableView.reloadData()
             }
         })
         print(data.count)
@@ -202,6 +201,14 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         
         task.resume()
     }
+    
+    func createAlert(title:String, message:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
 
 }
 
@@ -220,7 +227,15 @@ extension SearchTableViewController: PassDataToSearch {
             AdvancedButton?.addBadge(text: String(count))
             isSearching = true
             filteredData = data.filter({ horse -> Bool in
-                return advancedFeatures.Color.contains(horse.Color)
+                return
+                    (advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horse.Color) : true) &&
+                    (advancedFeatures.Face.count > 0 ? advancedFeatures.Face.contains(horse.Face) : true) &&
+                    (advancedFeatures.Mane.count > 0 ? advancedFeatures.Mane.contains(horse.Mane) : true) &&
+                    (advancedFeatures.Whorl.count > 0 ? advancedFeatures.Whorl.contains(horse.Whorl) : true) &&
+                    (advancedFeatures.rightFront.count > 0 ? advancedFeatures.rightFront.contains(horse.rfFeet) : true) &&
+                    (advancedFeatures.rightBack.count > 0 ? advancedFeatures.rightBack.contains(horse.rrFeet) : true) &&
+                    (advancedFeatures.leftFront.count > 0 ? advancedFeatures.leftFront.contains(horse.lfFeet) : true) &&
+                    (advancedFeatures.leftBack.count > 0 ? advancedFeatures.leftBack.contains(horse.lrFeet) : true)
             })
             tableView.reloadData()
         } else {

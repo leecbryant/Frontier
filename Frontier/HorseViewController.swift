@@ -8,7 +8,7 @@
 
 import UIKit
 
-var Bands = ["Wild Riders", "South Riders", "Wild Riders", "South Riders", "Wild Riders", "South Riders", "Wild Riders", "South Riders", "Wild Riders", "South Riders", "Wild Riders", "South Riders", "Wild Riders", "South Riders", "Wild Riders", "South Riders", "Wild Riders", "South Riders"]
+var Bands = ["Horse Band 1", "Horse Band 2", "Horse Band 3", "Horse Band 4", "Horse Band 5", "Horse Band 6","Horse Band 7", "Horse Band 8", "Horse Band 9", "Horse Band 10", "Horse Band 11", "Horse Band 12", "Horse Band 13", "Horse Band 14", "Horse Band 15", "Horse Band 16", "Horse Band 17", "Horse Band 18", "Horse Band 19", "Horse Band 20"]
 var filteredBands = [HorseData]()
 
 class HorseViewController: UIViewController {
