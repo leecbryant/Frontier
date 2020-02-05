@@ -40,7 +40,7 @@ struct Features {
 
 var selectedIndex = 0
 
-class SearchTableViewController: UITableViewController, UISearchBarDelegate {
+class SearchTableViewController: UITableViewController, UISearchBarDelegate, PassDataToSearch {
     
     @IBOutlet weak var AdvancedButton: UIBarButtonItem!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -150,15 +150,39 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text == nil || searchBar.text?.trimmingCharacters(in: .whitespaces) == "" {
             //Always make filteredData a copy of data when there is no filter applied
-            filteredData = data
-            isSearching = false
+            filteredData = data.filter({ horse -> Bool in
+                return
+                    (advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horse.Color) : true) &&
+                    (advancedFeatures.Face.count > 0 ? advancedFeatures.Face.contains(horse.Face) : true) &&
+                    (advancedFeatures.Mane.count > 0 ? advancedFeatures.Mane.contains(horse.Mane) : true) &&
+                    (advancedFeatures.Whorl.count > 0 ? advancedFeatures.Whorl.contains(horse.Whorl) : true) &&
+                    (advancedFeatures.rightFront.count > 0 ? advancedFeatures.rightFront.contains(horse.rfFeet) : true) &&
+                    (advancedFeatures.rightBack.count > 0 ? advancedFeatures.rightBack.contains(horse.rrFeet) : true) &&
+                    (advancedFeatures.leftFront.count > 0 ? advancedFeatures.leftFront.contains(horse.lfFeet) : true) &&
+                    (advancedFeatures.leftBack.count > 0 ? advancedFeatures.leftBack.contains(horse.lrFeet) : true)
+            })
+            if(advancedFeatures.Color.count > 0 || advancedFeatures.Face.count > 0 || advancedFeatures.Mane.count > 0 || advancedFeatures.Whorl.count > 0 || advancedFeatures.rightFront.count > 0 || advancedFeatures.rightBack.count > 0 || advancedFeatures.leftFront.count > 0 || advancedFeatures.leftBack.count > 0) {
+                isSearching = true
+            } else {
+                isSearching = false
+            }
             view.endEditing(true)
             tableView.reloadData()
         } else {
             isSearching = true
-            
+        
 
             filteredData = data.filter({ horse -> Bool in
+                return
+                    (advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horse.Color) : true) &&
+                    (advancedFeatures.Face.count > 0 ? advancedFeatures.Face.contains(horse.Face) : true) &&
+                    (advancedFeatures.Mane.count > 0 ? advancedFeatures.Mane.contains(horse.Mane) : true) &&
+                    (advancedFeatures.Whorl.count > 0 ? advancedFeatures.Whorl.contains(horse.Whorl) : true) &&
+                    (advancedFeatures.rightFront.count > 0 ? advancedFeatures.rightFront.contains(horse.rfFeet) : true) &&
+                    (advancedFeatures.rightBack.count > 0 ? advancedFeatures.rightBack.contains(horse.rrFeet) : true) &&
+                    (advancedFeatures.leftFront.count > 0 ? advancedFeatures.leftFront.contains(horse.lfFeet) : true) &&
+                    (advancedFeatures.leftBack.count > 0 ? advancedFeatures.leftBack.contains(horse.lrFeet) : true)
+            }).filter({ horse -> Bool in
                 guard let text = searchBar.text else { return false }
                 
                 let textArr = text.trimmingCharacters(in: .whitespaces).lowercased().components(separatedBy: " ")
@@ -208,14 +232,9 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         
         self.present(alert, animated: true, completion: nil)
     }
-
-}
-
-extension SearchTableViewController: PassDataToSearch {
+    
     func advancedPassBack(userInput: Features) {
         advancedFeatures = userInput
-        
-        print(advancedFeatures.Color)
                 
         count = advancedFeatures.Color.count + advancedFeatures.Mane.count +
             advancedFeatures.Face.count + advancedFeatures.Whorl.count +
@@ -242,4 +261,5 @@ extension SearchTableViewController: PassDataToSearch {
             AdvancedButton?.removeBadge()
         }
     }
+
 }
