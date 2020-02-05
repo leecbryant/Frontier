@@ -8,10 +8,10 @@
 
 import UIKit
 
-struct HorseData {
+struct HorseData: Decodable {
     var id: Int
     var Name: String
-    var Image: UIImage?
+    var Image: String
     var Band: Int
     var Color: String
     var Mane: String?
@@ -52,15 +52,40 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
     
     var isSearching = false
     
+    // Loading Circle
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
+        
+        view.addSubview(activityIndicator)
+        
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
         super.viewDidLoad()
         navigationItem.title = "Search"
         
         // Init Data
-        data.append(HorseData(id: 0, Name: "Joe", Image: UIImage(named: "joe"), Band: 0, Color: "Black", Location: "Virginia", DartStatus: "true", DartDate: "11.30.2019"))
-        data.append(HorseData(id: 1, Name: "Alex", Image: UIImage(named: "alex"), Band: 0, Color: "Appaloosa", Location: "Virginia", DartStatus: "true", DartDate: "12.01.2019"))
-        data.append(HorseData(id: 2, Name: "Alexis", Image: UIImage(named: "alexis"), Band: 1, Color: "Brown", Location: "Tahoe", DartStatus: "false", DartDate: ""))
+        //        data.append(HorseData(id: 0, Name: "Joe", Image: UIImage(named: "joe"), Band: 0, Color: "Black", Location: "Virginia", DartStatus: "true", DartDate: "11.30.2019"))
+        //        data.append(HorseData(id: 1, Name: "Alex", Image: UIImage(named: "alex"), Band: 0, Color: "Appaloosa", Location: "Virginia", DartStatus: "true", DartDate: "12.01.2019"))
+        //        data.append(HorseData(id: 2, Name: "Alexis", Image: UIImage(named: "alexis"), Band: 1, Color: "Brown", Location: "Tahoe", DartStatus: "false", DartDate: ""))
         
+        parseJSON(withCompletion: { horseData, error in
+            if error != nil {
+                print(error!)
+            } else if let horseData = horseData {
+                self.data = horseData
+                self.filteredData = horseData
+                self.tableView.reloadData()
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.removeFromSuperview()
+                UIApplication.shared.endIgnoringInteractionEvents()
+            }
+        })
+        print(data.count)
         //Always make filteredData a copy of data when there is no filter applied
         filteredData = data
         
@@ -145,8 +170,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
                 //Loop through all inputted features and see if current horse fits any of them
                 //If current horse matches a searched filter, retHorse will be set to true and then then add the current to the filtered array
                 for myText in textArr{
-                    retHorse =  horse.Name.lowercased().contains(myText.lowercased()) || horse.Location.lowercased().contains(myText.lowercased()) ||
-                    horse.Color.lowercased().contains(myText.lowercased())
+                    retHorse =  horse.Name.lowercased().contains(myText.lowercased()) || horse.Location.lowercased().contains(myText.lowercased())
                 }
                 //Return false if horse match no features
                 return retHorse
@@ -159,6 +183,24 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
     
     @IBAction func advancedClick() {
         performSegue(withIdentifier: "showAdvanced", sender: self)
+    }
+    
+    func parseJSON(withCompletion completion: @escaping ([HorseData]?, Error?) -> Void) {
+        let jsonUrlString = "https://projectfrontier.dev/horseData.json"
+            guard let url = URL(string: jsonUrlString) else { return }
+            
+        let task = URLSession.shared.dataTask(with: url) { (horseData, response, err) in
+            guard let horseData = horseData else { return }
+            do {
+                let horses = try JSONDecoder().decode([HorseData].self, from: horseData)
+                completion(horses, nil)
+            } catch let jsonErr {
+                print("Error serializing json:", jsonErr)
+               completion(nil, err)
+            }
+        }
+        
+        task.resume()
     }
 
 }
@@ -173,6 +215,7 @@ extension SearchTableViewController: PassDataToSearch {
             advancedFeatures.Face.count + advancedFeatures.Whorl.count +
             advancedFeatures.rightFront.count + advancedFeatures.rightBack.count +
             advancedFeatures.leftFront.count + advancedFeatures.leftBack.count
+        
         if(count > 0) {
             AdvancedButton?.addBadge(text: String(count))
             isSearching = true

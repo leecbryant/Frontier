@@ -8,7 +8,7 @@
 
 import UIKit
 
-var Bands = ["Wild Riders", "South Riders"]
+var Bands = ["Wild Riders", "South Riders", "Wild Riders", "South Riders", "Wild Riders", "South Riders", "Wild Riders", "South Riders", "Wild Riders", "South Riders", "Wild Riders", "South Riders", "Wild Riders", "South Riders", "Wild Riders", "South Riders", "Wild Riders", "South Riders"]
 var filteredBands = [HorseData]()
 
 class HorseViewController: UIViewController {
@@ -32,7 +32,7 @@ class HorseViewController: UIViewController {
         nameText.text = data[selectedIndex].Name
         bandText.text = Bands[data[selectedIndex].Band]
         dartedText.text = data[selectedIndex].DartStatus
-        horseImage.image = data[selectedIndex].Image
+        horseImage.image = UIImage(named: data[selectedIndex].Image.lowercased())
         
         if filteredBands.count > 0 {
             bandMembers.isHidden = false
