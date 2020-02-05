@@ -13,6 +13,14 @@ struct HorseData {
     var Name: String
     var Image: UIImage?
     var Band: Int
+    var Color: String
+    var Mane: String?
+    var Face: String?
+    var Whorl: String?
+    var rfFeet: String?
+    var rrFeet: String?
+    var lfFeet: String?
+    var lrFeet: String?
     var Location: String
     var Darted: Bool
     var DartDate: String?
@@ -35,9 +43,12 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         navigationItem.title = "Search"
         
         // Init Data
-        data.append(HorseData(id: 0, Name: "Joe", Image: UIImage(named: "joe"), Band: 0, Location: "Virginia", Darted: true, DartDate: "11.30.2019"))
-        data.append(HorseData(id: 1, Name: "Alex", Image: UIImage(named: "alex"), Band: 0, Location: "Virginia", Darted: true, DartDate: "12.01.2019"))
-        data.append(HorseData(id: 2, Name: "Alexis", Image: UIImage(named: "alexis"), Band: 1, Location: "Tahoe", Darted: false, DartDate: ""))
+        data.append(HorseData(id: 0, Name: "Joe", Image: UIImage(named: "joe"), Band: 0, Color: "Black", Location: "Virginia", Darted: true, DartDate: "11.30.2019"))
+        data.append(HorseData(id: 1, Name: "Alex", Image: UIImage(named: "alex"), Band: 0, Color: "Appaloosa", Location: "Virginia", Darted: true, DartDate: "12.01.2019"))
+        data.append(HorseData(id: 2, Name: "Alexis", Image: UIImage(named: "alexis"), Band: 1, Color: "Brown", Location: "Tahoe", Darted: false, DartDate: ""))
+        
+        //Always make filteredData a copy of data when there is no filter applied
+        filteredData=data
         
         searchBar.delegate = self
         
@@ -85,7 +96,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         switch segue.identifier {
             case "horseView":
                 let vc = segue.destination as! HorseViewController
-                vc.data = data
+                vc.data = filteredData
             case "historySegue": break
                 //let vc = segue.destination as! FeatureSe
             default: break
@@ -94,15 +105,33 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text == nil || searchBar.text == "" {
+        if searchBar.text == nil || searchBar.text?.trimmingCharacters(in: .whitespaces) == "" {
+            //Always make filteredData a copy of data when there is no filter applied
+            filteredData=data
             isSearching = false
             view.endEditing(true)
             tableView.reloadData()
         } else {
             isSearching = true
+            
+
             filteredData = data.filter({ horse -> Bool in
                 guard let text = searchBar.text else { return false }
-                return horse.Name.contains(text) || horse.Location.contains(text)
+                
+                let textArr = text.trimmingCharacters(in: .whitespaces).lowercased().components(separatedBy: " ")
+                //Variable to keep track of if a horse matches any features
+                var retHorse = false
+                
+                //Loop through all inputted features and see if current horse fits any of them
+                //If current horse matches a searched filter, retHorse will be set to true and then then add the current to the filtered array
+                for myText in textArr{
+                    retHorse =  horse.Name.lowercased().contains(myText.lowercased()) || horse.Location.lowercased().contains(myText.lowercased()) ||
+                    horse.Color.lowercased().contains(myText.lowercased())
+                }
+                //Return false if horse match no features
+                return retHorse
+                
+                
             })
             tableView.reloadData()
         }
