@@ -932,4 +932,5 @@
         <image name="search" width="30" height="30"/>
         <image name="support" width="30" height="30"/>
     </resources>
+    <color key="tintColor" red="0.17941194769999999" green="0.41339629890000001" blue="0.49805468320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
 </document>
