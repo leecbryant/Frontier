@@ -257,6 +257,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
             })
             tableView.reloadData()
         } else {
+            filteredData = data
             isSearching = false
             AdvancedButton?.removeBadge()
         }
