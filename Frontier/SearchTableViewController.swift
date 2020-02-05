@@ -125,7 +125,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedIndex = data[indexPath.row].id
+        selectedIndex = filteredData[indexPath.row].id
         performSegue(withIdentifier: "horseView", sender: self)
     }
     
@@ -133,7 +133,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         switch segue.identifier {
             case "horseView":
                 let vc = segue.destination as! HorseViewController
-                vc.data = filteredData
+                vc.data = data
             break
             case "showAdvanced":
                 let vc = segue.destination as! FeatureListScreen
