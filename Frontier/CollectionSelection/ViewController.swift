@@ -43,11 +43,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                   "Gray", "Palomino", "Pinto","Red Roan"]
     let manes = ["Left", "Right", "Split", "Alternating",
                  "Flaxen", "Black", "Brown", "Gray",
-                 "Multicolor","Red", "White", "Body: same",
+                 "Multicolor","Red", "White", "Body: Same",
                  "Body: Lighter", "Body: Darker"]
     let faces = ["None", "Blaze", "Star", "Snip", "Strip"]
     let whorls = ["At Eye Level", "Above Eye Level", "Below Eye Level", "Double", "Neck" ]
-    let allFeet = ["none", "coronet", "Pastern", "heel", "fetlock", "tall socks", "stockings", "ermine"]
+    let allFeet = ["None", "Coronet", "Pastern", "Heel", "Fetlock", "Tall Socks", "Stockings", "Ermine"]
     
     
     

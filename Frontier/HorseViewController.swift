@@ -31,7 +31,7 @@ class HorseViewController: UIViewController {
         
         nameText.text = data[selectedIndex].Name
         bandText.text = Bands[data[selectedIndex].Band]
-        dartedText.text = data[selectedIndex].Darted ? data[selectedIndex].DartDate! : "Not Darted"
+        dartedText.text = data[selectedIndex].DartStatus
         horseImage.image = data[selectedIndex].Image
         
         if filteredBands.count > 0 {

@@ -22,8 +22,8 @@ struct HorseData {
     var lfFeet: String?
     var lrFeet: String?
     var Location: String
-    var Darted: Bool
-    var DartDate: String?
+    var DartStatus: String
+    var DartDate: String
 }
 
 struct Features {
@@ -57,9 +57,9 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         navigationItem.title = "Search"
         
         // Init Data
-        data.append(HorseData(id: 0, Name: "Joe", Image: UIImage(named: "joe"), Band: 0, Color: "Black", Location: "Virginia", Darted: true, DartDate: "11.30.2019"))
-        data.append(HorseData(id: 1, Name: "Alex", Image: UIImage(named: "alex"), Band: 0, Color: "Appaloosa", Location: "Virginia", Darted: true, DartDate: "12.01.2019"))
-        data.append(HorseData(id: 2, Name: "Alexis", Image: UIImage(named: "alexis"), Band: 1, Color: "Brown", Location: "Tahoe", Darted: false, DartDate: ""))
+        data.append(HorseData(id: 0, Name: "Joe", Image: UIImage(named: "joe"), Band: 0, Color: "Black", Location: "Virginia", DartStatus: "true", DartDate: "11.30.2019"))
+        data.append(HorseData(id: 1, Name: "Alex", Image: UIImage(named: "alex"), Band: 0, Color: "Appaloosa", Location: "Virginia", DartStatus: "true", DartDate: "12.01.2019"))
+        data.append(HorseData(id: 2, Name: "Alexis", Image: UIImage(named: "alexis"), Band: 1, Color: "Brown", Location: "Tahoe", DartStatus: "false", DartDate: ""))
         
         //Always make filteredData a copy of data when there is no filter applied
         filteredData = data
