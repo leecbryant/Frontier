@@ -84,7 +84,6 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
                 self.tableView.reloadData()
             }
         })
-        print(data.count)
         //Always make filteredData a copy of data when there is no filter applied
         filteredData = data
         
@@ -151,7 +150,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text == nil || searchBar.text?.trimmingCharacters(in: .whitespaces) == "" {
             //Always make filteredData a copy of data when there is no filter applied
-            filteredData=data
+            filteredData = data
             isSearching = false
             view.endEditing(true)
             tableView.reloadData()
