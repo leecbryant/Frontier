@@ -168,9 +168,7 @@ extension SearchTableViewController: PassDataToSearch {
         advancedFeatures = userInput
         
         print(advancedFeatures.Color)
-        
-        print(advancedFeatures.Color[0])
-        
+                
         count = advancedFeatures.Color.count + advancedFeatures.Mane.count +
             advancedFeatures.Face.count + advancedFeatures.Whorl.count +
             advancedFeatures.rightFront.count + advancedFeatures.rightBack.count +
