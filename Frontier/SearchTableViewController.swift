@@ -112,7 +112,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     }
     
     // MARK: - Table view data source
-
+    // Different comment
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
