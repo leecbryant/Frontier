@@ -156,7 +156,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         
         //Set Font-size of submit button (at bottom) relative to screensize
-        submitBtn.titleLabel?.font = submitBtn.titleLabel?.font.withSize(self.view.frame.height * relativeFontConstant)
+//        submitBtn.titleLabel?.font = submitBtn.titleLabel?.font.withSize(self.view.frame.height * relativeFontConstant)
         
         
     }
@@ -181,7 +181,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         //Determine Cell-Color based on whether or not a feature is active
         if (data.filter { $0 == cell.contentLabel.text}).count == 1 {
-            cell.myView.backgroundColor = .red
+            cell.myView.backgroundColor = UIColor(red:0.43, green:0.43, blue:0.43, alpha:1.0)
         }
         
         //Disable gestures (needed to allow users to click on a cell)
@@ -213,7 +213,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             //Add feature to array of selected features
             data.append(myLabels[index.row])
             //Change appearance of cell
-            cell.myView.backgroundColor = .red
+            cell.myView.backgroundColor = UIColor(red:0.43, green:0.43, blue:0.43, alpha:1.0)
         }
             //Code for De-Selecting a feature
         else{
@@ -222,7 +222,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             //Remove feature from array of selected features
             data = data.filter{ $0 != myLabels[index.row]}
             
-            cell.myView.backgroundColor = .systemBlue
+            cell.myView.backgroundColor = UIColor(red:0.22, green:0.24, blue:0.25, alpha:1.0)
         }
        }
     }

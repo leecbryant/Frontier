@@ -28,7 +28,7 @@
                                 <size key="shadowOffset" width="1" height="0.0"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.25503098959999998" green="0.25470802190000003" blue="0.26274654269999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="GI3-GT-faK" secondAttribute="bottom" id="7U1-cE-Cg2"/>
                             <constraint firstItem="YGu-uu-Dch" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="118" id="B8e-lb-dLU"/>
