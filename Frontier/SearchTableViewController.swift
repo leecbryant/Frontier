@@ -43,7 +43,7 @@ var selectedIndex = 0
 class SearchTableViewController: UITableViewController, UISearchBarDelegate, PassDataToSearch {
     
     @IBOutlet weak var AdvancedButton: UIBarButtonItem!
-    @IBOutlet weak var searchBar: UISearchBar!
+    //@IBOutlet weak var searchBar: UISearchBar!
     
     var data = [HorseData]()
     var filteredData = [HorseData]()
@@ -68,6 +68,8 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         super.viewDidLoad()
         navigationItem.title = "Search"
         
+        showSearchBar()
+        
         parseJSON(withCompletion: { horseData, error in
             if error != nil {
                 print(error!)
@@ -87,11 +89,28 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         //Always make filteredData a copy of data when there is no filter applied
         filteredData = data
         
-        searchBar.delegate = self
+        //searchBar.delegate = self
         
-        searchBar.returnKeyType = UIReturnKeyType.done
+        //searchBar.returnKeyType = UIReturnKeyType.done
     }
 
+    //Generates search bar data for search screen
+    func showSearchBar() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.delegate = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        navigationItem.hidesSearchBarWhenScrolling = false
+        //true for hiding, false for keep showing while scrolling
+        searchController.searchBar.sizeToFit()
+        searchController.searchBar.returnKeyType = UIReturnKeyType.search
+        searchController.searchBar.placeholder = "Search here"
+        searchController.searchBar.showsCancelButton = false
+        
+        searchController.searchBar.barStyle = UIBarStyle.black
+
+        navigationItem.searchController = searchController
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -265,3 +284,4 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     }
 
 }
+          
