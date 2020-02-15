@@ -181,7 +181,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         //Determine Cell-Color based on whether or not a feature is active
         if (data.filter { $0 == cell.contentLabel.text}).count == 1 {
-            cell.myView.backgroundColor = UIColor(red:0.43, green:0.43, blue:0.43, alpha:1.0)
+            cell.myView.backgroundColor = self.view.tintColor
         }
         
         //Disable gestures (needed to allow users to click on a cell)
@@ -213,7 +213,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             //Add feature to array of selected features
             data.append(myLabels[index.row])
             //Change appearance of cell
-            cell.myView.backgroundColor = UIColor(red:0.43, green:0.43, blue:0.43, alpha:1.0)
+            cell.myView.backgroundColor = self.view.tintColor
         }
             //Code for De-Selecting a feature
         else{
@@ -221,9 +221,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             print("Deselecting Feature: " + myLabels[index.row])
             //Remove feature from array of selected features
             data = data.filter{ $0 != myLabels[index.row]}
-            
-            cell.myView.backgroundColor = UIColor(red:0.22, green:0.24, blue:0.25, alpha:1.0)
-        }
+            if #available(iOS 13.0, *) {
+                cell.myView.backgroundColor = UIColor.systemBackground
+            } else {
+                cell.myView.backgroundColor = .white
+            }        }
        }
     }
     
