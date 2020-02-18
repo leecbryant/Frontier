@@ -254,22 +254,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return CGSize(width: customSize, height: customSize)
     }
     
-    /*/Needed to assign custom insets
-    func collectionView( _ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAt section: Int) -> UIEdgeInsets {
-        //sectionInsets is defined at top of code
-      return sectionInsets
-    }
-
-    // Minimum insets (No overlapping)
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-      return sectionInsets.left
-    }*/
-    
-    
     @IBAction func submitFeature(_ sender: Any) {
         delegate?.passDataBack(currFeature: currFeature, data: data)
         presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
