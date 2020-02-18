@@ -58,4 +58,9 @@ class LoginViewController: UIViewController {
         
         self.present(alert, animated: true, completion: nil)
     }
+    
+    
+    @IBAction func registerClick(_ sender: Any) {
+        self.performSegue(withIdentifier: "register", sender: self)
+    }
 }

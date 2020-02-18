@@ -17,10 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="GI3-GT-faK">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818.00000000000011"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Frontier" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGu-uu-Dch">
-                                <rect key="frame" x="118" y="626" width="179.5" height="66"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frontier" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGu-uu-Dch">
+                                <rect key="frame" x="117.5" y="774.5" width="179.5" height="66"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="55"/>
                                 <color key="textColor" red="0.047036342322826385" green="0.53120297193527222" blue="0.63139021396636963" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -31,14 +31,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="GI3-GT-faK" secondAttribute="bottom" id="7U1-cE-Cg2"/>
-                            <constraint firstItem="YGu-uu-Dch" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="118" id="B8e-lb-dLU"/>
-                            <constraint firstItem="YGu-uu-Dch" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="582" id="Gzk-NO-bIK"/>
                             <constraint firstAttribute="trailing" secondItem="GI3-GT-faK" secondAttribute="trailing" id="MhE-Za-J17"/>
                             <constraint firstItem="GI3-GT-faK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="WvB-VO-U22"/>
-                            <constraint firstItem="YGu-uu-Dch" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="daJ-yb-j07"/>
+                            <constraint firstItem="GI3-GT-faK" firstAttribute="baseline" secondItem="YGu-uu-Dch" secondAttribute="firstBaseline" constant="35" symbolType="layoutAnchor" id="dIs-sY-6pu"/>
                             <constraint firstItem="GI3-GT-faK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="hjQ-yt-ROJ"/>
                             <constraint firstItem="GI3-GT-faK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="o64-EO-ze2"/>
                             <constraint firstItem="GI3-GT-faK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="oNv-dQ-4Uf"/>
+                            <constraint firstItem="YGu-uu-Dch" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ya3-9e-hgu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

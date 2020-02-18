@@ -248,21 +248,31 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="uON-KZ-6Rm">
-                                <rect key="frame" x="57" y="44" width="337" height="334.00000000000011"/>
+                                <rect key="frame" x="57" y="44" width="337" height="334"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                 </accessibility>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uxu-1G-bMG">
+                                <rect key="frame" x="0.0" y="832" width="414" height="30"/>
+                                <state key="normal" title="Need an account? Register"/>
+                                <connections>
+                                    <action selector="registerClick:" destination="sCs-9r-Ivq" eventType="touchUpInside" id="rd6-u6-NcI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="XEP-bs-BTt" firstAttribute="trailing" secondItem="uxu-1G-bMG" secondAttribute="trailing" id="K0p-bd-RNc"/>
                             <constraint firstItem="uON-KZ-6Rm" firstAttribute="trailing" secondItem="A0f-aa-ox2" secondAttribute="trailing" id="PRI-z6-TFq"/>
                             <constraint firstItem="XEP-bs-BTt" firstAttribute="trailing" secondItem="A0f-aa-ox2" secondAttribute="trailing" constant="20" id="VC6-KK-8Yb"/>
                             <constraint firstItem="uON-KZ-6Rm" firstAttribute="top" secondItem="XEP-bs-BTt" secondAttribute="top" id="XCh-3e-5IH"/>
+                            <constraint firstItem="uxu-1G-bMG" firstAttribute="bottom" secondItem="XEP-bs-BTt" secondAttribute="bottom" id="XJa-tu-JNk"/>
                             <constraint firstItem="A0f-aa-ox2" firstAttribute="top" secondItem="uON-KZ-6Rm" secondAttribute="bottom" constant="20.000000000000114" id="d68-oC-1vV"/>
                             <constraint firstItem="A0f-aa-ox2" firstAttribute="centerY" secondItem="XEP-bs-BTt" secondAttribute="centerY" id="dGU-vD-Jw7"/>
                             <constraint firstItem="A0f-aa-ox2" firstAttribute="leading" secondItem="XEP-bs-BTt" secondAttribute="leading" constant="20" id="fQG-m9-fUI"/>
                             <constraint firstItem="w6s-CU-e9W" firstAttribute="centerX" secondItem="XEP-bs-BTt" secondAttribute="centerX" id="ktU-DI-A9f"/>
+                            <constraint firstItem="uxu-1G-bMG" firstAttribute="leading" secondItem="XEP-bs-BTt" secondAttribute="leading" id="q6T-xz-8xc"/>
                             <constraint firstItem="pwB-dL-PJH" firstAttribute="top" secondItem="w6s-CU-e9W" secondAttribute="bottom" constant="8" id="rlc-F7-l2h"/>
                             <constraint firstItem="uON-KZ-6Rm" firstAttribute="leading" secondItem="XEP-bs-BTt" secondAttribute="leading" constant="57" id="u3w-4t-9om"/>
                         </constraints>
@@ -272,11 +282,12 @@
                         <outlet property="PasswordText" destination="eO8-aN-ACp" id="gwq-zh-Xc5"/>
                         <outlet property="UsernameText" destination="pwB-dL-PJH" id="bMr-1i-3lN"/>
                         <segue destination="49e-Tb-3d3" kind="show" identifier="loginComplete" id="9Xi-Fg-ueb"/>
+                        <segue destination="yRm-Xq-ZwG" kind="show" identifier="register" id="baQ-17-uHE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DYX-OE-PIN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-730.43478260869574" y="0.0"/>
+            <point key="canvasLocation" x="-730" y="0.0"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -701,6 +712,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xh6-CN-5Mz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2328.985507246377" y="-697.09821428571422"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="HaD-tf-OhY">
+            <objects>
+                <viewController id="yRm-Xq-ZwG" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BfS-89-p4B">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ErH-we-t09">
+                                <rect key="frame" x="148.66666666666666" y="410.66666666666669" width="116.99999999999997" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ErH-we-t09" firstAttribute="centerY" secondItem="BfS-89-p4B" secondAttribute="centerY" id="1N1-Lc-0MJ"/>
+                            <constraint firstItem="ErH-we-t09" firstAttribute="centerX" secondItem="BfS-89-p4B" secondAttribute="centerX" id="R2k-bg-hZi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Lwp-gy-L32"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="JXW-4r-tAy"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L8U-zQ-sEs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-730" y="721"/>
         </scene>
         <!--Support-->
         <scene sceneID="y8P-ab-HE4">
