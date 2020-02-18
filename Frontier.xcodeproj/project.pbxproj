@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		415A605823F7473A00A5DB61 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 415A605723F7473A00A5DB61 /* logo.png */; };
+		415A605A23FCA04D00A5DB61 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415A605923FCA04D00A5DB61 /* RegisterViewController.swift */; };
 		417E9B2723EA860800308EBE /* ButtonBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417E9B2623EA860800308EBE /* ButtonBadge.swift */; };
 		418224EB23CA94C80043A086 /* FeatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224E823CA94C70043A086 /* FeatureCell.swift */; };
 		418224EC23CA94C80043A086 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224E923CA94C80043A086 /* Feature.swift */; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		415A605723F7473A00A5DB61 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		415A605923FCA04D00A5DB61 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		417E9B2623EA860800308EBE /* ButtonBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBadge.swift; sourceTree = "<group>"; };
 		418224E823CA94C70043A086 /* FeatureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureCell.swift; sourceTree = "<group>"; };
 		418224E923CA94C80043A086 /* Feature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				418AE83C2388BFFB00E13BC3 /* LaunchScreen.storyboard */,
 				418AE83F2388BFFB00E13BC3 /* Info.plist */,
 				415A605723F7473A00A5DB61 /* logo.png */,
+				415A605923FCA04D00A5DB61 /* RegisterViewController.swift */,
 			);
 			path = Frontier;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				418224F623CA95180043A086 /* CustomLayout.swift in Sources */,
 				418224F523CA95180043A086 /* CollectionView.swift in Sources */,
 				418224ED23CA94C80043A086 /* FeatureListScreen.swift in Sources */,
+				415A605A23FCA04D00A5DB61 /* RegisterViewController.swift in Sources */,
 				41B6432C238B9C1F00F95C95 /* LoginViewController.swift in Sources */,
 				417E9B2723EA860800308EBE /* ButtonBadge.swift in Sources */,
 				418224F323CA95180043A086 /* ViewController.swift in Sources */,

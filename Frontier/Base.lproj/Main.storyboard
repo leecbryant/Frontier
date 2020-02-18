@@ -713,25 +713,39 @@
             </objects>
             <point key="canvasLocation" x="2328.985507246377" y="-697.09821428571422"/>
         </scene>
-        <!--View Controller-->
+        <!--Register View Controller-->
         <scene sceneID="HaD-tf-OhY">
             <objects>
-                <viewController id="yRm-Xq-ZwG" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="yRm-Xq-ZwG" customClass="RegisterViewController" customModule="Frontier" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BfS-89-p4B">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ErH-we-t09">
-                                <rect key="frame" x="148.66666666666666" y="410.66666666666669" width="116.99999999999997" height="21"/>
+                                <rect key="frame" x="148.66666666666666" y="437.66666666666669" width="116.99999999999997" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SNj-Hv-oFd">
+                                <rect key="frame" x="0.0" y="832" width="414" height="30"/>
+                                <color key="backgroundColor" red="0.047036342320000001" green="0.53120297189999999" blue="0.63139021399999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancel:" destination="yRm-Xq-ZwG" eventType="touchUpInside" id="tI3-99-FEB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="ErH-we-t09" firstAttribute="centerY" secondItem="BfS-89-p4B" secondAttribute="centerY" id="1N1-Lc-0MJ"/>
+                            <constraint firstItem="Lwp-gy-L32" firstAttribute="trailing" secondItem="SNj-Hv-oFd" secondAttribute="trailing" id="CZj-TW-W3d"/>
+                            <constraint firstItem="SNj-Hv-oFd" firstAttribute="leading" secondItem="Lwp-gy-L32" secondAttribute="leading" id="Pb7-t3-o3E"/>
                             <constraint firstItem="ErH-we-t09" firstAttribute="centerX" secondItem="BfS-89-p4B" secondAttribute="centerX" id="R2k-bg-hZi"/>
+                            <constraint firstItem="SNj-Hv-oFd" firstAttribute="centerX" secondItem="BfS-89-p4B" secondAttribute="centerX" id="ZL7-p4-rVF"/>
+                            <constraint firstItem="Lwp-gy-L32" firstAttribute="bottom" secondItem="SNj-Hv-oFd" secondAttribute="bottom" id="vgO-ZM-c2V"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Lwp-gy-L32"/>
                     </view>
@@ -739,7 +753,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L8U-zQ-sEs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-730" y="721"/>
+            <point key="canvasLocation" x="-730.43478260869574" y="720.53571428571422"/>
         </scene>
         <!--Support-->
         <scene sceneID="y8P-ab-HE4">
