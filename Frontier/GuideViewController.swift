@@ -29,7 +29,7 @@ class GuideViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tableView.register(CustomTopCell.self, forCellReuseIdentifier: "GuideCell")
+        // self.tableView.register(CustomTopCell.self, forCellReuseIdentifier: "GuideCell")
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 80
         
@@ -67,9 +67,9 @@ extension GuideViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "GuideCell", for: indexPath) as! CustomTopCell
-        cell.Message = data[myIndex].Examples[indexPath.row].Title
-        cell.Image = data[myIndex].Examples[indexPath.row].Image
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GuideCell", for: indexPath)
+        cell.textLabel?.text = data[myIndex].Examples[indexPath.row].Title
+        // cell.Image = data[myIndex].Examples[indexPath.row].Image
         cell.layoutSubviews()
         return cell
     }

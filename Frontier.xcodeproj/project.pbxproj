@@ -31,8 +31,6 @@
 		41B64334238BC9D400F95C95 /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B64333238BC9D400F95C95 /* GuideViewController.swift */; };
 		41E84C53238D072D004A4392 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E84C52238D072D004A4392 /* SearchTableViewController.swift */; };
 		41E84C55238D088A004A4392 /* HorseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E84C54238D088A004A4392 /* HorseViewController.swift */; };
-		41EA351F2394BDDF00264344 /* CustomTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EA351E2394BDDF00264344 /* CustomTopCell.swift */; };
-		41EA35212394C74B00264344 /* CustomLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EA35202394C74B00264344 /* CustomLeftCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,8 +79,6 @@
 		41B64333238BC9D400F95C95 /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		41E84C52238D072D004A4392 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		41E84C54238D088A004A4392 /* HorseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseViewController.swift; sourceTree = "<group>"; };
-		41EA351E2394BDDF00264344 /* CustomTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTopCell.swift; sourceTree = "<group>"; };
-		41EA35202394C74B00264344 /* CustomLeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLeftCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,8 +158,6 @@
 				41EA352B2394F16800264344 /* Support */,
 				418AE8312388BFFA00E13BC3 /* AppDelegate.swift */,
 				418AE8372388BFFA00E13BC3 /* Main.storyboard */,
-				41EA351E2394BDDF00264344 /* CustomTopCell.swift */,
-				41EA35202394C74B00264344 /* CustomLeftCell.swift */,
 				418AE83A2388BFFB00E13BC3 /* Assets.xcassets */,
 				418AE83C2388BFFB00E13BC3 /* LaunchScreen.storyboard */,
 				418AE83F2388BFFB00E13BC3 /* Info.plist */,
@@ -372,9 +366,7 @@
 				41B6432C238B9C1F00F95C95 /* LoginViewController.swift in Sources */,
 				417E9B2723EA860800308EBE /* ButtonBadge.swift in Sources */,
 				418224F323CA95180043A086 /* ViewController.swift in Sources */,
-				41EA351F2394BDDF00264344 /* CustomTopCell.swift in Sources */,
 				418224F423CA95180043A086 /* CollectionViewCell.swift in Sources */,
-				41EA35212394C74B00264344 /* CustomLeftCell.swift in Sources */,
 				418224EB23CA94C80043A086 /* FeatureCell.swift in Sources */,
 				41B64334238BC9D400F95C95 /* GuideViewController.swift in Sources */,
 			);
