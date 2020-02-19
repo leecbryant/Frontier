@@ -84,9 +84,6 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         //Always make filteredData a copy of data when there is no filter applied
         filteredData = data
         
-        //searchBar.delegate = self
-        
-        //searchBar.returnKeyType = UIReturnKeyType.done
     }
 
     func loadComplete() {
@@ -287,6 +284,5 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
             AdvancedButton?.removeBadge()
         }
     }
-
 }
           
