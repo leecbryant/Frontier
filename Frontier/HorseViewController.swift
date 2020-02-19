@@ -24,7 +24,7 @@ class HorseViewController: UIViewController {
     @IBOutlet weak var bandMembers: UILabel!
     
     var data = [HorseData]()
-    var imageArray = [UIImage]()
+    var imageArray = [String]()
     
     override func viewDidLoad() {
         
@@ -35,15 +35,21 @@ class HorseViewController: UIViewController {
         nameText.text = data[selectedIndex].Name
         bandText.text = Bands[data[selectedIndex].Band]
         dartedText.text = data[selectedIndex].DartStatus
-        imageArray = [#imageLiteral(resourceName: "alexis"), #imageLiteral(resourceName: "alex"), #imageLiteral(resourceName: "joe")]
+        imageArray = ["https://whims.wildhorsepreservation.org/UNR/2_0_59090036bdec6.jpg",
+                      "https://whims.wildhorsepreservation.org/UNR/2_1_59090036d6816.jpg",
+                      "https://whims.wildhorsepreservation.org/UNR/2_0_5914b6736bb29.jpg",
+                      "https://whims.wildhorsepreservation.org/UNR/2_0_5d2bd072dad87.jpg",
+                      "https://whims.wildhorsepreservation.org/UNR/2_0_5bc4cb1c501c0.jpg"
+        ]
         // horseImage.image = UIImage(named: data[selectedIndex].Image.lowercased())
         for i in 0..<imageArray.count {
             let imageView = UIImageView()
             // imageView.image = imageArray[i]
-            imageView.kf.setImage(with: URL(string: "http://whims.wildhorsepreservation.org/UNR/2_0_59090036bdec6.jpg"))
+            imageView.kf.indicatorType = .activity
+            imageView.kf.setImage(with: URL(string: imageArray[i]))
             let xPos = self.view.frame.width * CGFloat(i)
             imageView.frame = CGRect(x: xPos, y: 0, width: self.ImageScroller.frame.width, height: self.ImageScroller.frame.height)
-            // imageView.contentMode = .scaleAspectFit
+            imageView.contentMode = .scaleAspectFit
             
             ImageScroller.contentSize.width = ImageScroller.frame.width * CGFloat(i + 1)
             ImageScroller.addSubview(imageView)
