@@ -74,18 +74,13 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
             if error != nil {
                 print(error!)
                 self.createAlert(title: "Error", message: "Error loading horse data")
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.removeFromSuperview()
-                UIApplication.shared.endIgnoringInteractionEvents()
             } else if let horseData = horseData {
                 self.data = horseData
                 self.filteredData = horseData
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.removeFromSuperview()
-                UIApplication.shared.endIgnoringInteractionEvents()
-                self.tableView.reloadData()
             }
+            self.loadComplete()
         })
+        
         //Always make filteredData a copy of data when there is no filter applied
         filteredData = data
         
@@ -94,6 +89,16 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         //searchBar.returnKeyType = UIReturnKeyType.done
     }
 
+    func loadComplete() {
+       DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.removeFromSuperview()
+            UIApplication.shared.endIgnoringInteractionEvents()
+            self.tableView.reloadData()
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+       }
+    }
     //Generates search bar data for search screen
     func showSearchBar() {
         let searchController = UISearchController(searchResultsController: nil)
