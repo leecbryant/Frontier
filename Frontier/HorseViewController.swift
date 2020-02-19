@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import class Kingfisher.KingfisherManager
 
 var Bands = ["Horse Band 1", "Horse Band 2", "Horse Band 3", "Horse Band 4", "Horse Band 5", "Horse Band 6","Horse Band 7", "Horse Band 8", "Horse Band 9", "Horse Band 10", "Horse Band 11", "Horse Band 12", "Horse Band 13", "Horse Band 14", "Horse Band 15", "Horse Band 16", "Horse Band 17", "Horse Band 18", "Horse Band 19", "Horse Band 20"]
 var filteredBands = [HorseData]()
@@ -17,11 +18,13 @@ class HorseViewController: UIViewController {
     @IBOutlet weak var bandText: UILabel!
     @IBOutlet weak var dartedText: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var horseImage: UIImageView!
+    // @IBOutlet weak var horseImage: UIImageView!
+    @IBOutlet weak var ImageScroller: UIScrollView!
     
     @IBOutlet weak var bandMembers: UILabel!
     
     var data = [HorseData]()
+    var imageArray = [UIImage]()
     
     override func viewDidLoad() {
         
@@ -32,8 +35,19 @@ class HorseViewController: UIViewController {
         nameText.text = data[selectedIndex].Name
         bandText.text = Bands[data[selectedIndex].Band]
         dartedText.text = data[selectedIndex].DartStatus
-        horseImage.image = UIImage(named: data[selectedIndex].Image.lowercased())
-        
+        imageArray = [#imageLiteral(resourceName: "alexis"), #imageLiteral(resourceName: "alex"), #imageLiteral(resourceName: "joe")]
+        // horseImage.image = UIImage(named: data[selectedIndex].Image.lowercased())
+        for i in 0..<imageArray.count {
+            let imageView = UIImageView()
+            // imageView.image = imageArray[i]
+            imageView.kf.setImage(with: URL(string: "http://whims.wildhorsepreservation.org/UNR/2_0_59090036bdec6.jpg"))
+            let xPos = self.view.frame.width * CGFloat(i)
+            imageView.frame = CGRect(x: xPos, y: 0, width: self.ImageScroller.frame.width, height: self.ImageScroller.frame.height)
+            // imageView.contentMode = .scaleAspectFit
+            
+            ImageScroller.contentSize.width = ImageScroller.frame.width * CGFloat(i + 1)
+            ImageScroller.addSubview(imageView)
+        }
         if filteredBands.count > 0 {
             bandMembers.isHidden = false
         } else {
