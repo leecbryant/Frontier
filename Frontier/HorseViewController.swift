@@ -18,7 +18,6 @@ class HorseViewController: UIViewController {
     @IBOutlet weak var bandText: UILabel!
     @IBOutlet weak var dartedText: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    // @IBOutlet weak var horseImage: UIImageView!
     @IBOutlet weak var ImageScroller: UIScrollView!
     
     @IBOutlet weak var bandMembers: UILabel!
@@ -41,7 +40,7 @@ class HorseViewController: UIViewController {
                       "https://whims.wildhorsepreservation.org/UNR/2_0_5d2bd072dad87.jpg",
                       "https://whims.wildhorsepreservation.org/UNR/2_0_5bc4cb1c501c0.jpg"
         ]
-        // horseImage.image = UIImage(named: data[selectedIndex].Image.lowercased())
+        
         for i in 0..<imageArray.count {
             let imageView = UIImageView()
             // imageView.image = imageArray[i]
