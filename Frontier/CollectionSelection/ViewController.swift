@@ -225,7 +225,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 cell.myView.backgroundColor = UIColor.systemBackground
             } else {
                 cell.myView.backgroundColor = .white
-            }        }
+            }
+        }
        }
     }
     

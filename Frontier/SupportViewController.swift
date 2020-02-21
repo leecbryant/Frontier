@@ -38,9 +38,9 @@ class SupportViewController: UIViewController, UITextViewDelegate {
                 createAlert(title: "Empty Field", message: "Email cannot be left blank.")
             }
         } else {
+            UIApplication.shared.endIgnoringInteractionEvents()
+            activityIndicator.stopAnimating()
             if isValidEmail(emailStr: Email.text!) {
-                activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
                 createAlert(title: "Support Request", message: "A ticket has been created and sent to the admins.")
                 Name.text = ""
                 Email.text = ""
@@ -62,7 +62,7 @@ class SupportViewController: UIViewController, UITextViewDelegate {
         comments.layer.cornerRadius = 5.0
         // Set placeholder for comment text area
         comments.text = "Comments"
-        comments.textColor = UIColor.lightGray
+        comments.textColor = .lightGray
         comments.returnKeyType = .done
         comments.delegate = self
     }
@@ -71,14 +71,18 @@ class SupportViewController: UIViewController, UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if comments.text == "Comments" {
             comments.text = ""
-            comments.textColor = UIColor.black
+            if #available(iOS 13.0, *) {
+                 comments.textColor = UIColor.label
+            } else {
+                 comments.textColor = .white
+            }
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if comments.text == "" {
             comments.text = "Comments"
-            comments.textColor = UIColor.lightGray
+            comments.textColor = .lightGray
         }
     }
     

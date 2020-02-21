@@ -22,7 +22,8 @@ class GuideViewController: UIViewController {
 
     @IBOutlet weak var Description: UITextView!
     @IBOutlet weak var DescriptionHC: NSLayoutConstraint!
-    
+    var guideSelection = 0
+
     @IBOutlet weak var tableView: UITableView!
     
     var data = [GuideData]()
@@ -55,22 +56,45 @@ class GuideViewController: UIViewController {
     
 }
 
-extension GuideViewController: UITableViewDataSource {
+extension GuideViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "GuideCell", for: indexPath)
+//        cell.textLabel?.text = data[myIndex].Examples[indexPath.row].Title
+//        // cell.Image = data[myIndex].Examples[indexPath.row].Image
+//        cell.layoutSubviews()
+//        return cell
+//    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return data[myIndex].Examples.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GuideCell", for: indexPath)
+
         cell.textLabel?.text = data[myIndex].Examples[indexPath.row].Title
-        // cell.Image = data[myIndex].Examples[indexPath.row].Image
-        cell.layoutSubviews()
+
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guideSelection = indexPath.row
+        performSegue(withIdentifier: "showDetails", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.destination is DetailedViewController
+        {
+            let vc = segue.destination as? DetailedViewController
+            vc?.data = data
+            vc?.selectedIndex = guideSelection
+            vc?.topIndex = guideSelection
+        }
     }
 }
