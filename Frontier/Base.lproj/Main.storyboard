@@ -552,7 +552,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TVG-Y4-HXc"/>
                     </view>
-                    <navigationItem key="navigationItem" id="7h0-EY-ne9"/>
+                    <navigationItem key="navigationItem" id="7h0-EY-ne9">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="nft-sK-XNb"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="ImageScroller" destination="FCo-Ge-RyU" id="usD-dP-LwM"/>
                         <outlet property="bandMembers" destination="6oB-dy-6bS" id="SPa-iL-oAe"/>
