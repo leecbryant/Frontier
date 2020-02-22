@@ -320,7 +320,7 @@
         <scene sceneID="Pm4-Av-qbc">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zar-6b-4t8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Horses" image="search" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Horses" image="horse-trot" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KzE-Zu-EU0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -336,7 +336,7 @@
             </objects>
             <point key="canvasLocation" x="841" y="0.0"/>
         </scene>
-        <!--Search-->
+        <!--Horses-->
         <scene sceneID="Hya-G0-GiJ">
             <objects>
                 <tableViewController id="Eww-0j-pf1" customClass="SearchTableViewController" customModule="Frontier" customModuleProvider="target" sceneMemberID="viewController">
@@ -380,7 +380,7 @@
                             <outlet property="delegate" destination="Eww-0j-pf1" id="mM8-oM-jlu"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Search" id="TES-Wm-SEz">
+                    <navigationItem key="navigationItem" title="Horses" id="TES-Wm-SEz">
                         <barButtonItem key="rightBarButtonItem" title="Advanced" id="iqh-i3-NFZ">
                             <connections>
                                 <action selector="advancedClick" destination="Eww-0j-pf1" id="SNX-YZ-oAh"/>
@@ -1035,9 +1035,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="horse-trot" width="50" height="50"/>
         <image name="info" width="30" height="30"/>
         <image name="logo_transparent" width="502" height="498"/>
-        <image name="search" width="30" height="30"/>
         <image name="support" width="30" height="30"/>
     </resources>
     <color key="tintColor" red="0.047036342320000001" green="0.53120297189999999" blue="0.63139021399999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

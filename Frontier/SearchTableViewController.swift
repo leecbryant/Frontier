@@ -66,7 +66,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         UIApplication.shared.beginIgnoringInteractionEvents()
         
         super.viewDidLoad()
-        navigationItem.title = "Search"
+        navigationItem.title = "Horses"
         
         showSearchBar()
         
@@ -77,8 +77,9 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
             } else if let horseData = horseData {
                 self.data = horseData
                 self.filteredData = horseData
+                self.loadComplete()
+                
             }
-            self.loadComplete()
         })
         
         //Always make filteredData a copy of data when there is no filter applied
@@ -96,6 +97,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
             self.tableView.endUpdates()
        }
     }
+    
     //Generates search bar data for search screen
     func showSearchBar() {
         let searchController = UISearchController(searchResultsController: nil)
@@ -133,12 +135,14 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
         if isSearching {
+            filteredData.sort(by: {$0.Name < $1.Name})
             cell.textLabel?.text = filteredData[indexPath.row].Name
             cell.detailTextLabel?.text = filteredData[indexPath.row].Location
             // cell.imageView?.image = filteredData[indexPath.row].Image
         } else {
+            data.sort(by: {$0.Name < $1.Name})
             cell.textLabel?.text = data[indexPath.row].Name
-            cell.detailTextLabel?.text = data[indexPath.row].Location
+            cell.detailTextLabel?.text = "County: " + data[indexPath.row].Location
             // cell.imageView?.image = data[indexPath.row].Image
         }
         
