@@ -14,16 +14,22 @@ class CollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var myView: UIView!
     
-    override var bounds: CGRect {
-        didSet {
-          contentView.frame = bounds
+    ///Needed to flush the subviews from cells during reload
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        //Get # of subviews of cell
+        let subviews = self.subviews
+        //return if there are no subviews
+        if subviews.count == 0{
+            return
         }
+        
+        for subview : AnyObject in subviews{
+            if subview.tag == 101 {
+            subview.removeFromSuperview()
+            }
+        }
+        return
     }
-    
-    func setBounds(bounds:CGRect) {
-        super.bounds = bounds
-        self.contentView.frame = bounds;
-    }
-    
-    
 }

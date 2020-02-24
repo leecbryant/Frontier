@@ -16,38 +16,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="GI3-GT-faK">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="LaunchImage.png" translatesAutoresizingMaskIntoConstraints="NO" id="rVq-Dr-Pxs">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frontier" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGu-uu-Dch">
-                                <rect key="frame" x="117.5" y="774.5" width="179.5" height="66"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="55"/>
-                                <color key="textColor" red="0.047036342322826385" green="0.53120297193527222" blue="0.63139021396636963" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <size key="shadowOffset" width="1" height="0.0"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="GI3-GT-faK" secondAttribute="bottom" id="7U1-cE-Cg2"/>
-                            <constraint firstAttribute="trailing" secondItem="GI3-GT-faK" secondAttribute="trailing" id="MhE-Za-J17"/>
-                            <constraint firstItem="GI3-GT-faK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="WvB-VO-U22"/>
-                            <constraint firstItem="GI3-GT-faK" firstAttribute="baseline" secondItem="YGu-uu-Dch" secondAttribute="firstBaseline" constant="35" symbolType="layoutAnchor" id="dIs-sY-6pu"/>
-                            <constraint firstItem="GI3-GT-faK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="hjQ-yt-ROJ"/>
-                            <constraint firstItem="GI3-GT-faK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="o64-EO-ze2"/>
-                            <constraint firstItem="GI3-GT-faK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="oNv-dQ-4Uf"/>
-                            <constraint firstItem="YGu-uu-Dch" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ya3-9e-hgu"/>
+                            <constraint firstItem="rVq-Dr-Pxs" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="4z1-jg-F59"/>
+                            <constraint firstAttribute="bottom" secondItem="rVq-Dr-Pxs" secondAttribute="bottom" id="lNl-ID-yeQ"/>
+                            <constraint firstItem="rVq-Dr-Pxs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lSv-x8-hO4"/>
+                            <constraint firstItem="rVq-Dr-Pxs" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="xL4-oY-6BA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
     <resources>
-        <image name="logo_transparent" width="502" height="498"/>
+        <image name="LaunchImage.png" width="768" height="1004"/>
     </resources>
 </document>

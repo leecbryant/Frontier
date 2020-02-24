@@ -11,6 +11,7 @@ import UIKit
 class LoginViewController: UIViewController {
     @IBOutlet weak var UsernameText: UITextField!
     @IBOutlet weak var PasswordText: UITextField!
+    @IBOutlet weak var pal: UILabel!
     
     // Loading Circle
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()

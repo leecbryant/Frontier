@@ -94,7 +94,7 @@ extension GuideViewController: UITableViewDataSource, UITableViewDelegate {
             let vc = segue.destination as? DetailedViewController
             vc?.data = data
             vc?.selectedIndex = guideSelection
-            vc?.topIndex = guideSelection
+            vc?.topIndex = myIndex
         }
     }
 }

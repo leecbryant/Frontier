@@ -29,7 +29,7 @@ class HorseViewController: UIViewController {
         
         super.viewDidLoad()
         filterBands()
-        navigationItem.title = "Horse Information"
+        navigationItem.title = data[selectedIndex].Name
         
         nameText.text = data[selectedIndex].Name
         bandText.text = Bands[data[selectedIndex].Band]

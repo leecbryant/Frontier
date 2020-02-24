@@ -103,15 +103,15 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
         searchController.hidesNavigationBarDuringPresentation = false
-        navigationItem.hidesSearchBarWhenScrolling = false
         //true for hiding, false for keep showing while scrolling
+        navigationItem.hidesSearchBarWhenScrolling = false
+        //Prevents text from dissappearing when clicking off searchbar
+        searchController.obscuresBackgroundDuringPresentation = false        
         searchController.searchBar.sizeToFit()
         searchController.searchBar.returnKeyType = UIReturnKeyType.search
         searchController.searchBar.placeholder = "Search here"
         searchController.searchBar.showsCancelButton = false
         
-        searchController.searchBar.barStyle = UIBarStyle.black
-
         navigationItem.searchController = searchController
     }
     
@@ -140,10 +140,9 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
             cell.detailTextLabel?.text = filteredData[indexPath.row].Location
             // cell.imageView?.image = filteredData[indexPath.row].Image
         } else {
-            data.sort(by: {$0.Name < $1.Name})
-            cell.textLabel?.text = data[indexPath.row].Name
-            cell.detailTextLabel?.text = "County: " + data[indexPath.row].Location
-            // cell.imageView?.image = data[indexPath.row].Image
+            filteredData.sort(by: {$0.Name < $1.Name})
+            cell.textLabel?.text = filteredData[indexPath.row].Name
+            cell.detailTextLabel?.text = "County: " + data[indexPath.row].Location            // cell.imageView?.image = data[indexPath.row].Image
         }
         
         return cell

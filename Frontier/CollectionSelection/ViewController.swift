@@ -28,7 +28,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                                              left: 10.0,
                                              bottom: 10.0,
                                              right: 10.0)*/
-    private let itemsPerRow: CGFloat = 3
+    //private let itemsPerRow: CGFloat = 3
     
     private let relativeFontConstant:CGFloat = 0.046
     
@@ -39,7 +39,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     let colors = ["Appaloosa", "Bay", "Bay Roan",
                   "Black", "Blue Roan", "Brown",
-                  "Buckskin", "Chestnut", "Cremelo",
+                  "Buckskin", "Chestnut", "Cremello",
                   "Gray", "Palomino", "Pinto","Red Roan"]
     let manes = ["Left", "Right", "Split", "Alternating",
                  "Flaxen", "Black", "Brown", "Gray",
@@ -49,12 +49,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     let whorls = ["At Eye Level", "Above Eye Level", "Below Eye Level", "Double", "Neck" ]
     let allFeet = ["None", "Coronet", "Pastern", "Heel", "Fetlock", "Tall Socks", "Stockings", "Ermine"]
     
-    
+    let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    let cellSpacing: CGFloat = 5
+    let cellsPerRow: CGFloat = 2
+
     
     
     let colorImages: [UIImage] = [
     
-        UIImage(named: "missing")!,
+        UIImage(named: "appaloosa")!,
         UIImage(named: "missing")!,
         UIImage(named: "missing")!,
         UIImage(named: "missing")!,
@@ -123,6 +126,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
          
     ]
     
+    override func viewDidAppear(_ animated: Bool) {
+        let cellSize = (collectionView.collectionViewLayout
+            .collectionViewContentSize.width / cellsPerRow) - (cellSpacing)
+
+        layout.itemSize = CGSize(width: cellSize, height: cellSize)
+        layout.minimumInteritemSpacing = cellSpacing
+        layout.minimumLineSpacing = cellSpacing
+        collectionView.collectionViewLayout = layout
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -172,22 +190,76 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         //Define the current cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
-        //Populate cell with information/formatting
-        cell.contentLabel.text = myLabels[indexPath.item]
-        cell.contentLabel.font = cell.contentLabel.font.withSize(self.view.frame.height * relativeFontConstant / itemsPerRow)
-        cell.contentImageView.image = myImages[indexPath.item]
+        
+        /// Dynamically Size Images within CollectionViewCell
+        /// From: https://stackoverflow.com/questions/32198069/scale-image-to-fit-ios
+        let imageView :UIImageView = {
+            let imageView = UIImageView(frame: CGRect(   x: 0,
+                                                 y: 0,
+                                                 width: (super.view.frame.width / cellsPerRow)
+                                                    - (cellSpacing),
+                                                 height: (collectionView.collectionViewLayout
+                .collectionViewContentSize.width / cellsPerRow)
+                - (cellSpacing)))
+            imageView.contentMode = UIView.ContentMode.scaleAspectFit
+            imageView.image = UIImage(named: myLabels[indexPath.item].lowercased().filter{!" \n\t\r".contains($0)})
+            
+            return imageView
+        }()
+        
+        /// Add label below image
+        let label: UILabel = {
+            let label = UILabel()
+            label.text = myLabels[indexPath.item]
+            label.numberOfLines = 0
+            label.minimumScaleFactor = 0.9
+            label.font = label.font.withSize(self.view.frame.height * relativeFontConstant / cellsPerRow)
+            return label
+        }()
+        
+        let verticalStackView: UIStackView = {
+           let stackView = UIStackView(arrangedSubviews: [imageView, label])
+            stackView.axis = .vertical
+            stackView.alignment = .center
+            stackView.distribution = .fillProportionally
+            stackView.spacing = cellSpacing
+            stackView.tag = 101
+            return stackView
+        }()
+        
+        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
         
         
+        print(cell.subviews.count)
+        let viewWithTag =  cell.subviews[0].viewWithTag(101)
         
-        //Determine Cell-Color based on whether or not a feature is active
-        if (data.filter { $0 == cell.contentLabel.text}).count == 1 {
-            cell.myView.backgroundColor = self.view.tintColor
+        
+        if viewWithTag == nil{
+            
+            cell.addSubview(verticalStackView)
+        } else {
+            viewWithTag!.removeFromSuperview()
         }
         
+        verticalStackView.leadingAnchor.constraint(equalTo: cell.leadingAnchor).isActive = true
+        verticalStackView.bottomAnchor.constraint(equalTo: cell.bottomAnchor).isActive = true
+        verticalStackView.trailingAnchor.constraint(equalTo: cell.trailingAnchor).isActive = true
+        verticalStackView.topAnchor.constraint(equalTo: cell.topAnchor).isActive = true
+        
+        //cell.contentLabel.text = myLabels[indexPath.item]
+        //cell.contentLabel.font = cell.contentLabel.font.withSize(self.view.frame.height * relativeFontConstant / cellsPerRow)
+        
+        //Determine Cell-Color based on whether or not a feature is active
+        if (data.filter { $0 == label.text}).count == 1 {
+            cell.myView.backgroundColor = self.view.tintColor
+        }
         //Disable gestures (needed to allow users to click on a cell)
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(_:))))
         cell.myView.frame = cell.bounds
         cell.myView.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
+        
+        cell.layoutIfNeeded()
+        
         return cell
     }
     
@@ -231,7 +303,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     //Dynamically Size each cell relative to screen size
-    func collectionView( _ collectionView: UICollectionView,
+    /*func collectionView( _ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
       /*/calculate available screen size
@@ -241,19 +313,20 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         //Assign Cell a width/height*/
         //return cCGSizeMake(collectionView.frame.width/2, CUSTOM_HEIGHT);
         
-        let customSize = collectionView.frame.width/3
-        return CGSize(width: customSize, height: customSize)
-    }
+        //let customSize = collectionView.frame.width/3
+        //return CGSize(width: customSize, height: customSize)
+    //}*/
+    
     
 
     
-    //Dynamically Size each cell relative to screen size
+    /*Dynamically Size each cell relative to screen size
     private func collectionView( _ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection indexPath: IndexPath) -> CGSize {
         let customSize = collectionView.frame.width/3
         return CGSize(width: customSize, height: customSize)
-    }
+    }*/
     
     @IBAction func submitFeature(_ sender: Any) {
         delegate?.passDataBack(currFeature: currFeature, data: data)
@@ -262,5 +335,3 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
 }
-
-
