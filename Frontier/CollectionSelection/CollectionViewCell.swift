@@ -25,9 +25,16 @@ class CollectionViewCell: UICollectionViewCell {
             return
         }
         
+        /// Remove duplication of cell data
         for subview : AnyObject in subviews{
+            // If a contentView has already been rendered, remove the image and label
+            //      so they can be reloaded (without duplication)
             if subview.tag == 101 {
-            subview.removeFromSuperview()
+                // Remove the subviews (stackview with image/label)
+                for subsubviews: AnyObject in subview.subviews
+                {
+                    subsubviews.removeFromSuperview()
+                }
             }
         }
         return

@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="LaunchImage.png" translatesAutoresizingMaskIntoConstraints="NO" id="rVq-Dr-Pxs">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="LaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="rVq-Dr-Pxs">
                                 <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
@@ -37,6 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchImage.png" width="768" height="1004"/>
+        <image name="LaunchScreen" width="768" height="1004"/>
     </resources>
 </document>

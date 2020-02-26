@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		20C649BE2403B3280051617D /* LaunchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 20C649BD2403B3280051617D /* LaunchImage.png */; };
 		415A605A23FCA04D00A5DB61 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415A605923FCA04D00A5DB61 /* RegisterViewController.swift */; };
 		415A605D23FCBA9100A5DB61 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 415A605C23FCBA9100A5DB61 /* Kingfisher */; };
 		415A605F23FCBA9100A5DB61 /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 415A605E23FCBA9100A5DB61 /* KingfisherSwiftUI */; };
@@ -50,7 +49,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		20C649BD2403B3280051617D /* LaunchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LaunchImage.png; path = "../../../../Downloads/Frontier Pal - iOS Assets 2/Launch Image/LaunchImage.png"; sourceTree = "<group>"; };
 		415A605923FCA04D00A5DB61 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		415A60602400736100A5DB61 /* DetailedDescViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedDescViewController.swift; sourceTree = "<group>"; };
 		417E9B2623EA860800308EBE /* ButtonBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBadge.swift; sourceTree = "<group>"; };
@@ -156,7 +154,6 @@
 				418AE8372388BFFA00E13BC3 /* Main.storyboard */,
 				418AE83A2388BFFB00E13BC3 /* Assets.xcassets */,
 				418AE83C2388BFFB00E13BC3 /* LaunchScreen.storyboard */,
-				20C649BD2403B3280051617D /* LaunchImage.png */,
 				418AE83F2388BFFB00E13BC3 /* Info.plist */,
 				415A605923FCA04D00A5DB61 /* RegisterViewController.swift */,
 			);
@@ -322,7 +319,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20C649BE2403B3280051617D /* LaunchImage.png in Resources */,
 				418AE83E2388BFFB00E13BC3 /* LaunchScreen.storyboard in Resources */,
 				418AE83B2388BFFB00E13BC3 /* Assets.xcassets in Resources */,
 				418AE8392388BFFA00E13BC3 /* Main.storyboard in Resources */,

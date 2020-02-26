@@ -43,8 +43,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                   "Gray", "Palomino", "Pinto","Red Roan"]
     let manes = ["Left", "Right", "Split", "Alternating",
                  "Flaxen", "Black", "Brown", "Gray",
-                 "Multicolor","Red", "White", "Body: Same",
-                 "Body: Lighter", "Body: Darker"]
+                 "Multicolor","Red", "White", "Body - Same",
+                 "Body - Lighter", "Body - Darker"]
     let faces = ["None", "Blaze", "Star", "Snip", "Strip"]
     let whorls = ["At Eye Level", "Above Eye Level", "Below Eye Level", "Double", "Neck" ]
     let allFeet = ["None", "Coronet", "Pastern", "Heel", "Fetlock", "Tall Socks", "Stockings", "Ermine"]
@@ -126,14 +126,33 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
          
     ]
     
-    override func viewDidAppear(_ animated: Bool) {
-        let cellSize = (collectionView.collectionViewLayout
-            .collectionViewContentSize.width / cellsPerRow) - (cellSpacing)
-
+    func defineCellSize()
+    {
+       
+        //let cellSize = ((submitBtn.frame.width / cellsPerRow) - (cellSpacing))
+        print (submitBtn.frame.width)
+        let screenSize = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        
+        //let cellSize = (collectionView.collectionViewLayout.collectionViewContentSize.width / cellsPerRow) - (cellSpacing)
+        
+        let cellSize = ((screenWidth-20)/cellsPerRow)-(cellSpacing)
+        
+        print(cellSize)
+        
         layout.itemSize = CGSize(width: cellSize, height: cellSize)
         layout.minimumInteritemSpacing = cellSpacing
-        layout.minimumLineSpacing = cellSpacing
+        layout.minimumLineSpacing = 2*cellSpacing
         collectionView.collectionViewLayout = layout
+    }
+    
+    func setCVConstraints()
+    {
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.addConstraint(NSLayoutConstraint(item: collectionView as Any, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: collectionView.superview!.bounds.height))
+        collectionView.addConstraint(NSLayoutConstraint(item: collectionView as Any, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: submitBtn.bounds.width))
+        collectionView.frame = CGRect(x: 10 , y: 10, width: submitBtn.bounds.width, height: self.view.frame.height)
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -143,6 +162,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /// Set overall collectionview constraints
+        setCVConstraints()
+        /// Set the size of each cell relative ot screen size
+        defineCellSize()
         
         switch currFeature {
         case "color":
@@ -202,8 +226,31 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 .collectionViewContentSize.width / cellsPerRow)
                 - (cellSpacing)))
             imageView.contentMode = UIView.ContentMode.scaleAspectFit
-            imageView.image = UIImage(named: myLabels[indexPath.item].lowercased().filter{!" \n\t\r".contains($0)})
             
+            // Determine directory for feature images
+            var imageDirectory: String = ""
+            print(currFeature)
+            if (currFeature == "color") {
+                imageDirectory = "HorseColor/"
+            } else if (currFeature == "mane") {
+                imageDirectory = "HorseMane/"
+            } else if (currFeature == "face") {
+                
+            } else if (currFeature == "whorl") {
+                
+            } else if (currFeature == "rfFeet") {
+                
+            } else if (currFeature == "rrFeet") {
+                
+            } else if (currFeature == "lfFeet") {
+                
+            } else if (currFeature == "lrFeet") {
+                
+            }
+            
+            let individualImage = myLabels[indexPath.item].lowercased().filter{!" \n\t\r".contains($0)}
+            imageView.image = UIImage(named: (imageDirectory + individualImage))
+            imageView.contentMode = .scaleAspectFit
             return imageView
         }()
         
@@ -212,8 +259,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let label = UILabel()
             label.text = myLabels[indexPath.item]
             label.numberOfLines = 0
-            label.minimumScaleFactor = 0.9
-            label.font = label.font.withSize(self.view.frame.height * relativeFontConstant / cellsPerRow)
+            label.minimumScaleFactor = 0.8
+            label.sizeToFit()
+            //label.font = label.font.withSize(self.view.frame.height * relativeFontConstant / cellsPerRow)
+            label.adjustsFontSizeToFitWidth = true
+            label.contentMode = UIView.ContentMode.scaleAspectFit
             return label
         }()
         
@@ -223,42 +273,42 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             stackView.alignment = .center
             stackView.distribution = .fillProportionally
             stackView.spacing = cellSpacing
-            stackView.tag = 101
+            stackView.contentMode = .scaleAspectFit
             return stackView
         }()
         
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
         
         
-        print(cell.subviews.count)
-        let viewWithTag =  cell.subviews[0].viewWithTag(101)
         
+        ///Add image/label stack to the cell
+        // Insets for cell layout
+        cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         
-        if viewWithTag == nil{
-            
-            cell.addSubview(verticalStackView)
-        } else {
-            viewWithTag!.removeFromSuperview()
-        }
+        cell.contentView.addSubview(verticalStackView)
+        cell.contentView.tag = 101
         
-        verticalStackView.leadingAnchor.constraint(equalTo: cell.leadingAnchor).isActive = true
-        verticalStackView.bottomAnchor.constraint(equalTo: cell.bottomAnchor).isActive = true
-        verticalStackView.trailingAnchor.constraint(equalTo: cell.trailingAnchor).isActive = true
-        verticalStackView.topAnchor.constraint(equalTo: cell.topAnchor).isActive = true
+        // Apply insets of stack equal to insets of the contentview
+        verticalStackView.leadingAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.leadingAnchor).isActive = true
+        verticalStackView.bottomAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.bottomAnchor).isActive = true
+        verticalStackView.trailingAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.trailingAnchor).isActive = true
+        verticalStackView.topAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.topAnchor).isActive = true
         
-        //cell.contentLabel.text = myLabels[indexPath.item]
-        //cell.contentLabel.font = cell.contentLabel.font.withSize(self.view.frame.height * relativeFontConstant / cellsPerRow)
-        
-        //Determine Cell-Color based on whether or not a feature is active
+        //Determine Cell-Color based on whether or not a feature is already active
         if (data.filter { $0 == label.text}).count == 1 {
-            cell.myView.backgroundColor = self.view.tintColor
+            cell.contentView.backgroundColor = self.view.tintColor
         }
+        
         //Disable gestures (needed to allow users to click on a cell)
         cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(_:))))
-        cell.myView.frame = cell.bounds
-        cell.myView.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
         
-        cell.layoutIfNeeded()
+        //Round Edges
+        cell.layer.cornerRadius = 10
+        cell.layer.masksToBounds = true
+        
+        print(cell.bounds.width)
+        
+        print(cell.bounds.height)
         
         return cell
     }
@@ -271,7 +321,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
        let location = sender.location(in: self.collectionView)
        let indexPath = self.collectionView.indexPathForItem(at: location)
 
-        
+        print(submitBtn.bounds.width)
+        print(collectionView.bounds.width)
+        print(submitBtn.superview!.bounds.width)
         
         //Run code here for tapped cell
        if let index = indexPath {
@@ -285,7 +337,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             //Add feature to array of selected features
             data.append(myLabels[index.row])
             //Change appearance of cell
-            cell.myView.backgroundColor = self.view.tintColor
+            cell.contentView.backgroundColor = cell.tintColor
         }
             //Code for De-Selecting a feature
         else{
@@ -294,12 +346,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             //Remove feature from array of selected features
             data = data.filter{ $0 != myLabels[index.row]}
             if #available(iOS 13.0, *) {
-                cell.myView.backgroundColor = UIColor.systemBackground
+                cell.contentView.backgroundColor = UIColor.systemBackground
             } else {
-                cell.myView.backgroundColor = .white
+                cell.contentView.backgroundColor = .white
             }
         }
        }
+      
     }
     
     //Dynamically Size each cell relative to screen size
