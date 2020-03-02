@@ -21,7 +21,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     //Data to send back to previous View
     var currFeature: String = ""
     var data: [String] = []
-    
+    var backButton : UIBarButtonItem!
+
     /*private let sectionInsets = UIEdgeInsets(top: 10.0,
                                              left: 10.0,
                                              bottom: 10.0,
@@ -153,7 +154,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewDidLoad() {
@@ -193,8 +193,30 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             print("Error: Invalid segue to collectionview")
         }
         
+        // Cancel Button Setup
+        self.backButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(goBack(sender:)))
+        self.navigationItem.leftBarButtonItem = backButton
+        
     }
     
+    // Cancel Confirmation
+    @objc func goBack(sender: UIBarButtonItem) {
+        if(data.count > 0) {
+            let refreshAlert = UIAlertController(title: "Cancel", message: "Are you sure you want to cancel? All unsaved selections will be lost.", preferredStyle: UIAlertController.Style.alert)
+
+            refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { (action: UIAlertAction!) in
+                self.navigationController?.popViewController(animated: true)
+            }))
+
+            refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+                // Do nothing
+            }))
+
+            present(refreshAlert, animated: true, completion: nil)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
