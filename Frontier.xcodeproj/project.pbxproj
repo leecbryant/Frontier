@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F2F0AF62409C10C00FE3545 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F2F0AF52409C10C00FE3545 /* Main.storyboard */; };
 		415A605A23FCA04D00A5DB61 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415A605923FCA04D00A5DB61 /* RegisterViewController.swift */; };
 		415A605D23FCBA9100A5DB61 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 415A605C23FCBA9100A5DB61 /* Kingfisher */; };
 		415A605F23FCBA9100A5DB61 /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 415A605E23FCBA9100A5DB61 /* KingfisherSwiftUI */; };
@@ -18,7 +19,6 @@
 		418224F323CA95180043A086 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224EF23CA95180043A086 /* ViewController.swift */; };
 		418224F423CA95180043A086 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224F023CA95180043A086 /* CollectionViewCell.swift */; };
 		418AE8322388BFFA00E13BC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418AE8312388BFFA00E13BC3 /* AppDelegate.swift */; };
-		418AE8392388BFFA00E13BC3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 418AE8372388BFFA00E13BC3 /* Main.storyboard */; };
 		418AE83B2388BFFB00E13BC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 418AE83A2388BFFB00E13BC3 /* Assets.xcassets */; };
 		418AE83E2388BFFB00E13BC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 418AE83C2388BFFB00E13BC3 /* LaunchScreen.storyboard */; };
 		418AE8492388BFFB00E13BC3 /* FrontierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418AE8482388BFFB00E13BC3 /* FrontierTests.swift */; };
@@ -49,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F2F0AF52409C10C00FE3545 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		415A605923FCA04D00A5DB61 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		415A60602400736100A5DB61 /* DetailedDescViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedDescViewController.swift; sourceTree = "<group>"; };
 		417E9B2623EA860800308EBE /* ButtonBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBadge.swift; sourceTree = "<group>"; };
@@ -59,7 +60,6 @@
 		418224F023CA95180043A086 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		418AE82E2388BFFA00E13BC3 /* Frontier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Frontier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		418AE8312388BFFA00E13BC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		418AE8382388BFFA00E13BC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		418AE83A2388BFFB00E13BC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		418AE83D2388BFFB00E13BC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		418AE83F2388BFFB00E13BC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -149,13 +149,13 @@
 				41B6432B238B9C1F00F95C95 /* LoginViewController.swift */,
 				41EA35242394EFB400264344 /* Guide */,
 				41EA35262394EFDF00264344 /* Search */,
-				41EA352B2394F16800264344 /* Support */,
+				C8DD76B9240790E400DA9D28 /* Settings */,
 				418AE8312388BFFA00E13BC3 /* AppDelegate.swift */,
-				418AE8372388BFFA00E13BC3 /* Main.storyboard */,
 				418AE83A2388BFFB00E13BC3 /* Assets.xcassets */,
 				418AE83C2388BFFB00E13BC3 /* LaunchScreen.storyboard */,
 				418AE83F2388BFFB00E13BC3 /* Info.plist */,
 				415A605923FCA04D00A5DB61 /* RegisterViewController.swift */,
+				3F2F0AF52409C10C00FE3545 /* Main.storyboard */,
 			);
 			path = Frontier;
 			sourceTree = "<group>";
@@ -200,12 +200,12 @@
 			name = Search;
 			sourceTree = "<group>";
 		};
-		41EA352B2394F16800264344 /* Support */ = {
+		C8DD76B9240790E400DA9D28 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				41B64329238B87E500F95C95 /* SupportViewController.swift */,
 			);
-			name = Support;
+			name = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,8 +320,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				418AE83E2388BFFB00E13BC3 /* LaunchScreen.storyboard in Resources */,
+				3F2F0AF62409C10C00FE3545 /* Main.storyboard in Resources */,
 				418AE83B2388BFFB00E13BC3 /* Assets.xcassets in Resources */,
-				418AE8392388BFFA00E13BC3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,14 +396,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		418AE8372388BFFA00E13BC3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				418AE8382388BFFA00E13BC3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		418AE83C2388BFFB00E13BC3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -536,6 +528,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AB933V97QY;
 				INFOPLIST_FILE = Frontier/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -553,6 +546,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AB933V97QY;
 				INFOPLIST_FILE = Frontier/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

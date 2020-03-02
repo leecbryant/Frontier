@@ -13,14 +13,26 @@ import UIKit
 class DetailedViewController: UIViewController {
 
     @IBOutlet weak var bgImage: UIImageView!
-    var data = [GuideData]()
-    var selectedIndex = 0
-    var topIndex = 0
+    
+    ///BROAD GUIDE INFO (COLOR,MARKINGS,ETC)
+    var item = [String]()
+    
+    ///SPECIFIC GUIDE INFO (BROWN,WHITE,ETC)
+    var data = [String]()
+    
+    ///index used for selected data[]
+    var selectedDataIndex = Int()
+    ///index used for selected item
+    var selectedItemIndex = Int()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Info"
+        navigationItem.title = data[selectedDataIndex]
         
-        bgImage.image =  self.data[topIndex].Examples[selectedIndex].Image
+        let fileName = "guide/" + item[selectedItemIndex].lowercased() + "/" + data[selectedDataIndex].lowercased()
+        
+        bgImage.image =  UIImage(named: fileName)
+
     }
     
 }

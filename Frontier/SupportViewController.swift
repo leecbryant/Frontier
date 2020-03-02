@@ -55,9 +55,9 @@ class SupportViewController: UIViewController, UITextViewDelegate {
         // Do any additional setup after loading the view.
         navigationItem.title = "Support"
         
+        let borderColor : UIColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
         // Set border around comment text area
-        let borderColor : UIColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
-        comments.layer.borderWidth = 0.5
+        comments.layer.borderWidth = 1.0
         comments.layer.borderColor = borderColor.cgColor
         comments.layer.cornerRadius = 5.0
         // Set placeholder for comment text area
