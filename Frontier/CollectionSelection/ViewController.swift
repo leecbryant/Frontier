@@ -15,9 +15,7 @@ protocol CanRecieve {
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    
-    @IBOutlet weak var submitBtn: UIButton!
-    
+        
     var delegate:CanRecieve?
     
     //Data to send back to previous View
@@ -129,8 +127,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func defineCellSize()
     {
        
-        //let cellSize = ((submitBtn.frame.width / cellsPerRow) - (cellSpacing))
-        print (submitBtn.frame.width)
         let screenSize = UIScreen.main.bounds
         let screenWidth = screenSize.width
         
@@ -150,8 +146,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.addConstraint(NSLayoutConstraint(item: collectionView as Any, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: collectionView.superview!.bounds.height))
-        collectionView.addConstraint(NSLayoutConstraint(item: collectionView as Any, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: submitBtn.bounds.width))
-        collectionView.frame = CGRect(x: 10 , y: 10, width: submitBtn.bounds.width, height: self.view.frame.height)
+        collectionView.addConstraint(NSLayoutConstraint(item: collectionView as Any, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: collectionView.superview!.bounds.width))
+        collectionView.frame = CGRect(x: 10 , y: 10, width: collectionView.superview!.bounds.width, height: self.view.frame.height)
 
     }
     
@@ -196,10 +192,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         default:
             print("Error: Invalid segue to collectionview")
         }
-        
-        //Set Font-size of submit button (at bottom) relative to screensize
-//        submitBtn.titleLabel?.font = submitBtn.titleLabel?.font.withSize(self.view.frame.height * relativeFontConstant)
-        
         
     }
     
@@ -320,10 +312,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
        let location = sender.location(in: self.collectionView)
        let indexPath = self.collectionView.indexPathForItem(at: location)
-
-        print(submitBtn.bounds.width)
-        print(collectionView.bounds.width)
-        print(submitBtn.superview!.bounds.width)
         
         //Run code here for tapped cell
        if let index = indexPath {
@@ -355,36 +343,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
       
     }
     
-    //Dynamically Size each cell relative to screen size
-    /*func collectionView( _ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-      /*/calculate available screen size
-      let paddingSpace = sectionInsets.left  * (itemsPerRow + 1)
-      let availableWidth = view.frame.width - paddingSpace - 10
-      let widthPerItem = availableWidth / itemsPerRow
-        //Assign Cell a width/height*/
-        //return cCGSizeMake(collectionView.frame.width/2, CUSTOM_HEIGHT);
-        
-        //let customSize = collectionView.frame.width/3
-        //return CGSize(width: customSize, height: customSize)
-    //}*/
-    
-    
-
-    
-    /*Dynamically Size each cell relative to screen size
-    private func collectionView( _ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        referenceSizeForHeaderInSection indexPath: IndexPath) -> CGSize {
-        let customSize = collectionView.frame.width/3
-        return CGSize(width: customSize, height: customSize)
-    }*/
-    
     @IBAction func submitFeature(_ sender: Any) {
         delegate?.passDataBack(currFeature: currFeature, data: data)
         presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-        self.navigationController?.popViewController(animated: true)
+    self.navigationController?.popViewController(animated: true)
+        
     }
     
 }

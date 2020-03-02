@@ -258,7 +258,7 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="uON-KZ-6Rm">
-                                <rect key="frame" x="57" y="0.0" width="298" height="258.5"/>
+                                <rect key="frame" x="57" y="0.0" width="298" height="258.50000000000011"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                 </accessibility>
@@ -924,23 +924,10 @@
                                     <outlet property="delegate" destination="kVX-pa-a2b" id="GRA-Pl-4a6"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7s-qR-DXl">
-                                <rect key="frame" x="10" y="568" width="355" height="30"/>
-                                <color key="backgroundColor" red="0.047036342320000001" green="0.53120297189999999" blue="0.63139021399999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="Save Features">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="onSubmit:" destination="kVX-pa-a2b" eventType="touchUpInside" id="blN-RU-MtV"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="wcy-uA-QH9" firstAttribute="bottom" secondItem="N7s-qR-DXl" secondAttribute="bottom" id="1Ev-vc-7KW"/>
                             <constraint firstItem="SYY-BD-Lps" firstAttribute="leading" secondItem="wcy-uA-QH9" secondAttribute="leading" id="5eY-lH-rd6"/>
-                            <constraint firstItem="wcy-uA-QH9" firstAttribute="trailing" secondItem="N7s-qR-DXl" secondAttribute="trailing" constant="10" id="Ant-Vh-BGm"/>
                             <constraint firstItem="wcy-uA-QH9" firstAttribute="trailing" secondItem="SYY-BD-Lps" secondAttribute="trailing" id="Ay2-as-GNp"/>
                             <constraint firstAttribute="bottom" secondItem="SYY-BD-Lps" secondAttribute="bottom" constant="20" symbolic="YES" id="DJ2-6V-x3Y"/>
                             <constraint firstItem="SYY-BD-Lps" firstAttribute="leading" secondItem="wcy-uA-QH9" secondAttribute="leading" id="Dgv-OP-chF"/>
@@ -948,12 +935,17 @@
                             <constraint firstItem="SYY-BD-Lps" firstAttribute="top" secondItem="wcy-uA-QH9" secondAttribute="top" id="LWl-G8-hch"/>
                             <constraint firstItem="SYY-BD-Lps" firstAttribute="top" secondItem="wcy-uA-QH9" secondAttribute="top" id="Lag-28-HAG"/>
                             <constraint firstItem="SYY-BD-Lps" firstAttribute="bottom" secondItem="wcy-uA-QH9" secondAttribute="bottom" id="WpU-Yl-NPY"/>
-                            <constraint firstItem="N7s-qR-DXl" firstAttribute="leading" secondItem="wcy-uA-QH9" secondAttribute="leading" constant="10" id="twI-u1-Yvs"/>
                             <constraint firstItem="SYY-BD-Lps" firstAttribute="bottom" secondItem="wcy-uA-QH9" secondAttribute="bottom" id="uc6-J4-Y7c"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wcy-uA-QH9"/>
                     </view>
-                    <navigationItem key="navigationItem" id="pX5-Bz-UbS"/>
+                    <navigationItem key="navigationItem" id="pX5-Bz-UbS">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="77h-Ty-5dk">
+                            <connections>
+                                <action selector="onSubmit:" destination="kVX-pa-a2b" id="hT9-sz-eDS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="SYY-BD-Lps" id="pst-jX-M2Q"/>
                         <segue destination="mbx-rG-JcG" kind="show" identifier="showColors" id="EZM-Um-0z8"/>
@@ -975,10 +967,10 @@
                                 <rect key="frame" x="10" y="66" width="355" height="532"/>
                                 <subviews>
                                     <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="mqg-Ot-sS3" userLabel="viewContainer">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="501.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="532"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="Cell" insetsLayoutMarginsFromSafeArea="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="n3o-VP-D0Z" customClass="CollectionView" customModule="Frontier" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="501.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="532"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="5" id="XZ8-AL-b0w">
                                                     <size key="itemSize" width="192" height="192"/>
@@ -1015,20 +1007,6 @@
                                             <constraint firstItem="n3o-VP-D0Z" firstAttribute="trailing" secondItem="mqg-Ot-sS3" secondAttribute="trailing" id="igZ-aj-Zzu"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Jk-OH-JJE">
-                                        <rect key="frame" x="0.0" y="502" width="355" height="30"/>
-                                        <color key="backgroundColor" red="0.047036342320000001" green="0.53120297189999999" blue="0.63139021399999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="7Co-Ft-LVb"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" title="Submit Features">
-                                            <color key="titleColor" red="1" green="0.9999822974" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="submitFeature:" destination="mbx-rG-JcG" eventType="touchUpInside" id="J75-qQ-Vyi"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -1041,10 +1019,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jRT-Hi-I8G"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Select Feature" id="oNg-GK-M4x"/>
+                    <navigationItem key="navigationItem" title="Select Feature" id="oNg-GK-M4x">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="S6h-sD-eMB">
+                            <connections>
+                                <action selector="submitFeature:" destination="mbx-rG-JcG" id="OqH-hV-Yxd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="n3o-VP-D0Z" id="O4N-2U-Hnm"/>
-                        <outlet property="submitBtn" destination="3Jk-OH-JJE" id="2wr-eS-8GK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UX7-SU-pca" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -14,7 +14,7 @@ protocol PassDataToSearch {
 
 class FeatureListScreen: UIViewController, CanRecieve {
     
-     var delegate:PassDataToSearch?
+    var delegate:PassDataToSearch?
     var selectedFeatures = Features(Color: [], Mane: [], Face: [], Whorl: [], rightFront: [], rightBack: [], leftFront: [], leftBack: [])
 
     func passDataBack(currFeature: String, data: [String]) {
