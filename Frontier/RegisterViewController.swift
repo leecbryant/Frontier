@@ -10,13 +10,16 @@ import UIKit
 
 class RegisterViewController: UIViewController {
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    
+    
     @IBAction func cancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-        
     }
     
 }

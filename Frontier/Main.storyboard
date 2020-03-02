@@ -163,14 +163,8 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Bpf-LY-RO7" userLabel="Row Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Prz-PV-1Qx">
-                                                <rect key="frame" x="0.0" y="0.0" width="78.5" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="pwB-dL-PJH">
-                                                <rect key="frame" x="88.5" y="0.0" width="246.5" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <userDefinedRuntimeAttributes>
@@ -188,14 +182,8 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pl2-zS-6e8" userLabel="Row Stack View">
                                         <rect key="frame" x="0.0" y="40" width="335" height="30"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXs-Ya-PjO">
-                                                <rect key="frame" x="0.0" y="0.0" width="78.5" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="eO8-aN-ACp">
-                                                <rect key="frame" x="88.5" y="0.0" width="246.5" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 <userDefinedRuntimeAttributes>
@@ -218,6 +206,11 @@
                                                 <state key="normal" title="Login">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="login:" destination="sCs-9r-Ivq" eventType="touchUpInside" id="C85-j7-Kd5"/>
                                                 </connections>
@@ -229,9 +222,6 @@
                                         <viewLayoutGuide key="safeArea" id="NXs-j2-ixl"/>
                                     </stackView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="gXs-Ya-PjO" firstAttribute="width" secondItem="Prz-PV-1Qx" secondAttribute="width" id="boW-zg-KII"/>
-                                </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Vq-DI-rxt">
                                 <rect key="frame" x="64" y="223.5" width="247.5" height="41.5"/>
@@ -258,7 +248,7 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="uON-KZ-6Rm">
-                                <rect key="frame" x="57" y="0.0" width="298" height="258.50000000000011"/>
+                                <rect key="frame" x="57" y="0.0" width="298" height="258.5"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                 </accessibility>
@@ -809,12 +799,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ErH-we-t09">
-                                <rect key="frame" x="129" y="323" width="117" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SNj-Hv-oFd">
                                 <rect key="frame" x="10" y="627" width="355" height="30"/>
                                 <color key="backgroundColor" red="0.047036342320000001" green="0.53120297189999999" blue="0.63139021399999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -828,10 +812,8 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="ErH-we-t09" firstAttribute="centerY" secondItem="BfS-89-p4B" secondAttribute="centerY" id="1N1-Lc-0MJ"/>
                             <constraint firstItem="Lwp-gy-L32" firstAttribute="trailing" secondItem="SNj-Hv-oFd" secondAttribute="trailing" constant="10" id="CZj-TW-W3d"/>
                             <constraint firstItem="SNj-Hv-oFd" firstAttribute="leading" secondItem="Lwp-gy-L32" secondAttribute="leading" constant="10" id="Pb7-t3-o3E"/>
-                            <constraint firstItem="ErH-we-t09" firstAttribute="centerX" secondItem="BfS-89-p4B" secondAttribute="centerX" id="R2k-bg-hZi"/>
                             <constraint firstItem="SNj-Hv-oFd" firstAttribute="centerX" secondItem="BfS-89-p4B" secondAttribute="centerX" id="ZL7-p4-rVF"/>
                             <constraint firstItem="Lwp-gy-L32" firstAttribute="bottom" secondItem="SNj-Hv-oFd" secondAttribute="bottom" constant="10" id="vgO-ZM-c2V"/>
                         </constraints>

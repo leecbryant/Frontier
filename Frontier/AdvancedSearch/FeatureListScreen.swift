@@ -44,7 +44,8 @@ class FeatureListScreen: UIViewController, CanRecieve {
     
 
     @IBOutlet weak var tableView: UITableView!
-    
+    var backButton : UIBarButtonItem!
+
     var features: [Feature] = []
     var selectedFeature = ""
     
@@ -72,7 +73,11 @@ class FeatureListScreen: UIViewController, CanRecieve {
         lrFeetFeatures = selectedFeatures.leftBack
         
         features = createArray()
-        // Do any additional setup after loading the view.
+        
+        
+        // Back Button setup
+        self.backButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(goBack(sender:)))
+        self.navigationItem.leftBarButtonItem = backButton
     }
     
     func createArray() -> [Feature] {
@@ -98,6 +103,28 @@ class FeatureListScreen: UIViewController, CanRecieve {
         return tempFeatures
     }
     
+    
+    @objc func goBack(sender: UIBarButtonItem) {
+        let count = colorFeatures.count + maneFeatures.count +
+        faceFeatures.count + whorlFeatures.count +
+        rfFeetFeatures.count + rrFeetFeatures.count +
+        lfFeetFeatures.count + lrFeetFeatures.count
+        if(count > 0) {
+            let refreshAlert = UIAlertController(title: "Cancel", message: "Are you sure you want to cancel? All unsaved selections will be lost.", preferredStyle: UIAlertController.Style.alert)
+
+            refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { (action: UIAlertAction!) in
+                self.navigationController?.popViewController(animated: true)
+            }))
+
+            refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+                // Do nothing
+            }))
+
+            present(refreshAlert, animated: true, completion: nil)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
 }
 
 extension FeatureListScreen: UITableViewDataSource, UITableViewDelegate {
