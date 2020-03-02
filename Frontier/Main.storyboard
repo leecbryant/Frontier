@@ -682,6 +682,11 @@
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="k5i-gc-oyb">
                                         <rect key="frame" x="0.0" y="148.5" width="375" height="442.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <view key="tableFooterView" contentMode="scaleToFill" id="mDi-fh-fnh">
+                                            <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="GuideCell" textLabel="4Ih-yd-OvG" style="IBUITableViewCellStyleDefault" id="DB5-6x-ggt">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
@@ -710,7 +715,7 @@
                             <constraint firstItem="AEW-1c-Mdc" firstAttribute="bottom" secondItem="DM6-j3-eJj" secondAttribute="bottom" constant="49" id="Lu7-Oh-V0W"/>
                             <constraint firstItem="AEW-1c-Mdc" firstAttribute="leading" secondItem="DM6-j3-eJj" secondAttribute="leading" id="UC6-ZQ-bDv"/>
                             <constraint firstItem="AEW-1c-Mdc" firstAttribute="top" secondItem="DM6-j3-eJj" secondAttribute="top" id="kmS-Mn-OLr"/>
-                            <constraint firstItem="AEW-1c-Mdc" firstAttribute="trailing" secondItem="DM6-j3-eJj" secondAttribute="trailing" constant="20" symbolic="YES" id="o3P-YB-RHw"/>
+                            <constraint firstItem="AEW-1c-Mdc" firstAttribute="trailing" secondItem="DM6-j3-eJj" secondAttribute="trailing" symbolic="YES" id="o3P-YB-RHw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DM6-j3-eJj"/>
                     </view>
