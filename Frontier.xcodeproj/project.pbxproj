@@ -179,6 +179,14 @@
 			path = FrontierUITests;
 			sourceTree = "<group>";
 		};
+		41AFDB74240F1DD5003339AC /* Horse */ = {
+			isa = PBXGroup;
+			children = (
+				41E84C54238D088A004A4392 /* HorseViewController.swift */,
+			);
+			path = Horse;
+			sourceTree = "<group>";
+		};
 		41E5DB68240DDC7400306799 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,10 +210,10 @@
 		41EA35262394EFDF00264344 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				41AFDB74240F1DD5003339AC /* Horse */,
 				418224EE23CA94FC0043A086 /* CollectionSelection */,
 				418224E723CA94BC0043A086 /* AdvancedSearch */,
 				41E84C52238D072D004A4392 /* SearchTableViewController.swift */,
-				41E84C54238D088A004A4392 /* HorseViewController.swift */,
 				417E9B2623EA860800308EBE /* ButtonBadge.swift */,
 			);
 			name = Search;

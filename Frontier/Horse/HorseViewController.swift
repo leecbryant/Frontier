@@ -50,9 +50,7 @@ class HorseViewController: UIViewController {
         } else {
             bandMembers.isHidden = true
         }
-        
-        ImageScroller.frame = view.frame
-        
+                
         for i in 0..<imageArray.count {
                    let imageView = UIImageView()
                    // imageView.image = imageArray[i]
