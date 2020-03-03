@@ -16,15 +16,11 @@ var images = [UIImage(named: "black"), UIImage(named: "bay")]
 class HorseViewController: UIViewController {
     
     // Labels
-    @IBOutlet weak var nameText: UILabel!
-    @IBOutlet weak var bandText: UILabel!
-    @IBOutlet weak var dartedText: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var bandMembers: UILabel!
     // Image Definitions
     @IBOutlet weak var ImageScroller: UIScrollView!
-    @IBOutlet weak var ImagePager: UIPageControl!
     
+    @IBOutlet weak var BandLabel: UILabel!
     
     var data = [HorseData]()
     var imageArray = [String]()
@@ -35,9 +31,10 @@ class HorseViewController: UIViewController {
         filterBands()
         navigationItem.title = data[selectedIndex].Name
         
-        nameText.text = data[selectedIndex].Name
-        bandText.text = Bands[data[selectedIndex].Band]
-        dartedText.text = data[selectedIndex].DartStatus
+        BandLabel.text = Bands[data[selectedIndex].Band] + " Members"
+//        nameText.text = data[selectedIndex].Name
+//        dartedText.text = data[selectedIndex].DartStatus
+        
         imageArray = ["https://whims.wildhorsepreservation.org/UNR/2_0_59090036bdec6.jpg",
                       "https://whims.wildhorsepreservation.org/UNR/2_1_59090036d6816.jpg",
                       "https://whims.wildhorsepreservation.org/UNR/2_0_5914b6736bb29.jpg",
@@ -46,11 +43,11 @@ class HorseViewController: UIViewController {
         ]
         
         if filteredBands.count > 0 {
-            bandMembers.isHidden = false
+            BandLabel.isHidden = false
         } else {
-            bandMembers.isHidden = true
+            BandLabel.isHidden = true
         }
-                
+
         for i in 0..<imageArray.count {
                    let imageView = UIImageView()
                    // imageView.image = imageArray[i]
@@ -75,8 +72,8 @@ class HorseViewController: UIViewController {
                }
         
         // Image Pager Setup
-        ImagePager.numberOfPages = imageArray.count
-        ImagePager.currentPage = 0
+//        ImagePager.numberOfPages = imageArray.count
+//        ImagePager.currentPage = 0
         
     }
     
