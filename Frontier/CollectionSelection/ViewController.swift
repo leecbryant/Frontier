@@ -249,21 +249,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             } else if (currFeature == "mane") {
                 imageDirectory = "HorseMane/"
             } else if (currFeature == "face") {
-                
+                imageDirectory = "HorseFace/"
             } else if (currFeature == "whorl") {
-                
+                imageDirectory = "HorseWhorl/"
             } else if (currFeature == "rfFeet") {
-                
+                imageDirectory = "HorseFeet/"
             } else if (currFeature == "rrFeet") {
-                
+                imageDirectory = "HorseFeet/"
             } else if (currFeature == "lfFeet") {
-                
+                imageDirectory = "HorseFeet/"
             } else if (currFeature == "lrFeet") {
-                
+                imageDirectory = "HorseFeet/"
             }
             
             let individualImage = myLabels[indexPath.item].lowercased().filter{!" \n\t\r".contains($0)}
-            imageView.image = UIImage(named: (imageDirectory + individualImage))
+            imageView.image = UIImage(named: ("AdvancedFeatureImages/" + imageDirectory + individualImage))
             imageView.contentMode = .scaleAspectFit
             return imageView
         }()
