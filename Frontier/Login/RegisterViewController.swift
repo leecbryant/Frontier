@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RegisterViewController: UIViewController {    
+class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var FirstName: UITextField!
     @IBOutlet weak var LastName: UITextField!
@@ -19,13 +19,46 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Text field setup
+        FirstName.delegate = self
+        FirstName.tag = 0
+        FirstName.returnKeyType = UIReturnKeyType.next
+        LastName.delegate = self
+        LastName.tag = 1
+        LastName.returnKeyType = UIReturnKeyType.next
+        Email.delegate = self
+        Email.tag = 2
+        Email.returnKeyType = UIReturnKeyType.next
+        VerifyEmail.delegate = self
+        VerifyEmail.tag = 3
+        VerifyEmail.returnKeyType = UIReturnKeyType.next
+        Password.delegate = self
+        Password.tag = 4
+        Password.returnKeyType = UIReturnKeyType.next
+        VerifyPassword.delegate = self
+        VerifyPassword.tag = 5
+        VerifyPassword.returnKeyType = UIReturnKeyType.done
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextField = self.view.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+            self.Submit((Any).self)
+        }
+        return false
     }
     
     @IBAction func Submit(_ sender: Any) {
         if(FirstName.text != "" && LastName.text != "" && Email.text != "" && VerifyEmail.text != "" && Password.text != "" && VerifyPassword.text != "") {
             if(Password.text == VerifyPassword.text) {
                 if(Email.text == VerifyEmail.text) {
-                   createAlert(title: "Success", message: "An email has been sent with instructions on how to validate your account", success: true)
+                    if(isValidEmail(emailStr: Email.text!)) {
+                        createAlert(title: "Success", message: "An email has been sent with instructions on how to validate your account", success: true)
+                    } else {
+                        createAlert(title: "Error", message: "Email must be valid", success: false)
+                    }
                 } else {
                     createAlert(title: "Error", message: "Emails must match", success: false)
                 }

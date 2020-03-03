@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var UsernameText: UITextField!
     @IBOutlet weak var PasswordText: UITextField!
     @IBOutlet weak var pal: UILabel!
@@ -50,6 +50,25 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Text field setup
+        UsernameText.delegate = self
+        UsernameText.tag = 0
+        UsernameText.returnKeyType = UIReturnKeyType.next
+        
+        PasswordText.delegate = self
+        PasswordText.tag = 1
+        PasswordText.returnKeyType = UIReturnKeyType.done
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextField = self.view.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+            self.login((Any).self)
+        }
+        return false
     }
     
     func createAlert(title:String, message:String) {

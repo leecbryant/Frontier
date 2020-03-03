@@ -8,12 +8,25 @@
 
 import UIKit
 
-class ForgotPasswordViewController: UIViewController {
+class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var Email: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+            Email.delegate = self
+            Email.tag = 0
+            Email.returnKeyType = UIReturnKeyType.done
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextField = self.view.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+            self.onSubmit((Any).self)
+        }
+        return false
     }
     
     @IBAction func onSubmit(_ sender: Any) {

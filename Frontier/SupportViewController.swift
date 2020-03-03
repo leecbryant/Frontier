@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SupportViewController: UIViewController, UITextViewDelegate {
+class SupportViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var comments: UITextView!
     @IBOutlet weak var Name: UITextField!
@@ -55,6 +55,14 @@ class SupportViewController: UIViewController, UITextViewDelegate {
         // Do any additional setup after loading the view.
         navigationItem.title = "Support"
         
+        // Text field setup
+        Name.delegate = self
+        Name.tag = 0
+        Name.returnKeyType = UIReturnKeyType.next
+        Email.delegate = self
+        Email.tag = 1
+        Email.returnKeyType = UIReturnKeyType.next
+        // Comments box setup
         let borderColor : UIColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
         // Set border around comment text area
         comments.layer.borderWidth = 1.0
@@ -65,6 +73,19 @@ class SupportViewController: UIViewController, UITextViewDelegate {
         comments.textColor = .lightGray
         comments.returnKeyType = .done
         comments.delegate = self
+        comments.tag = 3
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextField = self.view.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        } else if let nextField = self.view.viewWithTag(textField.tag + 1) as? UITextView {
+            nextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+            self.onSubmit((Any).self)
+        }
+        return false
     }
     
     // Text View Delegates -- Allows placeholder in textview
