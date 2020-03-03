@@ -567,7 +567,11 @@
                         <viewLayoutGuide key="safeArea" id="TVG-Y4-HXc"/>
                     </view>
                     <navigationItem key="navigationItem" id="7h0-EY-ne9">
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="nft-sK-XNb"/>
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="nft-sK-XNb">
+                            <connections>
+                                <segue destination="OM4-o6-wZu" kind="show" id="7dL-ny-e2v"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="ImagePager" destination="EQV-Dc-5wC" id="0lp-Aq-uy0"/>
@@ -1264,6 +1268,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JgT-a1-tgh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1420" y="721"/>
+        </scene>
+        <!--Edit-->
+        <scene sceneID="skk-xD-i9y">
+            <objects>
+                <viewController id="OM4-o6-wZu" customClass="EditViewController" customModule="Frontier" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gSn-Mc-e8z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EUA-Ic-Wjt">
+                                <rect key="frame" x="136" y="313" width="103" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="EUA-Ic-Wjt" firstAttribute="centerY" secondItem="gSn-Mc-e8z" secondAttribute="centerY" id="iKH-sX-Ygo"/>
+                            <constraint firstItem="EUA-Ic-Wjt" firstAttribute="centerX" secondItem="gSn-Mc-e8z" secondAttribute="centerX" id="zis-gk-vZa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BL2-8H-xDq"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Edit" id="ihI-fB-wVU"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MvG-tE-r3Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3085.5999999999999" y="-0.44977511244377816"/>
         </scene>
     </scenes>
     <resources>
