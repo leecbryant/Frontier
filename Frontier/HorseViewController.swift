@@ -22,7 +22,7 @@ class HorseViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var bandMembers: UILabel!
     // Image Definitions
-    @IBOutlet weak var ImageScroller: UICollectionView!
+    @IBOutlet weak var ImageScroller: UIScrollView!
     @IBOutlet weak var ImagePager: UIPageControl!
     
     
@@ -51,9 +51,35 @@ class HorseViewController: UIViewController {
             bandMembers.isHidden = true
         }
         
+        ImageScroller.frame = view.frame
+        
+        for i in 0..<imageArray.count {
+                   let imageView = UIImageView()
+                   // imageView.image = imageArray[i]
+                   imageView.kf.indicatorType = .activity
+                   imageView.kf.setImage(with: URL(string: imageArray[i])) { result in
+                           switch result {
+                               case .success(let value):
+                                    imageView.contentMode = .center;
+                                    if (self.ImageScroller.bounds.size.width < value.image.size.width && self.ImageScroller.bounds.size.height < value.image.size.height) {
+                                        imageView.contentMode = .scaleAspectFit;
+                                    }
+                               case .failure(let error):
+                                   print(error)
+                           }
+                    }
+            let xPos = self.view.bounds.width * CGFloat(i)
+                   imageView.frame = CGRect(x: xPos, y: 0, width: self.ImageScroller.frame.width, height: self.ImageScroller.frame.height)
+                    // imageView.contentMode = .scaleAspectFit
+                   
+                    self.ImageScroller.contentSize.width = self.ImageScroller.frame.width * CGFloat(i + 1)
+                    self.ImageScroller.addSubview(imageView)
+               }
+        
         // Image Pager Setup
         ImagePager.numberOfPages = imageArray.count
         ImagePager.currentPage = 0
+        
     }
     
     func filterBands() {
@@ -87,76 +113,5 @@ extension HorseViewController: UITableViewDataSource, UITableViewDelegate {
         self.viewWillAppear(true)
         filterBands()
         tableView.reloadData()
-    }
-    
-    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
-        let oldWidth = image.size.width
-        let scaleFactor =  newWidth / oldWidth
-
-        let newHeight = image.size.height * scaleFactor
-        let newWidth = oldWidth * scaleFactor
-
-        UIGraphicsBeginImageContext(CGSize(width:newWidth, height:newHeight))
-        image.draw(in: CGRect(x:0, y:0, width:newWidth, height:newHeight))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage!
-    }
-    
-
-}
-
-
-// Horse Image scroller collection view setup
-extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? HorseCollectionViewCell
-            cell?.HorseImage.kf.indicatorType = .activity
-            cell?.HorseImage.kf.setImage(with: URL(string: imageArray[indexPath.row]))
-                { result in
-                    switch result {
-                    case .success(let value):
-                        
-                        cell?.HorseImage?.image = self.resizeImage(image: value.image, newWidth: self.ImageScroller.frame.size.width)
-                    case .failure(let error):
-                        print(error) // The error happens
-                    }
-                }
-        return cell!
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageArray.count;
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-         if (indexPath.row == imageArray.count - 1 ) {
-            // Bounce back to top
-            ImagePager.currentPage = 0;
-            self.ImageScroller?.scrollToItem(at: IndexPath(row: 0, section: 0),
-            at: .top, animated: true)
-         }
-        ImagePager.currentPage = indexPath.row
-    }
-}
-
-// Horse Image scroller collection view setup
-extension HorseViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = ImageScroller.frame.size
-        return CGSize(width: size.width, height: size.height)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
     }
 }

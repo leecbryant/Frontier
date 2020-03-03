@@ -12,7 +12,6 @@
 		415A605D23FCBA9100A5DB61 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 415A605C23FCBA9100A5DB61 /* Kingfisher */; };
 		415A605F23FCBA9100A5DB61 /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 415A605E23FCBA9100A5DB61 /* KingfisherSwiftUI */; };
 		415A60612400736100A5DB61 /* DetailedDescViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415A60602400736100A5DB61 /* DetailedDescViewController.swift */; };
-		4160D8B2240D84FC00E0A418 /* HorseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4160D8B1240D84FC00E0A418 /* HorseCollectionViewCell.swift */; };
 		417E9B2723EA860800308EBE /* ButtonBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417E9B2623EA860800308EBE /* ButtonBadge.swift */; };
 		418224EB23CA94C80043A086 /* FeatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224E823CA94C70043A086 /* FeatureCell.swift */; };
 		418224EC23CA94C80043A086 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224E923CA94C80043A086 /* Feature.swift */; };
@@ -54,7 +53,6 @@
 		3F2F0AF52409C10C00FE3545 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		415A605923FCA04D00A5DB61 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		415A60602400736100A5DB61 /* DetailedDescViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedDescViewController.swift; sourceTree = "<group>"; };
-		4160D8B1240D84FC00E0A418 /* HorseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseCollectionViewCell.swift; sourceTree = "<group>"; };
 		417E9B2623EA860800308EBE /* ButtonBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBadge.swift; sourceTree = "<group>"; };
 		418224E823CA94C70043A086 /* FeatureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureCell.swift; sourceTree = "<group>"; };
 		418224E923CA94C80043A086 /* Feature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
@@ -209,7 +207,6 @@
 				41E84C52238D072D004A4392 /* SearchTableViewController.swift */,
 				41E84C54238D088A004A4392 /* HorseViewController.swift */,
 				417E9B2623EA860800308EBE /* ButtonBadge.swift */,
-				4160D8B1240D84FC00E0A418 /* HorseCollectionViewCell.swift */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -360,7 +357,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4160D8B2240D84FC00E0A418 /* HorseCollectionViewCell.swift in Sources */,
 				41B64332238BC87B00F95C95 /* GuideTableViewController.swift in Sources */,
 				41E84C53238D072D004A4392 /* SearchTableViewController.swift in Sources */,
 				41E84C55238D088A004A4392 /* HorseViewController.swift in Sources */,
