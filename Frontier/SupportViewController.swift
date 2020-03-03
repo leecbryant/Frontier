@@ -63,11 +63,11 @@ class SupportViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         Email.tag = 1
         Email.returnKeyType = UIReturnKeyType.next
         // Comments box setup
-        let borderColor : UIColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
         // Set border around comment text area
-        comments.layer.borderWidth = 1.0
-        comments.layer.borderColor = borderColor.cgColor
+        comments.layer.borderWidth = 0.8
+        comments.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
         comments.layer.cornerRadius = 5.0
+        comments.clipsToBounds = true
         // Set placeholder for comment text area
         comments.text = "Comments"
         comments.textColor = .lightGray

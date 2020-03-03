@@ -38,14 +38,8 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="77U-pt-bNb" userLabel="Row Stack View">
                                         <rect key="frame" x="0.0" y="40" width="335" height="30"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oAG-nR-mJL" userLabel="Name">
-                                                <rect key="frame" x="0.0" y="0.0" width="45" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZS5-hx-h7c">
-                                                <rect key="frame" x="55" y="0.0" width="280" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -58,14 +52,8 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yLA-Tt-ZOs" userLabel="Row Stack View">
                                         <rect key="frame" x="0.0" y="80" width="335" height="30"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wpr-eW-pcO">
-                                                <rect key="frame" x="0.0" y="0.0" width="41" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pVL-xK-6QJ">
-                                                <rect key="frame" x="51" y="0.0" width="284" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -116,6 +104,11 @@
                                                 <state key="normal" title="Submit">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="onSubmit:" destination="fQx-8Q-hpB" eventType="touchUpInside" id="NNP-oJ-cWi"/>
                                                 </connections>
@@ -986,11 +979,11 @@
             </objects>
             <point key="canvasLocation" x="-730.43478260869574" y="720.53571428571422"/>
         </scene>
-        <!--Support-->
+        <!--Navigation Controller-->
         <scene sceneID="y8P-ab-HE4">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4BO-cy-g88" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Support" image="support" id="gh1-Jq-IJK"/>
+                    <tabBarItem key="tabBarItem" selectedImage="more-menu" systemItem="more" id="gh1-Jq-IJK"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MZL-pW-KxJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
@@ -1269,10 +1262,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="horse-trot" width="50" height="50"/>
-        <image name="info" width="30" height="30"/>
+        <image name="horse-trot" width="25" height="25"/>
+        <image name="info" width="25" height="25"/>
         <image name="logo_transparent" width="502" height="498"/>
-        <image name="support" width="30" height="30"/>
+        <image name="more-menu" width="25" height="25"/>
     </resources>
     <color key="tintColor" red="0.047036342320000001" green="0.53120297189999999" blue="0.63139021399999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
 </document>
