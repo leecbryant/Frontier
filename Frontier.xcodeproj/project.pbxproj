@@ -28,6 +28,7 @@
 		41B6432C238B9C1F00F95C95 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B6432B238B9C1F00F95C95 /* LoginViewController.swift */; };
 		41B64332238BC87B00F95C95 /* GuideTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B64331238BC87B00F95C95 /* GuideTableViewController.swift */; };
 		41B64334238BC9D400F95C95 /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B64333238BC9D400F95C95 /* GuideViewController.swift */; };
+		41E5DB6A240DDC9200306799 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E5DB69240DDC9200306799 /* ForgotPasswordViewController.swift */; };
 		41E84C53238D072D004A4392 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E84C52238D072D004A4392 /* SearchTableViewController.swift */; };
 		41E84C55238D088A004A4392 /* HorseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E84C54238D088A004A4392 /* HorseViewController.swift */; };
 /* End PBXBuildFile section */
@@ -75,6 +76,7 @@
 		41B6432B238B9C1F00F95C95 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		41B64331238BC87B00F95C95 /* GuideTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideTableViewController.swift; sourceTree = "<group>"; };
 		41B64333238BC9D400F95C95 /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
+		41E5DB69240DDC9200306799 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		41E84C52238D072D004A4392 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		41E84C54238D088A004A4392 /* HorseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,7 +150,7 @@
 		418AE8302388BFFA00E13BC3 /* Frontier */ = {
 			isa = PBXGroup;
 			children = (
-				41B6432B238B9C1F00F95C95 /* LoginViewController.swift */,
+				41E5DB68240DDC7400306799 /* Login */,
 				41EA35242394EFB400264344 /* Guide */,
 				41EA35262394EFDF00264344 /* Search */,
 				C8DD76B9240790E400DA9D28 /* Settings */,
@@ -156,7 +158,6 @@
 				418AE83A2388BFFB00E13BC3 /* Assets.xcassets */,
 				418AE83C2388BFFB00E13BC3 /* LaunchScreen.storyboard */,
 				418AE83F2388BFFB00E13BC3 /* Info.plist */,
-				415A605923FCA04D00A5DB61 /* RegisterViewController.swift */,
 				3F2F0AF52409C10C00FE3545 /* Main.storyboard */,
 			);
 			path = Frontier;
@@ -178,6 +179,16 @@
 				418AE8552388BFFB00E13BC3 /* Info.plist */,
 			);
 			path = FrontierUITests;
+			sourceTree = "<group>";
+		};
+		41E5DB68240DDC7400306799 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				41B6432B238B9C1F00F95C95 /* LoginViewController.swift */,
+				415A605923FCA04D00A5DB61 /* RegisterViewController.swift */,
+				41E5DB69240DDC9200306799 /* ForgotPasswordViewController.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		41EA35242394EFB400264344 /* Guide */ = {
@@ -360,6 +371,7 @@
 				415A605A23FCA04D00A5DB61 /* RegisterViewController.swift in Sources */,
 				41B6432C238B9C1F00F95C95 /* LoginViewController.swift in Sources */,
 				415A60612400736100A5DB61 /* DetailedDescViewController.swift in Sources */,
+				41E5DB6A240DDC9200306799 /* ForgotPasswordViewController.swift in Sources */,
 				417E9B2723EA860800308EBE /* ButtonBadge.swift in Sources */,
 				418224F323CA95180043A086 /* ViewController.swift in Sources */,
 				418224F423CA95180043A086 /* CollectionViewCell.swift in Sources */,

@@ -63,4 +63,8 @@ class LoginViewController: UIViewController {
     @IBAction func registerClick(_ sender: Any) {
         self.performSegue(withIdentifier: "register", sender: self)
     }
+    
+    @IBAction func forgotClick(_ sender: Any) {
+         self.performSegue(withIdentifier: "forgotPassword", sender: self)
+    }
 }
