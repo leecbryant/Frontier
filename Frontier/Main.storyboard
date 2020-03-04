@@ -485,6 +485,8 @@
                             </collectionView>
                             <pageControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="b0S-ik-3i9">
                                 <rect key="frame" x="16" y="180" width="335" height="37"/>
+                                <color key="pageIndicatorTintColor" red="0.047036342320000001" green="0.53120297189999999" blue="0.63139021399999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="currentPageIndicatorTintColor" red="0.21960784310000001" green="0.24313725489999999" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </pageControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -514,7 +516,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="BandLabel" destination="9R9-aX-u4t" id="Ok2-pk-gj7"/>
-                        <outlet property="ImagePager" destination="b0S-ik-3i9" id="QxE-n7-4C4"/>
+                        <outlet property="ImagePager" destination="b0S-ik-3i9" id="ALS-h0-rV1"/>
                         <outlet property="ImageScroller" destination="h82-ZD-lM0" id="Ie9-ZW-cxZ"/>
                         <outlet property="tableView" destination="CfY-CP-2ai" id="TtK-uk-o2j"/>
                         <outlet property="view" destination="7ML-DM-PFq" id="Esx-qW-tAp"/>
