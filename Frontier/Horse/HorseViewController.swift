@@ -24,6 +24,7 @@ class HorseViewController: UIViewController {
     
     @IBOutlet weak var ImageScroller: UICollectionView!
     
+    @IBOutlet weak var ImagePager: UIPageControl!
     var data = [HorseData]()
     var imageArray = [String]()
     
@@ -49,8 +50,8 @@ class HorseViewController: UIViewController {
             BandLabel.isHidden = true
         }
         // Image Pager Setup
-//        ImagePager.numberOfPages = imageArray.count
-//        ImagePager.currentPage = 0
+        ImagePager.numberOfPages = imageArray.count
+        ImagePager.currentPage = 0
         
         ImageScroller.delegate = self
         ImageScroller.dataSource = self
@@ -152,6 +153,14 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
             self.ImageScroller?.scrollToItem(at: IndexPath(row: 0, section: 0),
             at: .top, animated: true)
          }
+//        ImagePager.currentPage = indexPath.row
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+            let x = scrollView.contentOffset.x
+            let w = scrollView.bounds.size.width
+            let currentPage = Int(ceil(x/w))
+        ImagePager.currentPage = currentPage
     }
 }
 
