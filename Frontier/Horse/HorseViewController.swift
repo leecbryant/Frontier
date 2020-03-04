@@ -106,12 +106,12 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let imageView:UIImageView=UIImageView(frame: CGRect(x: 0, y: 0, width: super.view.frame.width, height: ImageScroller.frame.size.height))
         imageView.contentMode = UIView.ContentMode.scaleAspectFit
 
-        let cache = ImageCache.default
+//        let cache = ImageCache.default
         // Checks if image is already cached
 //        if(!cache.isCached(forKey: imageArray[indexPath.row])) {
             DispatchQueue.main.async {
                 imageView.kf.indicatorType = .activity
-                imageView.kf.setImage(with: URL(string: self.imageArray[indexPath.row])) 
+                imageView.kf.setImage(with: URL(string: self.imageArray[indexPath.row]))
                 cell.addSubview(imageView)
             }
 //         } else {
