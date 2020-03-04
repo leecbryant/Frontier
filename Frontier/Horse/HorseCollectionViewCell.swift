@@ -9,7 +9,7 @@
 import UIKit
 
 class HorseCollectionViewCell: UICollectionViewCell {
-        override func prepareForReuse() {
+    override func prepareForReuse() {
         super.prepareForReuse()
 
         let subviews = self.subviews

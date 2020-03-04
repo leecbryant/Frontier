@@ -9,6 +9,8 @@
 import UIKit
 import class Kingfisher.KingfisherManager
 import class Kingfisher.ImageCache
+import class Kingfisher.ImagePrefetcher
+
 var Bands = ["Horse Band 1", "Horse Band 2", "Horse Band 3", "Horse Band 4", "Horse Band 5", "Horse Band 6","Horse Band 7", "Horse Band 8", "Horse Band 9", "Horse Band 10", "Horse Band 11", "Horse Band 12", "Horse Band 13", "Horse Band 14", "Horse Band 15", "Horse Band 16", "Horse Band 17", "Horse Band 18", "Horse Band 19", "Horse Band 20"]
 var filteredBands = [HorseData]()
 
@@ -49,6 +51,10 @@ class HorseViewController: UIViewController {
         // Image Pager Setup
 //        ImagePager.numberOfPages = imageArray.count
 //        ImagePager.currentPage = 0
+        
+        ImageScroller.delegate = self
+        ImageScroller.dataSource = self
+        ImageScroller.prefetchDataSource = self
         
     }
 
@@ -95,7 +101,12 @@ extension HorseViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 // Horse Image scroller collection view setup
-extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        let urls = imageArray.compactMap { URL(string: $0) }
+        ImagePrefetcher(urls: urls).start()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageArray.count;
     }
@@ -105,14 +116,20 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! HorseCollectionViewCell
         let imageView:UIImageView=UIImageView(frame: CGRect(x: 0, y: 0, width: super.view.frame.width, height: ImageScroller.frame.size.height))
         imageView.contentMode = UIView.ContentMode.scaleAspectFit
-
+    
 //        let cache = ImageCache.default
         // Checks if image is already cached
 //        if(!cache.isCached(forKey: imageArray[indexPath.row])) {
             DispatchQueue.main.async {
+                for subview in cell.contentView.subviews {
+                    subview.removeFromSuperview()
+                }
                 imageView.kf.indicatorType = .activity
                 imageView.kf.setImage(with: URL(string: self.imageArray[indexPath.row]))
+                imageView.tag = 102
                 cell.addSubview(imageView)
+                cell.contentView.tag = 102
+//                cell.layer.masksToBounds = true
             }
 //         } else {
 //            cell.HorseImage.kf.indicatorType = .activity
@@ -129,9 +146,8 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return cell
     }
     
-
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-         if (indexPath.row == imageArray.count - 1 ) {
+         if (indexPath.row == imageArray.count) {
             // Bounce back to top
             self.ImageScroller?.scrollToItem(at: IndexPath(row: 0, section: 0),
             at: .top, animated: true)
