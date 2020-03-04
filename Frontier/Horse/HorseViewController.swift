@@ -18,6 +18,7 @@ class HorseViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     // Image Definitions
     @IBOutlet weak var ImageScroller: UIScrollView!
+    @IBOutlet weak var ImagePager: UIPageControl!
     
     @IBOutlet weak var BandLabel: UILabel!
     
@@ -52,8 +53,8 @@ class HorseViewController: UIViewController {
         ImageScroller.delegate = self
         loadHorseImages()
         // Image Pager Setup
-//        ImagePager.numberOfPages = imageArray.count
-//        ImagePager.currentPage = 0
+        ImagePager.numberOfPages = imageArray.count
+        ImagePager.currentPage = 0
         
     }
 
@@ -141,5 +142,26 @@ extension HorseViewController: UITableViewDataSource, UITableViewDelegate {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "HorseViewController") as! HorseViewController
             vc.data = data
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension HorseViewController:  UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        scrollingFinished(scrollView: scrollView)
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if decelerate {
+            return
+        }
+        else {
+            scrollingFinished(scrollView: scrollView)
+        }
+    }
+
+    func scrollingFinished(scrollView: UIScrollView) {
+       let x = ImageScroller.contentOffset.x
+       let w = ImageScroller.bounds.size.width
+       ImagePager.currentPage = Int(x/w)
     }
 }

@@ -241,7 +241,7 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="uON-KZ-6Rm">
-                                <rect key="frame" x="57" y="0.0" width="298" height="258.5"/>
+                                <rect key="frame" x="57" y="0.0" width="298" height="258.50000000000011"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                 </accessibility>
@@ -449,12 +449,6 @@
                                     <outlet property="delegate" destination="XJx-EV-gTl" id="Egr-Dq-Isj"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Band Members" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9R9-aX-u4t">
-                                <rect key="frame" x="5" y="450" width="365" height="25.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <scrollView autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" ambiguous="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" canCancelContentTouches="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eqx-Bt-oXI">
                                 <rect key="frame" x="0.0" y="56" width="375" height="261"/>
                                 <constraints>
@@ -462,10 +456,23 @@
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="qcv-pQ-6QV"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="yST-gn-pLH"/>
+                                <connections>
+                                    <outlet property="delegate" destination="XJx-EV-gTl" id="8Kw-54-2Iq"/>
+                                </connections>
                             </scrollView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="xsN-SH-Lnb">
+                                <rect key="frame" x="20" y="279" width="335" height="37"/>
+                            </pageControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Band Members" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9R9-aX-u4t">
+                                <rect key="frame" x="5" y="450" width="365" height="25.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="xsN-SH-Lnb" firstAttribute="bottom" secondItem="eqx-Bt-oXI" secondAttribute="bottom" id="3ob-iy-PTS"/>
                             <constraint firstItem="eqx-Bt-oXI" firstAttribute="top" secondItem="TVG-Y4-HXc" secondAttribute="top" id="Gyn-2t-nGU"/>
                             <constraint firstItem="CfY-CP-2ai" firstAttribute="leading" secondItem="TVG-Y4-HXc" secondAttribute="leading" id="LY8-w5-Ydu"/>
                             <constraint firstItem="9R9-aX-u4t" firstAttribute="leading" secondItem="TVG-Y4-HXc" secondAttribute="leading" constant="5" id="Lbe-Ft-5QO"/>
@@ -474,7 +481,9 @@
                             <constraint firstItem="eqx-Bt-oXI" firstAttribute="centerX" secondItem="7ML-DM-PFq" secondAttribute="centerX" id="Uze-2K-TJT"/>
                             <constraint firstItem="9R9-aX-u4t" firstAttribute="top" secondItem="CfY-CP-2ai" secondAttribute="top" constant="-28" id="Y11-m7-379"/>
                             <constraint firstItem="eqx-Bt-oXI" firstAttribute="trailing" secondItem="TVG-Y4-HXc" secondAttribute="trailing" id="Z68-aw-evJ"/>
+                            <constraint firstItem="TVG-Y4-HXc" firstAttribute="trailing" secondItem="xsN-SH-Lnb" secondAttribute="trailing" constant="20" id="ahC-r0-VJe"/>
                             <constraint firstItem="CfY-CP-2ai" firstAttribute="bottom" secondItem="TVG-Y4-HXc" secondAttribute="bottom" id="dRe-01-2Tq"/>
+                            <constraint firstItem="xsN-SH-Lnb" firstAttribute="leading" secondItem="TVG-Y4-HXc" secondAttribute="leading" constant="20" id="rEu-cC-EbX"/>
                             <constraint firstItem="TVG-Y4-HXc" firstAttribute="trailing" secondItem="eqx-Bt-oXI" secondAttribute="trailing" id="vKd-fq-41p"/>
                             <constraint firstItem="TVG-Y4-HXc" firstAttribute="trailing" secondItem="9R9-aX-u4t" secondAttribute="trailing" constant="5" id="wcv-HF-5Nw"/>
                             <constraint firstItem="CfY-CP-2ai" firstAttribute="trailing" secondItem="TVG-Y4-HXc" secondAttribute="trailing" id="yoZ-NI-RqH"/>
@@ -490,6 +499,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="BandLabel" destination="9R9-aX-u4t" id="Ok2-pk-gj7"/>
+                        <outlet property="ImagePager" destination="xsN-SH-Lnb" id="sna-1W-eVQ"/>
                         <outlet property="ImageScroller" destination="eqx-Bt-oXI" id="Ccx-XD-dx9"/>
                         <outlet property="tableView" destination="CfY-CP-2ai" id="TtK-uk-o2j"/>
                         <outlet property="view" destination="7ML-DM-PFq" id="Esx-qW-tAp"/>
