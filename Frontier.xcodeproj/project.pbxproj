@@ -23,6 +23,7 @@
 		418AE83E2388BFFB00E13BC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 418AE83C2388BFFB00E13BC3 /* LaunchScreen.storyboard */; };
 		418AE8492388BFFB00E13BC3 /* FrontierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418AE8482388BFFB00E13BC3 /* FrontierTests.swift */; };
 		418AE8542388BFFB00E13BC3 /* FrontierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418AE8532388BFFB00E13BC3 /* FrontierUITests.swift */; };
+		41A14C81240F64FA0094D872 /* HorseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A14C80240F64FA0094D872 /* HorseCollectionViewCell.swift */; };
 		41AFDB76240F1E66003339AC /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AFDB75240F1E66003339AC /* EditViewController.swift */; };
 		41B6432A238B87E500F95C95 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B64329238B87E500F95C95 /* SupportViewController.swift */; };
 		41B6432C238B9C1F00F95C95 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B6432B238B9C1F00F95C95 /* LoginViewController.swift */; };
@@ -71,6 +72,7 @@
 		418AE84F2388BFFB00E13BC3 /* FrontierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FrontierUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		418AE8532388BFFB00E13BC3 /* FrontierUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontierUITests.swift; sourceTree = "<group>"; };
 		418AE8552388BFFB00E13BC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		41A14C80240F64FA0094D872 /* HorseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseCollectionViewCell.swift; sourceTree = "<group>"; };
 		41AFDB75240F1E66003339AC /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		41B64329238B87E500F95C95 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
 		41B6432B238B9C1F00F95C95 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			children = (
 				41E84C54238D088A004A4392 /* HorseViewController.swift */,
 				41AFDB75240F1E66003339AC /* EditViewController.swift */,
+				41A14C80240F64FA0094D872 /* HorseCollectionViewCell.swift */,
 			);
 			path = Horse;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				418224EC23CA94C80043A086 /* Feature.swift in Sources */,
 				418224ED23CA94C80043A086 /* FeatureListScreen.swift in Sources */,
 				41AFDB76240F1E66003339AC /* EditViewController.swift in Sources */,
+				41A14C81240F64FA0094D872 /* HorseCollectionViewCell.swift in Sources */,
 				415A605A23FCA04D00A5DB61 /* RegisterViewController.swift in Sources */,
 				41B6432C238B9C1F00F95C95 /* LoginViewController.swift in Sources */,
 				415A60612400736100A5DB61 /* DetailedDescViewController.swift in Sources */,

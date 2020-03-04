@@ -17,18 +17,16 @@ class HorseViewController: UIViewController {
     // Labels
     @IBOutlet weak var tableView: UITableView!
     // Image Definitions
-    @IBOutlet weak var ImageScroller: UIScrollView!
-    @IBOutlet weak var ImagePager: UIPageControl!
     
     @IBOutlet weak var BandLabel: UILabel!
+    
+    @IBOutlet weak var ImageScroller: UICollectionView!
     
     var data = [HorseData]()
     var imageArray = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ImageScroller.reloadInputViews()
-
         filterBands()
         navigationItem.title = data[selectedIndex].Name
         
@@ -48,65 +46,16 @@ class HorseViewController: UIViewController {
         } else {
             BandLabel.isHidden = true
         }
-
-        // Horse Images
-        ImageScroller.delegate = self
-        loadHorseImages()
         // Image Pager Setup
-        ImagePager.numberOfPages = imageArray.count
-        ImagePager.currentPage = 0
+//        ImagePager.numberOfPages = imageArray.count
+//        ImagePager.currentPage = 0
         
     }
 
     override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(animated)
-       loadHorseImages()
     }
 
-    override func viewDidLayoutSubviews() {
-        self.ImageScroller.contentSize.width = self.ImageScroller.frame.width * CGFloat(imageArray.count + 1)
-    }
-    
-    func loadHorseImages() {
-        ImageScroller.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-        for i in 0..<imageArray.count {
-            let imageView = UIImageView()
-            imageView.setNeedsDisplay()
-            ImageScroller.setNeedsDisplay()
-            let cache = ImageCache.default
-            // Checks if image is already cached
-             if(!cache.isCached(forKey: imageArray[i])) {
-                 imageView.kf.indicatorType = .activity
-                 imageView.kf.setImage(with: URL(string: imageArray[i])) { result in
-                     switch result {
-                     case .success( _):
-                            imageView.contentMode = .scaleAspectFit
-                            let xPosition = self.ImageScroller.frame.width * CGFloat(i)
-                            imageView.frame = CGRect(x: xPosition, y: 0, width: self.ImageScroller.frame.width, height: self.ImageScroller.frame.height)
-                            self.ImageScroller.contentSize.width = self.ImageScroller.frame.width * CGFloat(i)
-                            self.ImageScroller.addSubview(imageView)
-                         case .failure(let error):
-                             print(error) // The error happens
-                     }
-                 }
-             } else {
-                 cache.retrieveImage(forKey: imageArray[i]) { result in
-                     switch result {
-                         case .success(let value):
-                             imageView.image = value.image
-                             imageView.contentMode = .scaleAspectFit
-                             let xPosition = self.ImageScroller.frame.width * CGFloat(i)
-                             imageView.frame = CGRect(x: xPosition, y: 0, width: self.ImageScroller.frame.width, height: self.ImageScroller.frame.height)
-                             self.ImageScroller.contentSize.width = self.ImageScroller.frame.width * CGFloat(i + 1)
-                             self.ImageScroller.addSubview(imageView)
-                         case .failure(let error):
-                             print(error)
-                     }
-                 }
-             }
-        }
-    }
-    
     func filterBands() {
         filteredBands = data.filter({ horse -> Bool in
             return horse.Band == data[selectedIndex].Band && horse.Name != data[selectedIndex].Name
@@ -145,23 +94,67 @@ extension HorseViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension HorseViewController:  UIScrollViewDelegate {
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        scrollingFinished(scrollView: scrollView)
+// Horse Image scroller collection view setup
+extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imageArray.count;
+    }
+    
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! HorseCollectionViewCell
+        let imageView:UIImageView=UIImageView(frame: CGRect(x: 0, y: 0, width: super.view.frame.width, height: ImageScroller.frame.size.height))
+        imageView.contentMode = UIView.ContentMode.scaleAspectFit
+
+        let cache = ImageCache.default
+        // Checks if image is already cached
+//        if(!cache.isCached(forKey: imageArray[indexPath.row])) {
+            DispatchQueue.main.async {
+                imageView.kf.indicatorType = .activity
+                imageView.kf.setImage(with: URL(string: self.imageArray[indexPath.row])) 
+                cell.addSubview(imageView)
+            }
+//         } else {
+//            cell.HorseImage.kf.indicatorType = .activity
+//            cache.retrieveImage(forKey: imageArray[indexPath.row]) { result in
+//                 switch result {
+//                     case .success(let value):
+//                         cell.HorseImage.image = value.image
+//                     case .failure(let error):
+//                         print(error)
+//                 }
+//             }
+//         }
+        
+        return cell
+    }
+    
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+         if (indexPath.row == imageArray.count - 1 ) {
+            // Bounce back to top
+            self.ImageScroller?.scrollToItem(at: IndexPath(row: 0, section: 0),
+            at: .top, animated: true)
+         }
+    }
+}
+
+// Horse Image scroller collection view setup
+extension HorseViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = ImageScroller.frame.size
+        return CGSize(width: size.width, height: size.height)
     }
 
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if decelerate {
-            return
-        }
-        else {
-            scrollingFinished(scrollView: scrollView)
-        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 
-    func scrollingFinished(scrollView: UIScrollView) {
-       let x = ImageScroller.contentOffset.x
-       let w = ImageScroller.bounds.size.width
-       ImagePager.currentPage = Int(x/w)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }
