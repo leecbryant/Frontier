@@ -54,76 +54,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     
     
-    let colorImages: [UIImage] = [
     
-        UIImage(named: "appaloosa")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!
-         
-    ]
-    
-    let maneImages: [UIImage] = [
-    
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!
-         
-    ]
-    
-    let faceImages: [UIImage] = [
-    
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!
-         
-    ]
-    
-    let whorlImages: [UIImage] = [
-    
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!
-         
-    ]
-    
-    let feetImages: [UIImage] = [
-    
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!,
-        UIImage(named: "missing")!
-         
-    ]
     
     func defineCellSize()
     {
@@ -167,28 +98,20 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         switch currFeature {
         case "color":
             myLabels = colors
-            myImages = colorImages
         case "mane":
             myLabels = manes
-            myImages = maneImages
         case "face":
             myLabels = faces
-            myImages = faceImages
         case "whorl":
             myLabels = whorls
-            myImages = whorlImages
         case "rfFeet":
             myLabels = allFeet
-            myImages = feetImages
         case "rrFeet":
             myLabels = allFeet
-            myImages = feetImages
         case "lfFeet":
             myLabels = allFeet
-            myImages = feetImages
         case "lrFeet":
             myLabels = allFeet
-            myImages = feetImages
         default:
             print("Error: Invalid segue to collectionview")
         }
