@@ -32,6 +32,10 @@
 		41E5DB6A240DDC9200306799 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E5DB69240DDC9200306799 /* ForgotPasswordViewController.swift */; };
 		41E84C53238D072D004A4392 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E84C52238D072D004A4392 /* SearchTableViewController.swift */; };
 		41E84C55238D088A004A4392 /* HorseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E84C54238D088A004A4392 /* HorseViewController.swift */; };
+		C84D504124102F8E00E52999 /* More.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C84D503D24102F8E00E52999 /* More.storyboard */; };
+		C84D504224102F8E00E52999 /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84D503E24102F8E00E52999 /* MoreTableViewController.swift */; };
+		C84D504324102F8E00E52999 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84D503F24102F8E00E52999 /* AboutViewController.swift */; };
+		C84D504424102F8E00E52999 /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84D504024102F8E00E52999 /* AccountTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +85,10 @@
 		41E5DB69240DDC9200306799 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		41E84C52238D072D004A4392 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		41E84C54238D088A004A4392 /* HorseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseViewController.swift; sourceTree = "<group>"; };
+		C84D503D24102F8E00E52999 /* More.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = More.storyboard; sourceTree = "<group>"; };
+		C84D503E24102F8E00E52999 /* MoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreTableViewController.swift; sourceTree = "<group>"; };
+		C84D503F24102F8E00E52999 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		C84D504024102F8E00E52999 /* AccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +236,10 @@
 		C8DD76B9240790E400DA9D28 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C84D503F24102F8E00E52999 /* AboutViewController.swift */,
+				C84D504024102F8E00E52999 /* AccountTableViewController.swift */,
+				C84D503D24102F8E00E52999 /* More.storyboard */,
+				C84D503E24102F8E00E52999 /* MoreTableViewController.swift */,
 				41B64329238B87E500F95C95 /* SupportViewController.swift */,
 			);
 			name = Settings;
@@ -345,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				418AE83E2388BFFB00E13BC3 /* LaunchScreen.storyboard in Resources */,
+				C84D504124102F8E00E52999 /* More.storyboard in Resources */,
 				3F2F0AF62409C10C00FE3545 /* Main.storyboard in Resources */,
 				418AE83B2388BFFB00E13BC3 /* Assets.xcassets in Resources */,
 			);
@@ -373,7 +386,9 @@
 			files = (
 				41B64332238BC87B00F95C95 /* GuideTableViewController.swift in Sources */,
 				41E84C53238D072D004A4392 /* SearchTableViewController.swift in Sources */,
+				C84D504424102F8E00E52999 /* AccountTableViewController.swift in Sources */,
 				41E84C55238D088A004A4392 /* HorseViewController.swift in Sources */,
+				C84D504224102F8E00E52999 /* MoreTableViewController.swift in Sources */,
 				418AE8322388BFFA00E13BC3 /* AppDelegate.swift in Sources */,
 				41B6432A238B87E500F95C95 /* SupportViewController.swift in Sources */,
 				418224EC23CA94C80043A086 /* Feature.swift in Sources */,
@@ -388,6 +403,7 @@
 				418224F323CA95180043A086 /* ViewController.swift in Sources */,
 				418224F423CA95180043A086 /* CollectionViewCell.swift in Sources */,
 				418224EB23CA94C80043A086 /* FeatureCell.swift in Sources */,
+				C84D504324102F8E00E52999 /* AboutViewController.swift in Sources */,
 				41B64334238BC9D400F95C95 /* GuideViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

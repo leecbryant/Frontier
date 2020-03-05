@@ -86,4 +86,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBAction func forgotClick(_ sender: Any) {
          self.performSegue(withIdentifier: "forgotPassword", sender: self)
     }
+    
+    @IBAction func unwindToLogout(_ unwindSegue: UIStoryboardSegue) {
+        UsernameText.text = ""
+        PasswordText.text = ""
+    }
 }
