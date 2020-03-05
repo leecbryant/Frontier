@@ -125,45 +125,6 @@ class FeatureListScreen: UIViewController, CanRecieve {
             navigationController?.popViewController(animated: true)
         }
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-           let secondVC = segue.destination as! ViewController
-           secondVC.currFeature = selectedFeature
-           
-           switch selectedFeature {
-               
-               case "color":
-                   secondVC.data = colorFeatures
-               case "mane":
-                   secondVC.data = maneFeatures
-               case "face":
-                   secondVC.data = faceFeatures
-               case "whorl":
-                   secondVC.data = whorlFeatures
-               case "rfFeet":
-                   secondVC.data = rfFeetFeatures
-               case "rrFeet":
-                   secondVC.data = rrFeetFeatures
-               case "lfFeet":
-                   secondVC.data = lfFeetFeatures
-               case "lrFeet":
-                   secondVC.data = lrFeetFeatures
-               default:
-                   print("Error: transfering saved features to collection view")
-               
-           }
-           
-           
-           secondVC.delegate = self
-       }
-       
-       @IBAction func onSubmit(_ sender: Any) {
-           let selectedFeatures = Features(Color: colorFeatures, Mane: maneFeatures, Face: faceFeatures, Whorl: whorlFeatures, rightFront: rfFeetFeatures, rightBack: rrFeetFeatures, leftFront: lfFeetFeatures, leftBack: lrFeetFeatures)
-           
-           delegate?.advancedPassBack(userInput: selectedFeatures)
-           presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-           self.navigationController?.popViewController(animated: true)
-       }
 }
 
 extension FeatureListScreen: UITableViewDataSource, UITableViewDelegate {
@@ -178,7 +139,7 @@ extension FeatureListScreen: UITableViewDataSource, UITableViewDelegate {
         
         switch currFeature {
                 case "Color":
-                    if colorFeatures.count != 0 {
+                    if colorFeatures.count != 0{
                         if colorFeatures.count == 1 {
                             feature.selection = colorFeatures[0]
                         } else {
@@ -301,64 +262,43 @@ extension FeatureListScreen: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .destructive, title: "Clear") {
-            (action, view, success) in
-            self.clearCell(Index: indexPath.row)
-            self.tableView.reloadRows(at: [indexPath], with: .none)
-            success(true)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        let secondVC = segue.destination as! ViewController
+        secondVC.currFeature = selectedFeature
+        
+        switch selectedFeature {
+            
+            case "color":
+                secondVC.data = colorFeatures
+            case "mane":
+                secondVC.data = maneFeatures
+            case "face":
+                secondVC.data = faceFeatures
+            case "whorl":
+                secondVC.data = whorlFeatures
+            case "rfFeet":
+                secondVC.data = rfFeetFeatures
+            case "rrFeet":
+                secondVC.data = rrFeetFeatures
+            case "lfFeet":
+                secondVC.data = lfFeetFeatures
+            case "lrFeet":
+                secondVC.data = lrFeetFeatures
+            default:
+                print("Error: transfering saved features to collection view")
+            
         }
         
-        return UISwipeActionsConfiguration(actions: [delete])
+        
+        secondVC.delegate = self
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .destructive, title: "Clear") {
-            (action, view, success) in
-            self.clearCell(Index: indexPath.row)
-            self.tableView.reloadRows(at: [indexPath], with: .none)
-            success(true)
-        }
+    @IBAction func onSubmit(_ sender: Any) {
+        let selectedFeatures = Features(Color: colorFeatures, Mane: maneFeatures, Face: faceFeatures, Whorl: whorlFeatures, rightFront: rfFeetFeatures, rightBack: rrFeetFeatures, leftFront: lfFeetFeatures, leftBack: lrFeetFeatures)
         
-        return UISwipeActionsConfiguration(actions: [delete])
-
-    }
-    
-    func clearCell(Index: Int?) {
-        let myTableSelection = features[Index ?? 0].title
-        
-        switch myTableSelection {
-             
-             case "Color":
-                colorFeatures.removeAll()
-                selectedFeature = ""
-             case "Mane":
-                maneFeatures.removeAll()
-                selectedFeature = ""
-             case "Face":
-                faceFeatures.removeAll()
-                selectedFeature = ""
-             case "Whorl":
-                whorlFeatures.removeAll()
-                selectedFeature = ""
-             case "Right Front":
-                rfFeetFeatures.removeAll()
-                selectedFeature = ""
-             case "Right Rear":
-                rrFeetFeatures.removeAll()
-                selectedFeature = ""
-             case "Left Front":
-                lfFeetFeatures.removeAll()
-                selectedFeature = ""
-             case "Left Rear":
-                lrFeetFeatures.removeAll()
-                selectedFeature = ""
-             default:
-                 print("Error: selecting a row from feature table")
-             
-         }
-        
+        delegate?.advancedPassBack(userInput: selectedFeatures)
+        presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
 }
-
