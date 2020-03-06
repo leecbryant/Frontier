@@ -32,6 +32,7 @@
 		41E5DB6A240DDC9200306799 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E5DB69240DDC9200306799 /* ForgotPasswordViewController.swift */; };
 		41E84C53238D072D004A4392 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E84C52238D072D004A4392 /* SearchTableViewController.swift */; };
 		41E84C55238D088A004A4392 /* HorseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E84C54238D088A004A4392 /* HorseViewController.swift */; };
+		41ED39792411F2F700B1CB18 /* PicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41ED39782411F2F700B1CB18 /* PicViewController.swift */; };
 		C84D504124102F8E00E52999 /* More.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C84D503D24102F8E00E52999 /* More.storyboard */; };
 		C84D504224102F8E00E52999 /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84D503E24102F8E00E52999 /* MoreTableViewController.swift */; };
 		C84D504324102F8E00E52999 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84D503F24102F8E00E52999 /* AboutViewController.swift */; };
@@ -85,6 +86,7 @@
 		41E5DB69240DDC9200306799 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		41E84C52238D072D004A4392 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		41E84C54238D088A004A4392 /* HorseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseViewController.swift; sourceTree = "<group>"; };
+		41ED39782411F2F700B1CB18 /* PicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicViewController.swift; sourceTree = "<group>"; };
 		C84D503D24102F8E00E52999 /* More.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = More.storyboard; sourceTree = "<group>"; };
 		C84D503E24102F8E00E52999 /* MoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreTableViewController.swift; sourceTree = "<group>"; };
 		C84D503F24102F8E00E52999 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				41E84C54238D088A004A4392 /* HorseViewController.swift */,
 				41AFDB75240F1E66003339AC /* EditViewController.swift */,
 				41A14C80240F64FA0094D872 /* HorseCollectionViewCell.swift */,
+				41ED39782411F2F700B1CB18 /* PicViewController.swift */,
 			);
 			path = Horse;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				C84D504424102F8E00E52999 /* AccountTableViewController.swift in Sources */,
 				41E84C55238D088A004A4392 /* HorseViewController.swift in Sources */,
 				C84D504224102F8E00E52999 /* MoreTableViewController.swift in Sources */,
+				41ED39792411F2F700B1CB18 /* PicViewController.swift in Sources */,
 				418AE8322388BFFA00E13BC3 /* AppDelegate.swift in Sources */,
 				41B6432A238B87E500F95C95 /* SupportViewController.swift in Sources */,
 				418224EC23CA94C80043A086 /* Feature.swift in Sources */,

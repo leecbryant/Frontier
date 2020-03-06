@@ -10,6 +10,8 @@ import UIKit
 import class Kingfisher.KingfisherManager
 import class Kingfisher.ImageCache
 import class Kingfisher.ImagePrefetcher
+import struct Kingfisher.BlurImageProcessor
+import struct Kingfisher.TintImageProcessor
 
 var Bands = ["Horse Band 1", "Horse Band 2", "Horse Band 3", "Horse Band 4", "Horse Band 5", "Horse Band 6","Horse Band 7", "Horse Band 8", "Horse Band 9", "Horse Band 10", "Horse Band 11", "Horse Band 12", "Horse Band 13", "Horse Band 14", "Horse Band 15", "Horse Band 16", "Horse Band 17", "Horse Band 18", "Horse Band 19", "Horse Band 20"]
 var filteredBands = [HorseData]()
@@ -26,18 +28,18 @@ class HorseViewController: UIViewController {
     @IBOutlet weak var NameLabel: UILabel!
     @IBOutlet weak var LocationLabel: UILabel!
     
+    
+
     var data = [HorseData]()
     var imageArray = [String]()
-    var ExtraImages = false;
+    var firstImage = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         filterBands()
         navigationItem.title = data[selectedIndex].Name
         
-//        BandLabel.text = Bands[data[selectedIndex].Band] + " Members"
-//        nameText.text = data[selectedIndex].Name
-//        dartedText.text = data[selectedIndex].DartStatus
         NameLabel.text = data[selectedIndex].Name
         LocationLabel.text = data[selectedIndex].Location
         
@@ -49,11 +51,6 @@ class HorseViewController: UIViewController {
                       "https://whims.wildhorsepreservation.org/UNR/2_0_5bc4cb1c501c0.jpg"
         ]
         
-//        if filteredBands.count > 0 {
-//            BandLabel.isHidden = false
-//        } else {
-//            BandLabel.isHidden = true
-//        }
         for i in 0..<imageArray.count {
             switch(i) {
                 case 0:
@@ -65,19 +62,55 @@ class HorseViewController: UIViewController {
                     SecondImage.kf.indicatorType = .activity
                     SecondImage.kf.setImage(with: URL(string: imageArray[i]))
                 case 2:
-                    ThirdImage.kf.indicatorType = .activity
-                    ThirdImage.kf.setImage(with: URL(string: imageArray[i]))
+                    let blurProcessor = BlurImageProcessor(blurRadius: 75)
+                    FirstImage.kf.indicatorType = .activity
+                    if(imageArray.count > 3) {
+                        ThirdImage.kf.setImage(with: URL(string: imageArray[i]), options: [.processor(blurProcessor)])
+                    } else {
+                        ThirdImage.kf.setImage(with: URL(string: imageArray[i]))
+                    }
                 default:
-                    ExtraImages = true;
+                    print("Extra")
             }
         }
-
+        
+        // Make Images Clickable
+        FirstImage.isUserInteractionEnabled = true
+        FirstImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageTapped)))
+        FirstImage.tag = 1
+        SecondImage.isUserInteractionEnabled = true
+        SecondImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageTapped)))
+        SecondImage.tag = 2
+        ThirdImage.isUserInteractionEnabled = true
+        if(imageArray.count == 3) {
+            ThirdImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageTapped)))
+        } else {
+            ThirdImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(moreImages)))
+        }
+        ThirdImage.tag = 3
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-       super.viewWillAppear(animated)
+    @objc private func imageTapped(_ recognizer: UITapGestureRecognizer, index: Int) {
+        
+        let otherViewController = self.storyboard?.instantiateViewController(withIdentifier: "preview") as? PicViewController
+        switch(recognizer.view!.tag) {
+            case 1:
+                otherViewController?.image = FirstImage.image!
+            case 2:
+                otherViewController?.image = SecondImage.image!
+            case 3:
+                otherViewController?.image = ThirdImage.image!
+            default:
+                print("Out of range")
+        }
+        
+        show(otherViewController!, sender: self)
     }
-
+    
+    @objc private func moreImages(_ recognizer: UITapGestureRecognizer) {
+        print("image tapped more")
+    }
+    
     func filterBands() {
         filteredBands = data.filter({ horse -> Bool in
             return horse.Band == data[selectedIndex].Band && horse.Name != data[selectedIndex].Name
@@ -110,6 +143,7 @@ class HorseViewController: UIViewController {
 
         return newImage!
     }
+    
 }
 
 
@@ -181,6 +215,21 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let noOfCellsInRow = 4
+
+        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+
+        let totalSpace = flowLayout.sectionInset.left
+            + flowLayout.sectionInset.right
+            + (flowLayout.minimumInteritemSpacing * CGFloat(noOfCellsInRow - 1))
+
+        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(noOfCellsInRow))
+
+        return CGSize(width: size, height: size)
+    }
 }
 
 extension UIImage {
@@ -190,8 +239,6 @@ extension UIImage {
         imageView.contentMode = UIView.ContentMode.scaleAspectFill
         imageView.image = self
         imageView.layer.cornerRadius = square.width/2
-        imageView.layer.borderColor = UIColor.white.cgColor
-        imageView.layer.borderWidth = 1
         imageView.layer.masksToBounds = true
         UIGraphicsBeginImageContext(imageView.bounds.size)
         imageView.layer.render(in: UIGraphicsGetCurrentContext()!)
