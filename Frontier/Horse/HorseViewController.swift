@@ -27,6 +27,8 @@ class HorseViewController: UIViewController {
     @IBOutlet weak var ThirdImage: UIImageView!
     @IBOutlet weak var NameLabel: UILabel!
     @IBOutlet weak var LocationLabel: UILabel!
+    @IBOutlet weak var AttributeCollectionView: UICollectionView!
+    @IBOutlet weak var SegmentedController: UISegmentedControl!
     
     
 
@@ -34,9 +36,18 @@ class HorseViewController: UIViewController {
     var imageArray = [String]()
     var firstImage = false
     
+    // Collection View Definitions
+    let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    let cellSpacing: CGFloat = 2
+    let cellsPerRow: CGFloat = 2
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /// Set overall collectionview constraints
+        setCVConstraints()
+        /// Set the size of each cell relative ot screen size
+        defineCellSize()
+                
         filterBands()
         navigationItem.title = data[selectedIndex].Name
         
@@ -50,6 +61,9 @@ class HorseViewController: UIViewController {
                       "https://whims.wildhorsepreservation.org/UNR/2_0_5d2bd072dad87.jpg",
                       "https://whims.wildhorsepreservation.org/UNR/2_0_5bc4cb1c501c0.jpg"
         ]
+        
+        let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        SegmentedController.setTitleTextAttributes(titleTextAttributes, for: .selected)
         
         for i in 0..<imageArray.count {
             switch(i) {
@@ -144,93 +158,13 @@ class HorseViewController: UIViewController {
         return newImage!
     }
     
+    
+    @IBAction func indexChanged(_ sender: Any) {
+        AttributeCollectionView.reloadData()
+    }
+
+    
 }
-
-
-// Horse Image scroller collection view setup
-//extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 20;
-//    }
-//
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "attributeCell", for: indexPath) as! HorseCollectionViewCell
-//
-//         let imageView :UIImageView = {
-//                   let imageView = UIImageView(frame: CGRect(   x: 0,
-//                                                        y: 0,
-//                                                        width: (super.view.frame.width),
-//                                                        height: (collectionView.collectionViewLayout
-//                       .collectionViewContentSize.width)
-//                       ))
-//                   imageView.contentMode = UIView.ContentMode.scaleAspectFit
-//
-//            let image = self.resizeImage(image: UIImage(named: ("AdvancedFeatureImages/HorseColor/" + data[selectedIndex].Color.lowercased()).filter{!" \n\t\r".contains($0)} )!, targetSize: CGSize(width: 80, height: 80))
-//
-//            imageView.image = image.circleMask
-//            return imageView
-//        }()
-//
-//        /// Add label below image
-//        let label: UILabel = {
-//            let label = UILabel()
-//            label.text = data[selectedIndex].Color
-//            label.numberOfLines = 0
-//            label.minimumScaleFactor = 0.8
-//            label.sizeToFit()
-//            //label.font = label.font.withSize(self.view.frame.height * relativeFontConstant / cellsPerRow)
-//            label.adjustsFontSizeToFitWidth = true
-//            label.contentMode = UIView.ContentMode.scaleAspectFit
-//            return label
-//        }()
-//
-//        let verticalStackView: UIStackView = {
-//           let stackView = UIStackView(arrangedSubviews: [imageView, label])
-//            stackView.axis = .vertical
-//            stackView.alignment = .center
-//            stackView.distribution = .fillProportionally
-//            stackView.spacing = 5
-//            stackView.contentMode = .scaleAspectFit
-//            return stackView
-//        }()
-//
-//        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
-//
-//
-//
-//        ///Add image/label stack to the cell
-//        // Insets for cell layout
-//        cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
-//
-//        cell.contentView.addSubview(verticalStackView)
-//        cell.contentView.tag = 101
-//
-//        // Apply insets of stack equal to insets of the contentview
-//        verticalStackView.leadingAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.leadingAnchor).isActive = true
-//        verticalStackView.bottomAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.bottomAnchor).isActive = true
-//        verticalStackView.trailingAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.trailingAnchor).isActive = true
-//        verticalStackView.topAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.topAnchor).isActive = true
-//
-//
-//        return cell
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        let noOfCellsInRow = 4
-//
-//        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
-//
-//        let totalSpace = flowLayout.sectionInset.left
-//            + flowLayout.sectionInset.right
-//            + (flowLayout.minimumInteritemSpacing * CGFloat(noOfCellsInRow - 1))
-//
-//        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(noOfCellsInRow))
-//
-//        return CGSize(width: size, height: size)
-//    }
-//}
 
 extension UIImage {
     var circleMask: UIImage {

@@ -10,13 +10,12 @@ import UIKit
 
 extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20;
+        return 8;
     }
     
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "attributeCell", for: indexPath) as! HorseCollectionViewCell
-        
          let imageView :UIImageView = {
                    let imageView = UIImageView(frame: CGRect(   x: 0,
                                                         y: 0,
@@ -25,28 +24,34 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
                        .collectionViewContentSize.width)
                        ))
                    imageView.contentMode = UIView.ContentMode.scaleAspectFit
-//            
-//            
-//            
-//            switch(indexPath.row) {
-//                case 0: // Color
-//                    
-//                case 1: // Other
-//                
-//                default:
-//                
-//            }
             
             
+            var imagePath = "AdvancedFeatureImages/"
+            
+            switch(indexPath.row) {
+                case 0: // Color
+                    imagePath += "HorseColor/" + data[selectedIndex].Color.lowercased().filter{!" \n\t\r".contains($0)}
+                case 1: // Mane
+                    imagePath += "HorseMane/" + data[selectedIndex].Mane.lowercased().filter{!" \n\t\r".contains($0)}
+                case 2: // Face
+                    imagePath += "HorseFace/" + data[selectedIndex].Face.lowercased().filter{!" \n\t\r".contains($0)}
+                case 3: // Whorl
+                    imagePath += "HorseWhorl/" + data[selectedIndex].Whorl.lowercased().filter{!" \n\t\r".contains($0)}
+                case 4: // Right Front Foot
+                    imagePath += "HorseFeet/" + data[selectedIndex].rfFeet.lowercased().filter{!" \n\t\r".contains($0)}
+                case 5: // Right Back Foot
+                    imagePath += "HorseFeet/" + data[selectedIndex].rrFeet.lowercased().filter{!" \n\t\r".contains($0)}
+                case 6: // Left Front Foot
+                    imagePath += "HorseFeet/" + data[selectedIndex].lfFeet.lowercased().filter{!" \n\t\r".contains($0)}
+                case 7: // Left Back Foot
+                    imagePath += "HorseFeet/" + data[selectedIndex].lrFeet.lowercased().filter{!" \n\t\r".contains($0)}
+                default:
+                    imagePath += "missing"
+            }
+        
             
             
-            
-            
-            
-            
-            
-            
-            let image = self.resizeImage(image: UIImage(named: ("AdvancedFeatureImages/HorseColor/" + data[selectedIndex].Color.lowercased()).filter{!" \n\t\r".contains($0)} )!, targetSize: CGSize(width: 80, height: 80))
+            let image = self.resizeImage(image: UIImage(named: imagePath)!, targetSize: CGSize(width: 80, height: 80))
             
             imageView.image = image.circleMask
             return imageView
@@ -54,14 +59,34 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         /// Add label below image
         let label: UILabel = {
-            let label = UILabel()
-            label.text = data[selectedIndex].Color
-            label.numberOfLines = 0
+            let label = UILabel(frame: CGRect(x: 0,y: 0, width: 10, height: 200))
+            switch(indexPath.row) {
+                case 0: // Color
+                    label.text = data[selectedIndex].Color
+                case 1: // Mane
+                    label.text = data[selectedIndex].Mane
+                case 2: // Face
+                    label.text = data[selectedIndex].Face
+                case 3: // Whorl
+                    label.text = data[selectedIndex].Whorl
+                case 4: // Right Front Foot
+                    label.text = "Right Front: " + data[selectedIndex].rfFeet
+                case 5: // Right Back Foot
+                    label.text = "Right Back: " + data[selectedIndex].rrFeet
+                case 6: // Left Front Foot
+                    label.text = "Left Front: " + data[selectedIndex].lfFeet
+                case 7: // Left Back Foot
+                    label.text = "Left Back: " + data[selectedIndex].lrFeet
+                default:
+                    label.text = "MISSING"
+            }
+            label.numberOfLines = 2
             label.minimumScaleFactor = 0.8
             label.sizeToFit()
-            //label.font = label.font.withSize(self.view.frame.height * relativeFontConstant / cellsPerRow)
+//            label.font = label.font.withSize(self.view.frame.height * relativeFontConstant / cellsPerRow)
             label.adjustsFontSizeToFitWidth = true
             label.contentMode = UIView.ContentMode.scaleAspectFit
+            label.lineBreakMode = .byWordWrapping
             return label
         }()
         
@@ -84,7 +109,7 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
         cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         
         cell.contentView.addSubview(verticalStackView)
-        cell.contentView.tag = 101
+        cell.contentView.tag = 102
         
         // Apply insets of stack equal to insets of the contentview
         verticalStackView.leadingAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.leadingAnchor).isActive = true
@@ -109,6 +134,31 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(noOfCellsInRow))
 
         return CGSize(width: size, height: size)
+    }
+    
+    func defineCellSize() {
+       
+        let screenSize = AttributeCollectionView.bounds
+        let screenWidth = screenSize.width
+        
+        //let cellSize = (collectionView.collectionViewLayout.collectionViewContentSize.width / cellsPerRow) - (cellSpacing)
+        
+        let cellSize = ((screenWidth-20)/cellsPerRow)-(cellSpacing)
+        
+        print(cellSize)
+        
+        layout.itemSize = CGSize(width: cellSize, height: cellSize)
+        layout.minimumInteritemSpacing = cellSpacing
+        layout.minimumLineSpacing = 2*cellSpacing
+        AttributeCollectionView.collectionViewLayout = layout
+    }
+    
+    func setCVConstraints() {
+        AttributeCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        AttributeCollectionView.addConstraint(NSLayoutConstraint(item: AttributeCollectionView as Any, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: AttributeCollectionView.superview!.bounds.height))
+        AttributeCollectionView.addConstraint(NSLayoutConstraint(item: AttributeCollectionView as Any, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: AttributeCollectionView.superview!.bounds.width))
+        AttributeCollectionView.frame = CGRect(x: 10 , y: 10, width: AttributeCollectionView.superview!.bounds.width, height: self.view.frame.height)
+
     }
 
 }
