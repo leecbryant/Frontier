@@ -10,7 +10,14 @@ import UIKit
 
 extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8;
+        switch(SegmentedController.selectedSegmentIndex) {
+            case 0:
+                return 8
+            case 1:
+                return 3
+            default:
+                return 0
+        }
     }
     
 
@@ -49,9 +56,15 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
                     imagePath += "missing"
             }
         
-            
-            
-            let image = self.resizeImage(image: UIImage(named: imagePath)!, targetSize: CGSize(width: 80, height: 80))
+            var image = UIImage()
+            if(SegmentedController.selectedSegmentIndex == 0) {
+                image = self.resizeImage(image: UIImage(named: imagePath)!, targetSize: CGSize(width: 80, height: 80))
+            } else if(SegmentedController.selectedSegmentIndex == 1) {
+                image = self.resizeImage(image: UIImage(named: "missing")!, targetSize: CGSize(width: 80, height: 80))
+            } else {
+                image = self.resizeImage(image: UIImage(named: "missing")!, targetSize: CGSize(width: 80, height: 80))
+            }
+
             
             imageView.image = image.circleMask
             return imageView
@@ -60,30 +73,35 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
         /// Add label below image
         let label: UILabel = {
             let label = UILabel(frame: CGRect(x: 0,y: 0, width: 10, height: 200))
-            switch(indexPath.row) {
-                case 0: // Color
-                    label.text = data[selectedIndex].Color
-                case 1: // Mane
-                    label.text = data[selectedIndex].Mane
-                case 2: // Face
-                    label.text = data[selectedIndex].Face
-                case 3: // Whorl
-                    label.text = data[selectedIndex].Whorl
-                case 4: // Right Front Foot
-                    label.text = "Right Front: " + data[selectedIndex].rfFeet
-                case 5: // Right Back Foot
-                    label.text = "Right Back: " + data[selectedIndex].rrFeet
-                case 6: // Left Front Foot
-                    label.text = "Left Front: " + data[selectedIndex].lfFeet
-                case 7: // Left Back Foot
-                    label.text = "Left Back: " + data[selectedIndex].lrFeet
-                default:
-                    label.text = "MISSING"
+            if(SegmentedController.selectedSegmentIndex == 0) {
+             switch(indexPath.row) {
+                    case 0: // Color
+                        label.text = data[selectedIndex].Color
+                    case 1: // Mane
+                        label.text = data[selectedIndex].Mane
+                    case 2: // Face
+                        label.text = data[selectedIndex].Face
+                    case 3: // Whorl
+                        label.text = data[selectedIndex].Whorl
+                    case 4: // Right Front Foot
+                        label.text = "Right Front: " + data[selectedIndex].rfFeet
+                    case 5: // Right Back Foot
+                        label.text = "Right Back: " + data[selectedIndex].rrFeet
+                    case 6: // Left Front Foot
+                        label.text = "Left Front: " + data[selectedIndex].lfFeet
+                    case 7: // Left Back Foot
+                        label.text = "Left Back: " + data[selectedIndex].lrFeet
+                    default:
+                        label.text = "MISSING"
+                }
+            } else if(SegmentedController.selectedSegmentIndex == 1) {
+                label.text = filteredBands[indexPath.row].Name
+            } else {
+                label.text = "Missing"
             }
             label.numberOfLines = 2
             label.minimumScaleFactor = 0.8
             label.sizeToFit()
-//            label.font = label.font.withSize(self.view.frame.height * relativeFontConstant / cellsPerRow)
             label.adjustsFontSizeToFitWidth = true
             label.contentMode = UIView.ContentMode.scaleAspectFit
             label.lineBreakMode = .byWordWrapping
@@ -137,16 +155,9 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func defineCellSize() {
-       
         let screenSize = AttributeCollectionView.bounds
         let screenWidth = screenSize.width
-        
-        //let cellSize = (collectionView.collectionViewLayout.collectionViewContentSize.width / cellsPerRow) - (cellSpacing)
-        
         let cellSize = ((screenWidth-20)/cellsPerRow)-(cellSpacing)
-        
-        print(cellSize)
-        
         layout.itemSize = CGSize(width: cellSize, height: cellSize)
         layout.minimumInteritemSpacing = cellSpacing
         layout.minimumLineSpacing = 2*cellSpacing
