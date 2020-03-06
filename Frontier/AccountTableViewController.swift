@@ -8,7 +8,7 @@
 
 import UIKit
 
-var AccountItems = ["Change Email", "Change Password", "Logout"]
+var AccountItems = ["Change Email", "Change Password"]
 var AccountIndex = 0
 
 class AccountTableViewController: UITableViewController {
@@ -39,30 +39,9 @@ class AccountTableViewController: UITableViewController {
         AccountIndex = indexPath.row
         /*      Still need to decide on what these options are gonna be */
         switch (AccountIndex){
+            case 0:
+                print("EMAIL Reseet")
             case 1: createAlert(title: "Password Reset", message: "An email has been sent to the address on file with a link to reset your password.")
-                    break
-            case 2: // Confirmation dialog taken from "http://swiftdeveloperblog.com/uialertcontroller-confirmation-dialog-swift/"
-                    // Declare Alert message
-                    let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to log out?", preferredStyle: .alert)
-                    
-                    // Create OK button with action handler
-                    let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-                        self.performSegue(withIdentifier: "Logout", sender: self)
-                    })
-                    
-                    // Create Cancel button with action handlderc
-                    let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
-                        self.tableView.deselectRow(at: indexPath, animated: true)
-                    }
-                    
-                    //Add OK and Cancel button to dialog message
-                    dialogMessage.addAction(ok)
-                    dialogMessage.addAction(cancel)
-                    
-                    // Present dialog message to user
-                    self.present(dialogMessage, animated: true, completion: nil)
-                    
-                    break
             default:break
             
         }

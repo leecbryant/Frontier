@@ -8,7 +8,7 @@
 
 import UIKit
 
-var MoreItems = ["Generate Report", "Account Settings", "Support Ticket", "About Us"]
+var MoreItems = ["Generate Report", "Account Settings", "Support Ticket", "About Us", "Logout"]
 var MoreIndex = 0
 
 class MoreTableViewController: UITableViewController {
@@ -31,7 +31,12 @@ class MoreTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MoreCell", for: indexPath)
 
         cell.textLabel?.text = MoreItems[indexPath.row]
-
+        
+        if(cell.textLabel?.text == "Logout") {
+            cell.textLabel?.textColor = .red
+        }
+        
+        
         return cell
     }
     
@@ -48,6 +53,26 @@ class MoreTableViewController: UITableViewController {
                     break
             case 3: performSegue(withIdentifier: "About", sender: self)
                     break
+            case 4:
+                // Declare Alert message
+                let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to log out?", preferredStyle: .alert)
+                
+                // Create OK button with action handler
+                let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                    self.dismiss(animated: true, completion: nil)
+                })
+                
+                // Create Cancel button with action handlderc
+                let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+                    self.tableView.deselectRow(at: indexPath, animated: true)
+                }
+                
+                //Add OK and Cancel button to dialog message
+                dialogMessage.addAction(ok)
+                dialogMessage.addAction(cancel)
+                
+                // Present dialog message to user
+                self.present(dialogMessage, animated: true, completion: nil)
             default:break
         }
     }
