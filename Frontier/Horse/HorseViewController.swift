@@ -12,7 +12,7 @@ import class Kingfisher.ImageCache
 import class Kingfisher.ImagePrefetcher
 import struct Kingfisher.BlurImageProcessor
 import struct Kingfisher.TintImageProcessor
-
+import struct Kingfisher.BlendImageProcessor
 var Bands = ["Horse Band 1", "Horse Band 2", "Horse Band 3", "Horse Band 4", "Horse Band 5", "Horse Band 6","Horse Band 7", "Horse Band 8", "Horse Band 9", "Horse Band 10", "Horse Band 11", "Horse Band 12", "Horse Band 13", "Horse Band 14", "Horse Band 15", "Horse Band 16", "Horse Band 17", "Horse Band 18", "Horse Band 19", "Horse Band 20"]
 
 var images = [UIImage(named: "black"), UIImage(named: "bay")]
@@ -23,7 +23,7 @@ class HorseViewController: UIViewController {
     
     @IBOutlet weak var FirstImage: UIImageView!
     @IBOutlet weak var SecondImage: UIImageView!
-    @IBOutlet weak var ThirdImage: UIImageView!
+    @IBOutlet weak var ThirdImage: UIButton!
     @IBOutlet weak var NameLabel: UILabel!
     @IBOutlet weak var LocationLabel: UILabel!
     @IBOutlet weak var AttributeCollectionView: UICollectionView!
@@ -82,12 +82,12 @@ class HorseViewController: UIViewController {
                     SecondImage.kf.indicatorType = .activity
                     SecondImage.kf.setImage(with: URL(string: imageArray[i].ImageFile.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)))
                 case 2:
-                    let blurProcessor = BlurImageProcessor(blurRadius: 75)
-                    ThirdImage.kf.indicatorType = .activity
+//                    let blurProcessor = BlurImageProcessor(blurRadius: 75)
+                    let blendProcessor = BlendImageProcessor(blendMode: .darken, alpha: 0.7, backgroundColor: .darkGray)
                     if(imageArray.count > 3) {
-                        ThirdImage.kf.setImage(with: URL(string: imageArray[i].ImageFile.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)), options: [.processor(blurProcessor)])
+                        ThirdImage.kf.setBackgroundImage(with: URL(string: imageArray[i].ImageFile.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)), for: .normal, options: [.processor(blendProcessor)])
                     } else {
-                        ThirdImage.kf.setImage(with: URL(string: imageArray[i].ImageFile))
+                        ThirdImage.kf.setBackgroundImage(with: URL(string: imageArray[i].ImageFile), for: .normal)
                     }
                 default:
                     print("Extra")
@@ -104,10 +104,15 @@ class HorseViewController: UIViewController {
         ThirdImage.isUserInteractionEnabled = true
         if(imageArray.count == 3) {
             ThirdImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageTapped)))
+        } else if(imageArray.count < 3) {
+            ThirdImage.isHidden = true
         } else {
             ThirdImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(moreImages)))
         }
         ThirdImage.tag = 3
+        let image = UIImage(named: "more-menu")?.withRenderingMode(.alwaysTemplate)
+        ThirdImage.setImage(image, for: .normal)
+        ThirdImage.tintColor = UIColor.white
     }
 
     @IBAction func DartPress(_ sender: Any) {
@@ -125,7 +130,7 @@ class HorseViewController: UIViewController {
             case 2:
                 otherViewController?.image = SecondImage.image!
             case 3:
-                otherViewController?.image = ThirdImage.image!
+                otherViewController?.image = ThirdImage.currentBackgroundImage!
             default:
                 print("Out of range")
         }
