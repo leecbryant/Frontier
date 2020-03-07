@@ -178,6 +178,7 @@ class HorseViewController: UIViewController {
     
     @IBAction func indexChanged(_ sender: Any) {
         AttributeCollectionView.reloadData()
+        AttributeCollectionView.setContentOffset(CGPoint.zero, animated: true)
     }
 
     

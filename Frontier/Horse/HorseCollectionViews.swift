@@ -157,25 +157,26 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     // Function is ran whenever a user taps on a cell
     @objc func tap(_ sender: UITapGestureRecognizer) {
-
-       let location = sender.location(in: AttributeCollectionView)
-       let indexPath = AttributeCollectionView.indexPathForItem(at: location)
-        selectedIndex = Int(filteredBands[0].data[indexPath!.row].ID)!
-      let vc = self.storyboard?.instantiateViewController(withIdentifier: "HorseViewController") as! HorseViewController
-            vc.HorseData = BaseHorseData[0].data.filter({ (horse) -> Bool in
-                return Int(horse.ID)! == selectedIndex
-            })[0]
-          vc.BaseHorseData = BaseHorseData
-          vc.filteredBands = BaseHorseData
-          vc.HorseImageData = HorseImageData
-          vc.imageArray = HorseImageData[0].data.filter({ (Photo) -> Bool in
-            return Int(Photo.ID)! == selectedIndex
-          })
-          vc.HorseLedger = HorseLedger
-          vc.HorseDartData = HorseLedger[0].data.sorted(by: {$0.Date > $1.Date}).filter{ (Horse) -> Bool in
-              return Int(Horse.HorseID)! == selectedIndex
-          }
-      self.navigationController?.pushViewController(vc, animated: true)
+        if(SegmentedController.selectedSegmentIndex == 1) {
+           let location = sender.location(in: AttributeCollectionView)
+           let indexPath = AttributeCollectionView.indexPathForItem(at: location)
+            selectedIndex = Int(filteredBands[0].data[indexPath!.row].ID)!
+           let vc = self.storyboard?.instantiateViewController(withIdentifier: "HorseViewController") as! HorseViewController
+                vc.HorseData = BaseHorseData[0].data.filter({ (horse) -> Bool in
+                    return Int(horse.ID)! == selectedIndex
+                })[0]
+              vc.BaseHorseData = BaseHorseData
+              vc.filteredBands = BaseHorseData
+              vc.HorseImageData = HorseImageData
+              vc.imageArray = HorseImageData[0].data.filter({ (Photo) -> Bool in
+                return Int(Photo.ID)! == selectedIndex
+              })
+              vc.HorseLedger = HorseLedger
+              vc.HorseDartData = HorseLedger[0].data.sorted(by: {$0.Date > $1.Date}).filter{ (Horse) -> Bool in
+                  return Int(Horse.HorseID)! == selectedIndex
+              }
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
