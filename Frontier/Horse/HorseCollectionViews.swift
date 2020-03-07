@@ -79,48 +79,47 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
             let imageView = UIImageView()
             imageView.contentMode = UIView.ContentMode.scaleAspectFit
             
-            var imagePath = "AdvancedFeatureImages/"
-            
-            switch(returnableIndex[indexPath.row]) {
-                case 0: // Color
-                    imagePath += "HorseColor/" + HorseMarkingData.color.lowercased().filter{!" \n\t\r".contains($0)}
-                case 1: // Mane
-                    if(HorseMarkingData.Mane_Color != nil) {
-                        imagePath += "HorseMane/" + HorseMarkingData.Mane_Color!.lowercased().filter{!" \n\t\r".contains($0)}
-                    }
-                    break
-                case 2: // Face
-                    if(HorseMarkingData.FaceString != nil) {
-                        imagePath += "HorseFace/" + HorseMarkingData.FaceString!.lowercased().filter{!" \n\t\r".contains($0)}
-                    }
-                    break
-                case 3: // Whorl
-                    break
-                case 4: // Right Front Foot
-                    if(HorseMarkingData.RFMarking != nil) {
-                        imagePath += "HorseFeet/" + HorseMarkingData.RFMarking!.lowercased().filter{!" \n\t\r".contains($0)}
-                    }
-                    break
-                case 5: // Right Back Foot
-                    if(HorseMarkingData.RHMarking != nil) {
-                        imagePath += "HorseFeet/" + HorseMarkingData.RHMarking!.lowercased().filter{!" \n\t\r".contains($0)}
-                    }
-                    break
-                case 6: // Left Front Foot
-                    if(HorseMarkingData.LFMarking != nil) {
-                        imagePath += "HorseFeet/" + HorseMarkingData.LFMarking!.lowercased().filter{!" \n\t\r".contains($0)}
-                    }
-                    break
-                case 7: // Left Back Foot
-                    if(HorseMarkingData.LHMarking != nil) {
-                        imagePath += "HorseFeet/" + HorseMarkingData.LHMarking!.lowercased().filter{!" \n\t\r".contains($0)}
-                    }
-                    break
-                default:
-                    imagePath += "missing"
-            }
-        
             if(SegmentedController.selectedSegmentIndex == 0) {
+                var imagePath = "AdvancedFeatureImages/"
+                
+                switch(returnableIndex[indexPath.row]) {
+                    case 0: // Color
+                        imagePath += "HorseColor/" + HorseMarkingData.color.lowercased().filter{!" \n\t\r".contains($0)}
+                    case 1: // Mane
+                        if(HorseMarkingData.Mane_Color != nil) {
+                            imagePath += "HorseMane/" + HorseMarkingData.Mane_Color!.lowercased().filter{!" \n\t\r".contains($0)}
+                        }
+                        break
+                    case 2: // Face
+                        if(HorseMarkingData.FaceString != nil) {
+                            imagePath += "HorseFace/" + HorseMarkingData.FaceString!.lowercased().filter{!" \n\t\r".contains($0)}
+                        }
+                        break
+                    case 3: // Whorl
+                        break
+                    case 4: // Right Front Foot
+                        if(HorseMarkingData.RFMarking != nil) {
+                            imagePath += "HorseFeet/" + HorseMarkingData.RFMarking!.lowercased().filter{!" \n\t\r".contains($0)}
+                        }
+                        break
+                    case 5: // Right Back Foot
+                        if(HorseMarkingData.RHMarking != nil) {
+                            imagePath += "HorseFeet/" + HorseMarkingData.RHMarking!.lowercased().filter{!" \n\t\r".contains($0)}
+                        }
+                        break
+                    case 6: // Left Front Foot
+                        if(HorseMarkingData.LFMarking != nil) {
+                            imagePath += "HorseFeet/" + HorseMarkingData.LFMarking!.lowercased().filter{!" \n\t\r".contains($0)}
+                        }
+                        break
+                    case 7: // Left Back Foot
+                        if(HorseMarkingData.LHMarking != nil) {
+                            imagePath += "HorseFeet/" + HorseMarkingData.LHMarking!.lowercased().filter{!" \n\t\r".contains($0)}
+                        }
+                        break
+                    default:
+                        imagePath += "missing"
+                }
                 imageView.image = self.resizeImage(image: UIImage(named: imagePath) ?? UIImage(named: "missing")!, targetSize: CGSize(width: 100, height: 100))
             } else if(SegmentedController.selectedSegmentIndex == 1) {
                 imageView.kf.indicatorType = .activity

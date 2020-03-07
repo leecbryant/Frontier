@@ -36,7 +36,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var myLabels: [String] = []
     var myImages: [UIImage] = []
     
-    let colors = ["Appaloosa", "Bay", "Bay Roan",
+    let colors = ["Applaloosa", "Bay", "Bay Roan",
                   "Black", "Blue Roan", "Brown",
                   "Buckskin", "Chestnut", "Cremello",
                   "Gray", "Palomino", "Pinto","Red Roan"]
@@ -46,7 +46,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                  "Body - Lighter", "Body - Darker"]
     let faces = ["None", "Blaze", "Star", "Snip", "Strip"]
     let whorls = ["At Eye Level", "Above Eye Level", "Below Eye Level", "Double", "Neck" ]
-    let allFeet = ["None", "Coronet", "Pastern", "Heel", "Fetlock", "Tall Socks", "Stockings", "Ermine"]
+    let allFeet = ["None", "Coronet", "Pastern", "Heel", "Fetlock", "Tall Socks", "Stocking", "Ermine"]
     
     let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     let cellSpacing: CGFloat = 5
@@ -188,12 +188,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let label: UILabel = {
             let label = UILabel()
             label.text = myLabels[indexPath.item]
-            label.numberOfLines = 0
-            label.minimumScaleFactor = 0.8
-            label.sizeToFit()
-            //label.font = label.font.withSize(self.view.frame.height * relativeFontConstant / cellsPerRow)
+            label.numberOfLines = 1
             label.adjustsFontSizeToFitWidth = true
+            label.minimumScaleFactor = 0.2
+            label.sizeToFit()
             label.contentMode = UIView.ContentMode.scaleAspectFit
+            label.lineBreakMode = .byTruncatingTail
             return label
         }()
         

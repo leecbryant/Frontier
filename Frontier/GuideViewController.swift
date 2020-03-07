@@ -55,7 +55,7 @@ class GuideViewController: UIViewController{
         if ((items[ selectedIndex ].lowercased() == "color"))
         {
             Description.text = "A horse's color is defined as the color of their fur, not including the mane or tail."
-            data = ["Appaloosa", "Bay", "Bay Roan", "Black", "Blue Roan", "Brown","Buckskin", "Chestnut", "Cremello", "Gray", "Palomino", "Pinto", "Red Roan"]
+            data = ["Applaloosa", "Bay", "Bay Roan", "Black", "Blue Roan", "Brown","Buckskin", "Chestnut", "Cremello", "Gray", "Palomino", "Pinto", "Red Roan"]
         } else if ((items[ selectedIndex ].lowercased() == "mane"))
         {
             Description.text = "The horse's mane is the long fur on its head and on its rear, and can be a different color than the rest of the horse."

@@ -93,6 +93,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     var HorsePictures = [HorsePhotos]()
     var HorseLedger = [HorseTreatments]()
     var HorseAttributes = [HorseMarkings]()
+    var FilteredAttributes = [HorseMarkings]()
 
     var advancedFeatures = Features(Color: [], Mane: [], Face: [], Whorl: [], rightFront: [], rightBack: [], leftFront: [], leftBack: [])
     var count = 0
@@ -143,6 +144,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
                                         self.HorsePictures = horsePictures
                                         self.HorseLedger = horseTreatments
                                         self.HorseAttributes = horseMarkings
+                                        self.FilteredAttributes = horseMarkings
                                         self.loadComplete()
                                     }
                                 })
@@ -256,17 +258,20 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text == nil || searchBar.text?.trimmingCharacters(in: .whitespaces) == "" {
             //Always make filteredData a copy of data when there is no filter applied
-            FilteredBaseData[0].data = BaseHorseData[0].data.filter({ horse -> Bool in
-                return true
-//                    (advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horse.Color) : true) &&
-//                    (advancedFeatures.Face.count > 0 ? advancedFeatures.Face.contains(horse.Face) : true) &&
-//                    (advancedFeatures.Mane.count > 0 ? advancedFeatures.Mane.contains(horse.Mane) : true) &&
-//                    (advancedFeatures.Whorl.count > 0 ? advancedFeatures.Whorl.contains(horse.Whorl) : true) &&
-//                    (advancedFeatures.rightFront.count > 0 ? advancedFeatures.rightFront.contains(horse.rfFeet) : true) &&
-//                    (advancedFeatures.rightBack.count > 0 ? advancedFeatures.rightBack.contains(horse.rrFeet) : true) &&
-//                    (advancedFeatures.leftFront.count > 0 ? advancedFeatures.leftFront.contains(horse.lfFeet) : true) &&
-//                    (advancedFeatures.leftBack.count > 0 ? advancedFeatures.leftBack.contains(horse.lrFeet) : true)
-            })
+              FilteredAttributes[0].data = HorseAttributes[0].data.filter ({ horsemark -> Bool in
+                      return ((advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horsemark.color) : true)) &&
+                          (advancedFeatures.Mane.count > 0 ? horsemark.Mane_Color != nil ? advancedFeatures.Mane.contains(horsemark.Mane_Color!) : false : true) &&
+                          (advancedFeatures.Face.count > 0 ? horsemark.FaceString != nil ? advancedFeatures.Face.contains(horsemark.FaceString!) : false : true) &&
+                          (advancedFeatures.rightFront.count > 0 ? horsemark.RFMarking != nil ? advancedFeatures.rightFront.contains(horsemark.RFMarking!) : false : true) &&
+                          (advancedFeatures.rightBack.count > 0 ? horsemark.RHMarking != nil ? advancedFeatures.rightBack.contains(horsemark.RHMarking!) : false : true) &&
+                          (advancedFeatures.leftFront.count > 0 ? horsemark.LFMarking != nil ? advancedFeatures.leftFront.contains(horsemark.LFMarking!) : false : true) &&
+                          (advancedFeatures.leftBack.count > 0 ? horsemark.LHMarking != nil ? advancedFeatures.leftBack.contains(horsemark.LHMarking!) : false : true)
+                })
+              FilteredBaseData[0].data = BaseHorseData[0].data.filter({ (horse) -> Bool in
+                  return FilteredAttributes[0].data.contains { (mark) -> Bool in
+                      return horse.ID == mark.ID
+                  }
+              })
             if(advancedFeatures.Color.count > 0 || advancedFeatures.Face.count > 0 || advancedFeatures.Mane.count > 0 || advancedFeatures.Whorl.count > 0 || advancedFeatures.rightFront.count > 0 || advancedFeatures.rightBack.count > 0 || advancedFeatures.leftFront.count > 0 || advancedFeatures.leftBack.count > 0) {
                 isSearching = true
             } else {
@@ -278,17 +283,20 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
             isSearching = true
         
 
-            FilteredBaseData[0].data = BaseHorseData[0].data.filter({ horse -> Bool in
-                return true
-//                    (advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horse.Color) : true) &&
-//                    (advancedFeatures.Face.count > 0 ? advancedFeatures.Face.contains(horse.Face) : true) &&
-//                    (advancedFeatures.Mane.count > 0 ? advancedFeatures.Mane.contains(horse.Mane) : true) &&
-//                    (advancedFeatures.Whorl.count > 0 ? advancedFeatures.Whorl.contains(horse.Whorl) : true) &&
-//                    (advancedFeatures.rightFront.count > 0 ? advancedFeatures.rightFront.contains(horse.rfFeet) : true) &&
-//                    (advancedFeatures.rightBack.count > 0 ? advancedFeatures.rightBack.contains(horse.rrFeet) : true) &&
-//                    (advancedFeatures.leftFront.count > 0 ? advancedFeatures.leftFront.contains(horse.lfFeet) : true) &&
-//                    (advancedFeatures.leftBack.count > 0 ? advancedFeatures.leftBack.contains(horse.lrFeet) : true)
-            }).filter({ horse -> Bool in
+            FilteredAttributes[0].data = HorseAttributes[0].data.filter ({ horsemark -> Bool in
+                    return ((advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horsemark.color) : true)) &&
+                        (advancedFeatures.Mane.count > 0 ? horsemark.Mane_Color != nil ? advancedFeatures.Mane.contains(horsemark.Mane_Color!) : false : true) &&
+                        (advancedFeatures.Face.count > 0 ? horsemark.FaceString != nil ? advancedFeatures.Face.contains(horsemark.FaceString!) : false : true) &&
+                        (advancedFeatures.rightFront.count > 0 ? horsemark.RFMarking != nil ? advancedFeatures.rightFront.contains(horsemark.RFMarking!) : false : true) &&
+                        (advancedFeatures.rightBack.count > 0 ? horsemark.RHMarking != nil ? advancedFeatures.rightBack.contains(horsemark.RHMarking!) : false : true) &&
+                        (advancedFeatures.leftFront.count > 0 ? horsemark.LFMarking != nil ? advancedFeatures.leftFront.contains(horsemark.LFMarking!) : false : true) &&
+                        (advancedFeatures.leftBack.count > 0 ? horsemark.LHMarking != nil ? advancedFeatures.leftBack.contains(horsemark.LHMarking!) : false : true)
+              })
+              FilteredBaseData[0].data = BaseHorseData[0].data.filter({ (horse) -> Bool in
+                    return FilteredAttributes[0].data.contains { (mark) -> Bool in
+                        return horse.ID == mark.ID
+                    }
+                }).filter({ horse -> Bool in
                 guard let text = searchBar.text else { return false }
 
                 let textArr = text.trimmingCharacters(in: .whitespaces).lowercased().components(separatedBy: " ")
@@ -401,16 +409,19 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         if(count > 0) {
             AdvancedButton?.addBadge(text: String(count))
             isSearching = true
-            FilteredBaseData[0].data = BaseHorseData[0].data.filter({ horse -> Bool in
-                return false
-//                    (advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horse.Color) : true) &&
-//                    (advancedFeatures.Face.count > 0 ? advancedFeatures.Face.contains(horse.Face) : true) &&
-//                    (advancedFeatures.Mane.count > 0 ? advancedFeatures.Mane.contains(horse.Mane) : true) &&
-//                    (advancedFeatures.Whorl.count > 0 ? advancedFeatures.Whorl.contains(horse.Whorl) : true) &&
-//                    (advancedFeatures.rightFront.count > 0 ? advancedFeatures.rightFront.contains(horse.rfFeet) : true) &&
-//                    (advancedFeatures.rightBack.count > 0 ? advancedFeatures.rightBack.contains(horse.rrFeet) : true) &&
-//                    (advancedFeatures.leftFront.count > 0 ? advancedFeatures.leftFront.contains(horse.lfFeet) : true) &&
-//                    (advancedFeatures.leftBack.count > 0 ? advancedFeatures.leftBack.contains(horse.lrFeet) : true)
+            FilteredAttributes[0].data = HorseAttributes[0].data.filter ({ horsemark -> Bool in
+                    return ((advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horsemark.color) : true)) &&
+                        (advancedFeatures.Mane.count > 0 ? horsemark.Mane_Color != nil ? advancedFeatures.Mane.contains(horsemark.Mane_Color!) : false : true) &&
+                        (advancedFeatures.Face.count > 0 ? horsemark.FaceString != nil ? advancedFeatures.Face.contains(horsemark.FaceString!) : false : true) &&
+                        (advancedFeatures.rightFront.count > 0 ? horsemark.RFMarking != nil ? advancedFeatures.rightFront.contains(horsemark.RFMarking!) : false : true) &&
+                        (advancedFeatures.rightBack.count > 0 ? horsemark.RHMarking != nil ? advancedFeatures.rightBack.contains(horsemark.RHMarking!) : false : true) &&
+                        (advancedFeatures.leftFront.count > 0 ? horsemark.LFMarking != nil ? advancedFeatures.leftFront.contains(horsemark.LFMarking!) : false : true) &&
+                        (advancedFeatures.leftBack.count > 0 ? horsemark.LHMarking != nil ? advancedFeatures.leftBack.contains(horsemark.LHMarking!) : false : true)
+              })
+            FilteredBaseData[0].data = BaseHorseData[0].data.filter({ (horse) -> Bool in
+                return FilteredAttributes[0].data.contains { (mark) -> Bool in
+                    return horse.ID == mark.ID
+                }
             })
             tableView.reloadData()
         } else {
