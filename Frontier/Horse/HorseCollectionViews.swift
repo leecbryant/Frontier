@@ -33,31 +33,49 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
                    imageView.contentMode = UIView.ContentMode.scaleAspectFit
             
             
-            let imagePath = "AdvancedFeatureImages/HorseColor/brown"
+            var imagePath = "AdvancedFeatureImages/"
             
-//            switch(indexPath.row) {
-//                case 0: // Color
-//                    imagePath += "HorseColor/" + data[selectedIndex].Color.lowercased().filter{!" \n\t\r".contains($0)}
-//                case 1: // Mane
-//                    imagePath += "HorseMane/" + data[selectedIndex].Mane.lowercased().filter{!" \n\t\r".contains($0)}
-//                case 2: // Face
-//                    imagePath += "HorseFace/" + data[selectedIndex].Face.lowercased().filter{!" \n\t\r".contains($0)}
-//                case 3: // Whorl
-//                    imagePath += "HorseWhorl/" + data[selectedIndex].Whorl.lowercased().filter{!" \n\t\r".contains($0)}
-//                case 4: // Right Front Foot
-//                    imagePath += "HorseFeet/" + data[selectedIndex].rfFeet.lowercased().filter{!" \n\t\r".contains($0)}
-//                case 5: // Right Back Foot
-//                    imagePath += "HorseFeet/" + data[selectedIndex].rrFeet.lowercased().filter{!" \n\t\r".contains($0)}
-//                case 6: // Left Front Foot
-//                    imagePath += "HorseFeet/" + data[selectedIndex].lfFeet.lowercased().filter{!" \n\t\r".contains($0)}
-//                case 7: // Left Back Foot
-//                    imagePath += "HorseFeet/" + data[selectedIndex].lrFeet.lowercased().filter{!" \n\t\r".contains($0)}
-//                default:
-//                    imagePath += "missing"
-//            }
+            switch(indexPath.row) {
+                case 0: // Color
+                    imagePath += "HorseColor/" + HorseMarkingData.color.lowercased().filter{!" \n\t\r".contains($0)}
+                case 1: // Mane
+                    if(HorseMarkingData.Mane_Color != nil) {
+                        imagePath += "HorseMane/" + HorseMarkingData.Mane_Color!.lowercased().filter{!" \n\t\r".contains($0)}
+                    }
+                    break
+                case 2: // Face
+                    if(HorseMarkingData.FaceString != nil) {
+                        imagePath += "HorseFace/" + HorseMarkingData.FaceString!.lowercased().filter{!" \n\t\r".contains($0)}
+                    }
+                    break
+                case 3: // Whorl
+                    break
+                case 4: // Right Front Foot
+                    if(HorseMarkingData.RFMarking != nil) {
+                        imagePath += "HorseFeet/" + HorseMarkingData.RFMarking!.lowercased().filter{!" \n\t\r".contains($0)}
+                    }
+                    break
+                case 5: // Right Back Foot
+                    if(HorseMarkingData.RHMarking != nil) {
+                        imagePath += "HorseFeet/" + HorseMarkingData.RHMarking!.lowercased().filter{!" \n\t\r".contains($0)}
+                    }
+                    break
+                case 6: // Left Front Foot
+                    if(HorseMarkingData.LFMarking != nil) {
+                        imagePath += "HorseFeet/" + HorseMarkingData.LFMarking!.lowercased().filter{!" \n\t\r".contains($0)}
+                    }
+                    break
+                case 7: // Left Back Foot
+                    if(HorseMarkingData.LHMarking != nil) {
+                        imagePath += "HorseFeet/" + HorseMarkingData.LHMarking!.lowercased().filter{!" \n\t\r".contains($0)}
+                    }
+                    break
+                default:
+                    imagePath += "missing"
+            }
         
             if(SegmentedController.selectedSegmentIndex == 0) {
-                imageView.image = self.resizeImage(image: UIImage(named: imagePath)!, targetSize: CGSize(width: 100, height: 100))
+                imageView.image = self.resizeImage(image: UIImage(named: imagePath) ?? UIImage(named: "missing")!, targetSize: CGSize(width: 100, height: 100))
             } else if(SegmentedController.selectedSegmentIndex == 1) {
                 imageView.kf.indicatorType = .activity
                 imageView.kf.setImage(with: URL(string: HorseImageData[0].data.filter({ (Photo) -> Bool in
@@ -84,27 +102,63 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let label: UILabel = {
             let label = UILabel(frame: CGRect(x: 0,y: 0, width: 10, height: 200))
             if(SegmentedController.selectedSegmentIndex == 0) {
-//             switch(indexPath.row) {
-//                    case 0: // Color
-//                        label.text = data[selectedIndex].Color
-//                    case 1: // Mane
-//                        label.text = data[selectedIndex].Mane
-//                    case 2: // Face
-//                        label.text = data[selectedIndex].Face
-//                    case 3: // Whorl
-//                        label.text = data[selectedIndex].Whorl
-//                    case 4: // Right Front Foot
-//                        label.text = "Right Front: " + data[selectedIndex].rfFeet
-//                    case 5: // Right Back Foot
-//                        label.text = "Right Back: " + data[selectedIndex].rrFeet
-//                    case 6: // Left Front Foot
-//                        label.text = "Left Front: " + data[selectedIndex].lfFeet
-//                    case 7: // Left Back Foot
-//                        label.text = "Left Back: " + data[selectedIndex].lrFeet
-//                    default:
-//                        label.text = "MISSING"
-//                }
-                label.text = "Coming Soon"
+             switch(indexPath.row) {
+                    case 0: // Color
+                        label.text = "Color: " + HorseMarkingData.color
+                        returnabl[indexPath.row] = true
+                    case 1: // Mane
+                        if(HorseMarkingData.Mane_Color != nil) {
+                            label.text = "Mane: " + HorseMarkingData.Mane_Color!
+                            returnabl[indexPath.row] = true
+                        } else {
+                            returnabl[indexPath.row] = false
+                        }
+                        break
+                    case 2: // Face
+                        if(HorseMarkingData.FaceString != nil) {
+                            label.text = "Face: " + HorseMarkingData.FaceString!
+                            returnabl[indexPath.row] = true
+                        } else {
+                            returnabl[indexPath.row] = false
+                        }
+                        break
+                    case 3: // Whorl
+                        returnabl[indexPath.row] = false
+                        break
+                    case 4: // Right Front Foot
+                        if(HorseMarkingData.RFMarking != nil) {
+                            label.text = "Right Front: " + HorseMarkingData.RFMarking!
+                            returnabl[indexPath.row] = true
+                        } else {
+                            returnabl[indexPath.row] = false
+                        }
+                        break
+                    case 5: // Right Back Foot
+                        if(HorseMarkingData.RHMarking != nil) {
+                            label.text = "Right Rear: " + HorseMarkingData.RHMarking!
+                            returnabl[indexPath.row] = true
+                        } else {
+                            returnabl[indexPath.row] = false
+                        }
+                        break
+                    case 6: // Left Front Foot
+                        if(HorseMarkingData.LFMarking != nil) {
+                            label.text = "Left Front: " + HorseMarkingData.LFMarking!
+                            returnabl[indexPath.row] = true
+                        } else {
+                            returnabl[indexPath.row] = false
+                        }
+                        break
+                    case 7: // Left Back Foot
+                        if(HorseMarkingData.LHMarking != nil) {
+                            label.text = "Left Rear: " + HorseMarkingData.LHMarking!
+                            returnabl[indexPath.row] = true
+                        } else {
+                            returnabl[indexPath.row] = false
+                        }
+                    default:
+                        label.text = "MISSING"
+                }
             } else if(SegmentedController.selectedSegmentIndex == 1) {
                 label.text = filteredBands[0].data[indexPath.row].Name
             } else {
@@ -153,6 +207,7 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
         }
         
         return cell
+        
     }
     
     // Function is ran whenever a user taps on a cell
@@ -175,6 +230,10 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
               vc.HorseDartData = HorseLedger[0].data.sorted(by: {$0.Date > $1.Date}).filter{ (Horse) -> Bool in
                   return Int(Horse.HorseID)! == selectedIndex
               }
+              vc.HorseAttributes = HorseAttributes
+              vc.HorseMarkingData = HorseAttributes[0].data.filter{ (Horse) -> Bool in
+                    return Int(Horse.ID)! == selectedIndex
+              }[0]
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

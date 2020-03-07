@@ -49,6 +49,26 @@ struct Treatment: Decodable {
    var Action: String
 }
 
+struct HorseMarkings: Decodable {
+    var type: String
+    var name: String
+    var database: String
+    var data: [Marking]
+}
+
+struct Marking: Decodable {
+    var ID: String
+    var color: String
+    var Position: String?
+    var Mane_Color: String?
+    var LFMarking: String?
+    var RFMarking: String?
+    var LHMarking: String?
+    var RHMarking: String?
+    var FaceString: String?
+}
+
+
 struct Features {
     var Color: [String]
     var Mane: [String]
@@ -72,7 +92,8 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     var FilteredBaseData = [BaseHorse]()
     var HorsePictures = [HorsePhotos]()
     var HorseLedger = [HorseTreatments]()
-    
+    var HorseAttributes = [HorseMarkings]()
+
     var advancedFeatures = Features(Color: [], Mane: [], Face: [], Whorl: [], rightFront: [], rightBack: [], leftFront: [], leftBack: [])
     var count = 0
     var loaded = false
@@ -96,6 +117,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         
         showSearchBar()
         
+        // Grab Data from EACH URL - Should eventually become a SQL Left Join
         parseHorseJSON(withCompletion: { horseData, error in
             if error != nil {
                 print(error!)
@@ -111,11 +133,19 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
                                 print(error!)
                                 self.createAlert(title: "Error", message: "Error loading horse treatment data")
                             } else if let horseTreatments = horseTreatments {
-                                self.BaseHorseData = horseData
-                                self.FilteredBaseData = horseData
-                                self.HorsePictures = horsePictures
-                                self.HorseLedger = horseTreatments
-                                self.loadComplete()
+                                self.parseHorseMarkingsJSON(withCompletion: { horseMarkings, error in
+                                    if error != nil {
+                                        print(error!)
+                                        self.createAlert(title: "Error", message: "Error loading horse treatment data")
+                                    } else if let horseMarkings = horseMarkings {
+                                        self.BaseHorseData = horseData
+                                        self.FilteredBaseData = horseData
+                                        self.HorsePictures = horsePictures
+                                        self.HorseLedger = horseTreatments
+                                        self.HorseAttributes = horseMarkings
+                                        self.loadComplete()
+                                    }
+                                })
                             }
                         })
                     }
@@ -208,6 +238,10 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
                 vc.HorseDartData = HorseLedger[0].data.sorted(by: {$0.Date > $1.Date}).filter{ (Horse) -> Bool in
                     return Int(Horse.HorseID)! == selectedIndex
                 }
+                vc.HorseAttributes = HorseAttributes
+                vc.HorseMarkingData = HorseAttributes[0].data.filter{ (Horse) -> Bool in
+                    return Int(Horse.ID)! == selectedIndex
+                }[0]
             break
             case "showAdvanced":
                 let vc = segue.destination as! FeatureListScreen
@@ -325,6 +359,23 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
             } catch let jsonErr {
                 print("Error serializing json:", jsonErr)
                completion(nil, err)
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func parseHorseMarkingsJSON(withCompletion completion: @escaping ([HorseMarkings]?, Error?) -> Void) {
+        let jsonUrlString = "https://projectfrontier.dev/data/HorsesMarkings.json"
+            guard let url = URL(string: jsonUrlString) else { return }
+        let task = URLSession.shared.dataTask(with: url) { (horseMarkings, response, err) in
+            guard let horseMarkings = horseMarkings else { return }
+            do {
+                let data = try JSONDecoder().decode([HorseMarkings].self, from: horseMarkings)
+                completion(data, nil)
+            } catch let jsonErr {
+                print("Error serializing json:", jsonErr)
+                completion(nil, err)
             }
         }
         

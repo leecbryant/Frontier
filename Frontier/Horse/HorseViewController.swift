@@ -41,14 +41,16 @@ class HorseViewController: UIViewController {
     // Horse Dart Information
     var HorseLedger = [HorseTreatments]()
     var HorseDartData = [Treatment]()
-    
+    // Horse Attribute Information
+    var HorseAttributes = [HorseMarkings]()
+    var HorseMarkingData = Marking(ID: "", color: "", Position: nil, Mane_Color: nil, LFMarking: nil, RFMarking: nil, LHMarking: nil, RHMarking: nil, FaceString: nil)
     // Collection View Definitions
     let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     let cellSpacing: CGFloat = 2
     let cellsPerRow: CGFloat = 2
+    var returnabl: [Bool] = [true, true, true, true, true, true, true, true]
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         /// Set overall collectionview constraints
         setCVConstraints()
         /// Set the size of each cell relative ot screen size
@@ -119,6 +121,14 @@ class HorseViewController: UIViewController {
         let dartimage = UIImage(named: "needle")?.withRenderingMode(.alwaysTemplate)
         DartButton.setImage(dartimage, for: .normal)
         DartButton.tintColor = UIColor.white
+        
+        // Clear empty cells
+        for i in (0...7) {
+            if(!returnabl[i]) {
+                let indexPath = IndexPath(item: i, section: 1)
+                AttributeCollectionView.deleteItems(at: [indexPath])
+            }
+        }
     }
 
     @IBAction func DartPress(_ sender: Any) {
