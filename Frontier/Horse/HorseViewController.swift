@@ -46,7 +46,7 @@ class HorseViewController: UIViewController {
     let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     let cellSpacing: CGFloat = 2
     let cellsPerRow: CGFloat = 2
-    var returnabl: [Bool] = [true, true, true, true, true, true, true, true]
+    var returnableIndex: [Int] = [0, 1, 2, 3, 4, 5, 6, 7]
     override func viewDidLoad() {
         super.viewDidLoad()
         /// Set overall collectionview constraints

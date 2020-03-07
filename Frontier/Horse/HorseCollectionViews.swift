@@ -12,7 +12,11 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch(SegmentedController.selectedSegmentIndex) {
             case 0:
-                return 8
+                if(HorseMarkingData.Mane_Color != nil && HorseMarkingData.FaceString != nil && HorseMarkingData.RFMarking != nil && HorseMarkingData.RHMarking != nil && HorseMarkingData.LFMarking != nil && HorseMarkingData.LHMarking != nil) {
+                    return 8
+                } else {
+                    return getAttributeCount()
+                }
             case 1:
                 return filteredBands[0].data.count
             default:
@@ -20,6 +24,54 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
         }
     }
     
+    func getAttributeCount() -> Int {
+        var Max = 8
+        if(HorseMarkingData.Mane_Color == nil) {
+            Max = Max - 1
+            if let index = returnableIndex.firstIndex(of: 1) {
+                returnableIndex.remove(at: index)
+            }
+        }
+        if(HorseMarkingData.FaceString == nil) {
+            Max = Max - 1
+            if let index = returnableIndex.firstIndex(of: 2) {
+                returnableIndex.remove(at: index)
+            }
+        }
+        
+        // Remove Whorl
+        Max = Max - 1
+        if let index = returnableIndex.firstIndex(of: 3) {
+            returnableIndex.remove(at: index)
+        }
+        
+        
+        if(HorseMarkingData.RFMarking == nil) {
+            Max = Max - 1
+            if let index = returnableIndex.firstIndex(of: 4) {
+                returnableIndex.remove(at: index)
+            }
+        }
+        if(HorseMarkingData.RHMarking == nil) {
+            Max = Max - 1
+            if let index = returnableIndex.firstIndex(of: 5) {
+                returnableIndex.remove(at: index)
+            }
+        }
+        if(HorseMarkingData.LFMarking == nil) {
+            Max = Max - 1
+            if let index = returnableIndex.firstIndex(of: 6) {
+                returnableIndex.remove(at: index)
+            }
+        }
+        if(HorseMarkingData.LHMarking == nil) {
+            Max = Max - 1
+            if let index = returnableIndex.firstIndex(of: 7) {
+                returnableIndex.remove(at: index)
+            }
+        }
+        return Max
+    }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "attributeCell", for: indexPath) as! HorseCollectionViewCell
@@ -29,7 +81,7 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
             
             var imagePath = "AdvancedFeatureImages/"
             
-            switch(indexPath.row) {
+            switch(returnableIndex[indexPath.row]) {
                 case 0: // Color
                     imagePath += "HorseColor/" + HorseMarkingData.color.lowercased().filter{!" \n\t\r".contains($0)}
                 case 1: // Mane
@@ -96,74 +148,54 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let label: UILabel = {
             let label = UILabel(frame: CGRect(x: 0,y: 0, width: 10, height: 200))
             if(SegmentedController.selectedSegmentIndex == 0) {
-             switch(indexPath.row) {
-                    case 0: // Color
-                        label.text = "Color: " + HorseMarkingData.color
-                        returnabl[indexPath.row] = true
-                    case 1: // Mane
-                        if(HorseMarkingData.Mane_Color != nil) {
-                            label.text = "Mane: " + HorseMarkingData.Mane_Color!
-                            returnabl[indexPath.row] = true
-                        } else {
-                            returnabl[indexPath.row] = false
-                        }
-                        break
-                    case 2: // Face
-                        if(HorseMarkingData.FaceString != nil) {
-                            label.text = "Face: " + HorseMarkingData.FaceString!
-                            returnabl[indexPath.row] = true
-                        } else {
-                            returnabl[indexPath.row] = false
-                        }
-                        break
-                    case 3: // Whorl
-                        returnabl[indexPath.row] = false
-                        break
-                    case 4: // Right Front Foot
-                        if(HorseMarkingData.RFMarking != nil) {
-                            label.text = "Right Front: " + HorseMarkingData.RFMarking!
-                            returnabl[indexPath.row] = true
-                        } else {
-                            returnabl[indexPath.row] = false
-                        }
-                        break
-                    case 5: // Right Back Foot
-                        if(HorseMarkingData.RHMarking != nil) {
-                            label.text = "Right Rear: " + HorseMarkingData.RHMarking!
-                            returnabl[indexPath.row] = true
-                        } else {
-                            returnabl[indexPath.row] = false
-                        }
-                        break
-                    case 6: // Left Front Foot
-                        if(HorseMarkingData.LFMarking != nil) {
-                            label.text = "Left Front: " + HorseMarkingData.LFMarking!
-                            returnabl[indexPath.row] = true
-                        } else {
-                            returnabl[indexPath.row] = false
-                        }
-                        break
-                    case 7: // Left Back Foot
-                        if(HorseMarkingData.LHMarking != nil) {
-                            label.text = "Left Rear: " + HorseMarkingData.LHMarking!
-                            returnabl[indexPath.row] = true
-                        } else {
-                            returnabl[indexPath.row] = false
-                        }
-                    default:
-                        label.text = "MISSING"
-                }
+                switch(returnableIndex[indexPath.row]) {
+                        case 0: // Color
+                            label.text = "Color: " + HorseMarkingData.color
+                        case 1: // Mane
+                            if(HorseMarkingData.Mane_Color != nil) {
+                                label.text = "Mane: " + HorseMarkingData.Mane_Color!
+                            }
+                            break
+                        case 2: // Face
+                            if(HorseMarkingData.FaceString != nil) {
+                                label.text = "Face: " + HorseMarkingData.FaceString!
+                            }
+                            break
+                        case 3: // Whorl
+                            break
+                        case 4: // Right Front Foot
+                            if(HorseMarkingData.RFMarking != nil) {
+                                label.text = "Right Front: " + HorseMarkingData.RFMarking!
+                            }
+                            break
+                        case 5: // Right Back Foot
+                            if(HorseMarkingData.RHMarking != nil) {
+                                label.text = "Right Rear: " + HorseMarkingData.RHMarking!
+                            }
+                            break
+                        case 6: // Left Front Foot
+                            if(HorseMarkingData.LFMarking != nil) {
+                                label.text = "Left Front: " + HorseMarkingData.LFMarking!
+                            }
+                            break
+                        case 7: // Left Back Foot
+                            if(HorseMarkingData.LHMarking != nil) {
+                                label.text = "Left Rear: " + HorseMarkingData.LHMarking!
+                            }
+                        default:
+                            label.text = "MISSING"
+                    }
             } else if(SegmentedController.selectedSegmentIndex == 1) {
                 label.text = filteredBands[0].data[indexPath.row].Name
             } else {
                 label.text = "Missing"
             }
-            label.numberOfLines = 2
-            label.minimumScaleFactor = 0.8
-            label.sizeToFit()
+            label.numberOfLines = 1
             label.adjustsFontSizeToFitWidth = true
+            label.minimumScaleFactor = 0.2
+            label.sizeToFit()
             label.contentMode = UIView.ContentMode.scaleAspectFit
-            label.lineBreakMode = .byWordWrapping
+            label.lineBreakMode = .byTruncatingTail
             return label
         }()
         
