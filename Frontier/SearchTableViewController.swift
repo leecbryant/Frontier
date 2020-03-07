@@ -7,24 +7,53 @@
 //
 
 import UIKit
-
-struct HorseData: Decodable {
-    var id: Int
-    var Name: String
-    var Image: String
-    var Band: Int
-    var Color: String
-    var Mane: String
-    var Face: String
-    var Whorl: String
-    var rfFeet: String
-    var rrFeet: String
-    var lfFeet: String
-    var lrFeet: String
-    var Location: String
-    var DartStatus: String
-    var DartDate: String
+struct data {
+    
 }
+struct BaseHorse: Decodable {
+    var type: String
+    var name: String
+    var database: String
+    var data: [NameBandHerd]
+}
+
+struct NameBandHerd: Decodable {
+   var ID: String
+   var Name: String
+   var herd: String
+   var bands: String
+}
+
+struct HorsePhotos: Decodable {
+    var type: String
+    var name: String
+    var database: String
+    var data: [Photo]
+}
+
+struct Photo: Decodable {
+   var ID: String
+   var ImageFile: String
+}
+
+//
+//struct HorseData: Decodable {
+//    var id: Int
+//    var Name: String
+//    var Image: String
+//    var Band: Int
+//    var Color: String
+//    var Mane: String
+//    var Face: String
+//    var Whorl: String
+//    var rfFeet: String
+//    var rrFeet: String
+//    var lfFeet: String
+//    var lrFeet: String
+//    var Location: String
+//    var DartStatus: String
+//    var DartDate: String
+//}
 
 struct Features {
     var Color: [String]
@@ -43,13 +72,15 @@ var selectedIndex = 0
 class SearchTableViewController: UITableViewController, UISearchBarDelegate, PassDataToSearch {
     
     @IBOutlet weak var AdvancedButton: UIBarButtonItem!
-    //@IBOutlet weak var searchBar: UISearchBar!
     
-    var data = [HorseData]()
-    var filteredData = [HorseData]()
+    // Data Setup
+    var BaseHorseData = [BaseHorse]()
+    var FilteredBaseData = [BaseHorse]()
+    var HorsePictures = [HorsePhotos]()
+    
     var advancedFeatures = Features(Color: [], Mane: [], Face: [], Whorl: [], rightFront: [], rightBack: [], leftFront: [], leftBack: [])
     var count = 0
-    
+    var loaded = false
     var isSearching = false
     
     // Loading Circle
@@ -70,25 +101,31 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         
         showSearchBar()
         
-        parseJSON(withCompletion: { horseData, error in
+        parseHorseJSON(withCompletion: { horseData, error in
             if error != nil {
                 print(error!)
                 self.createAlert(title: "Error", message: "Error loading horse data")
             } else if let horseData = horseData {
-                self.data = horseData
-                self.filteredData = horseData
-                self.loadComplete()
-                
+                self.parseHorsePicturesJSON(withCompletion: { horsePictures, error in
+                    if error != nil {
+                        print(error!)
+                        self.createAlert(title: "Error", message: "Error loading horse data")
+                    } else if let horsePictures = horsePictures {
+                        self.BaseHorseData = horseData
+                        self.FilteredBaseData = horseData
+                        self.HorsePictures = horsePictures
+                        self.loadComplete()
+                    }
+                })
             }
         })
-        
-        //Always make filteredData a copy of data when there is no filter applied
-        filteredData = data
-        
     }
 
     func loadComplete() {
        DispatchQueue.main.async {
+            self.loaded = true
+            self.BaseHorseData[0].data.sort(by: {$0.Name < $1.Name})
+            self.FilteredBaseData[0].data.sort(by: {$0.Name < $1.Name})
             self.activityIndicator.stopAnimating()
             self.activityIndicator.removeFromSuperview()
             UIApplication.shared.endIgnoringInteractionEvents()
@@ -115,41 +152,40 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         navigationItem.searchController = searchController
     }
     
-    // MARK: - Table view data source
-    // Comment for GIT
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if isSearching {
-            return filteredData.count
+        if(loaded) {
+            if isSearching {
+                return FilteredBaseData[0].data.count
+            }
+            
+            return BaseHorseData[0].data.count
         }
         
-        return data.count
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
+
         if isSearching {
-            filteredData.sort(by: {$0.Name < $1.Name})
-            cell.textLabel?.text = filteredData[indexPath.row].Name
-            cell.detailTextLabel?.text = filteredData[indexPath.row].Location
-            // cell.imageView?.image = filteredData[indexPath.row].Image
+            cell.textLabel?.text = FilteredBaseData[0].data[indexPath.row].Name
+            cell.detailTextLabel?.text = FilteredBaseData[0].data[indexPath.row].bands
         } else {
-            filteredData.sort(by: {$0.Name < $1.Name})
-            cell.textLabel?.text = filteredData[indexPath.row].Name
-            cell.detailTextLabel?.text = "County: " + data[indexPath.row].Location            // cell.imageView?.image = data[indexPath.row].Image
+            cell.textLabel?.text = BaseHorseData[0].data[indexPath.row].Name
+            cell.detailTextLabel?.text = "Band: " + BaseHorseData[0].data[indexPath.row].bands
         }
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedIndex = filteredData[indexPath.row].id
+        selectedIndex = Int(FilteredBaseData[0].data[indexPath.row].ID)!
+        print(selectedIndex)
         performSegue(withIdentifier: "horseView", sender: self)
     }
     
@@ -157,15 +193,21 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         switch segue.identifier {
             case "horseView":
                 let vc = segue.destination as! HorseViewController
-                vc.data = data
+                vc.BaseHorseData = BaseHorseData
+                vc.filteredBands = BaseHorseData
+                vc.HorseData = BaseHorseData[0].data.filter({ (horse) -> Bool in
+                    return Int(horse.ID)! == selectedIndex
+                })[0]
+                vc.HorseImageData = HorsePictures
+                vc.imageArray = HorsePictures[0].data.filter({ (Photo) -> Bool in
+                    return Int(Photo.ID)! == selectedIndex
+                })
             break
             case "showAdvanced":
                 let vc = segue.destination as! FeatureListScreen
                 vc.selectedFeatures = advancedFeatures
                 vc.delegate = self
             break
-            case "historySegue": break
-                //let vc = segue.destination as! FeatureSe
             default: break
             // Unreachable
         }
@@ -174,16 +216,16 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text == nil || searchBar.text?.trimmingCharacters(in: .whitespaces) == "" {
             //Always make filteredData a copy of data when there is no filter applied
-            filteredData = data.filter({ horse -> Bool in
-                return
-                    (advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horse.Color) : true) &&
-                    (advancedFeatures.Face.count > 0 ? advancedFeatures.Face.contains(horse.Face) : true) &&
-                    (advancedFeatures.Mane.count > 0 ? advancedFeatures.Mane.contains(horse.Mane) : true) &&
-                    (advancedFeatures.Whorl.count > 0 ? advancedFeatures.Whorl.contains(horse.Whorl) : true) &&
-                    (advancedFeatures.rightFront.count > 0 ? advancedFeatures.rightFront.contains(horse.rfFeet) : true) &&
-                    (advancedFeatures.rightBack.count > 0 ? advancedFeatures.rightBack.contains(horse.rrFeet) : true) &&
-                    (advancedFeatures.leftFront.count > 0 ? advancedFeatures.leftFront.contains(horse.lfFeet) : true) &&
-                    (advancedFeatures.leftBack.count > 0 ? advancedFeatures.leftBack.contains(horse.lrFeet) : true)
+            FilteredBaseData[0].data = BaseHorseData[0].data.filter({ horse -> Bool in
+                return true
+//                    (advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horse.Color) : true) &&
+//                    (advancedFeatures.Face.count > 0 ? advancedFeatures.Face.contains(horse.Face) : true) &&
+//                    (advancedFeatures.Mane.count > 0 ? advancedFeatures.Mane.contains(horse.Mane) : true) &&
+//                    (advancedFeatures.Whorl.count > 0 ? advancedFeatures.Whorl.contains(horse.Whorl) : true) &&
+//                    (advancedFeatures.rightFront.count > 0 ? advancedFeatures.rightFront.contains(horse.rfFeet) : true) &&
+//                    (advancedFeatures.rightBack.count > 0 ? advancedFeatures.rightBack.contains(horse.rrFeet) : true) &&
+//                    (advancedFeatures.leftFront.count > 0 ? advancedFeatures.leftFront.contains(horse.lfFeet) : true) &&
+//                    (advancedFeatures.leftBack.count > 0 ? advancedFeatures.leftBack.contains(horse.lrFeet) : true)
             })
             if(advancedFeatures.Color.count > 0 || advancedFeatures.Face.count > 0 || advancedFeatures.Mane.count > 0 || advancedFeatures.Whorl.count > 0 || advancedFeatures.rightFront.count > 0 || advancedFeatures.rightBack.count > 0 || advancedFeatures.leftFront.count > 0 || advancedFeatures.leftBack.count > 0) {
                 isSearching = true
@@ -196,27 +238,27 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
             isSearching = true
         
 
-            filteredData = data.filter({ horse -> Bool in
-                return
-                    (advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horse.Color) : true) &&
-                    (advancedFeatures.Face.count > 0 ? advancedFeatures.Face.contains(horse.Face) : true) &&
-                    (advancedFeatures.Mane.count > 0 ? advancedFeatures.Mane.contains(horse.Mane) : true) &&
-                    (advancedFeatures.Whorl.count > 0 ? advancedFeatures.Whorl.contains(horse.Whorl) : true) &&
-                    (advancedFeatures.rightFront.count > 0 ? advancedFeatures.rightFront.contains(horse.rfFeet) : true) &&
-                    (advancedFeatures.rightBack.count > 0 ? advancedFeatures.rightBack.contains(horse.rrFeet) : true) &&
-                    (advancedFeatures.leftFront.count > 0 ? advancedFeatures.leftFront.contains(horse.lfFeet) : true) &&
-                    (advancedFeatures.leftBack.count > 0 ? advancedFeatures.leftBack.contains(horse.lrFeet) : true)
+            FilteredBaseData[0].data = BaseHorseData[0].data.filter({ horse -> Bool in
+                return true
+//                    (advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horse.Color) : true) &&
+//                    (advancedFeatures.Face.count > 0 ? advancedFeatures.Face.contains(horse.Face) : true) &&
+//                    (advancedFeatures.Mane.count > 0 ? advancedFeatures.Mane.contains(horse.Mane) : true) &&
+//                    (advancedFeatures.Whorl.count > 0 ? advancedFeatures.Whorl.contains(horse.Whorl) : true) &&
+//                    (advancedFeatures.rightFront.count > 0 ? advancedFeatures.rightFront.contains(horse.rfFeet) : true) &&
+//                    (advancedFeatures.rightBack.count > 0 ? advancedFeatures.rightBack.contains(horse.rrFeet) : true) &&
+//                    (advancedFeatures.leftFront.count > 0 ? advancedFeatures.leftFront.contains(horse.lfFeet) : true) &&
+//                    (advancedFeatures.leftBack.count > 0 ? advancedFeatures.leftBack.contains(horse.lrFeet) : true)
             }).filter({ horse -> Bool in
                 guard let text = searchBar.text else { return false }
-                
+
                 let textArr = text.trimmingCharacters(in: .whitespaces).lowercased().components(separatedBy: " ")
                 //Variable to keep track of if a horse matches any features
                 var retHorse = false
-                
+
                 //Loop through all inputted features and see if current horse fits any of them
                 //If current horse matches a searched filter, retHorse will be set to true and then then add the current to the filtered array
-                for myText in textArr{
-                    retHorse =  horse.Name.lowercased().contains(myText.lowercased()) || horse.Location.lowercased().contains(myText.lowercased())
+                for myText in textArr {
+                    retHorse =  horse.Name.lowercased().contains(myText.lowercased()) || horse.bands.lowercased().contains(myText.lowercased())
                 }
                 //Return false if horse match no features
                 return retHorse
@@ -231,15 +273,32 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         performSegue(withIdentifier: "showAdvanced", sender: self)
     }
     
-    func parseJSON(withCompletion completion: @escaping ([HorseData]?, Error?) -> Void) {
-        let jsonUrlString = "https://projectfrontier.dev/horseData.json"
+    func parseHorseJSON(withCompletion completion: @escaping ([BaseHorse]?, Error?) -> Void) {
+        let jsonUrlString = "https://projectfrontier.dev/data/NameHerdBand.json"
             guard let url = URL(string: jsonUrlString) else { return }
             
         let task = URLSession.shared.dataTask(with: url) { (horseData, response, err) in
             guard let horseData = horseData else { return }
             do {
-                let horses = try JSONDecoder().decode([HorseData].self, from: horseData)
+                let horses = try JSONDecoder().decode([BaseHorse].self, from: horseData)
                 completion(horses, nil)
+            } catch let jsonErr {
+                print("Error serializing json:", jsonErr)
+               completion(nil, err)
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func parseHorsePicturesJSON(withCompletion completion: @escaping ([HorsePhotos]?, Error?) -> Void) {
+        let jsonUrlString = "https://projectfrontier.dev/data/HorsesPhotos.json"
+            guard let url = URL(string: jsonUrlString) else { return }
+        let task = URLSession.shared.dataTask(with: url) { (horsePictures, response, err) in
+            guard let horsePictures = horsePictures else { return }
+            do {
+                let data = try JSONDecoder().decode([HorsePhotos].self, from: horsePictures)
+                completion(data, nil)
             } catch let jsonErr {
                 print("Error serializing json:", jsonErr)
                completion(nil, err)
@@ -268,20 +327,20 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         if(count > 0) {
             AdvancedButton?.addBadge(text: String(count))
             isSearching = true
-            filteredData = data.filter({ horse -> Bool in
-                return
-                    (advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horse.Color) : true) &&
-                    (advancedFeatures.Face.count > 0 ? advancedFeatures.Face.contains(horse.Face) : true) &&
-                    (advancedFeatures.Mane.count > 0 ? advancedFeatures.Mane.contains(horse.Mane) : true) &&
-                    (advancedFeatures.Whorl.count > 0 ? advancedFeatures.Whorl.contains(horse.Whorl) : true) &&
-                    (advancedFeatures.rightFront.count > 0 ? advancedFeatures.rightFront.contains(horse.rfFeet) : true) &&
-                    (advancedFeatures.rightBack.count > 0 ? advancedFeatures.rightBack.contains(horse.rrFeet) : true) &&
-                    (advancedFeatures.leftFront.count > 0 ? advancedFeatures.leftFront.contains(horse.lfFeet) : true) &&
-                    (advancedFeatures.leftBack.count > 0 ? advancedFeatures.leftBack.contains(horse.lrFeet) : true)
+            FilteredBaseData[0].data = BaseHorseData[0].data.filter({ horse -> Bool in
+                return false
+//                    (advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horse.Color) : true) &&
+//                    (advancedFeatures.Face.count > 0 ? advancedFeatures.Face.contains(horse.Face) : true) &&
+//                    (advancedFeatures.Mane.count > 0 ? advancedFeatures.Mane.contains(horse.Mane) : true) &&
+//                    (advancedFeatures.Whorl.count > 0 ? advancedFeatures.Whorl.contains(horse.Whorl) : true) &&
+//                    (advancedFeatures.rightFront.count > 0 ? advancedFeatures.rightFront.contains(horse.rfFeet) : true) &&
+//                    (advancedFeatures.rightBack.count > 0 ? advancedFeatures.rightBack.contains(horse.rrFeet) : true) &&
+//                    (advancedFeatures.leftFront.count > 0 ? advancedFeatures.leftFront.contains(horse.lfFeet) : true) &&
+//                    (advancedFeatures.leftBack.count > 0 ? advancedFeatures.leftBack.contains(horse.lrFeet) : true)
             })
             tableView.reloadData()
         } else {
-            filteredData = data
+            FilteredBaseData = BaseHorseData
             tableView.reloadData()
             isSearching = false
             AdvancedButton?.removeBadge()

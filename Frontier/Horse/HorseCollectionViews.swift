@@ -14,7 +14,7 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
             case 0:
                 return 8
             case 1:
-                return filteredBands.count
+                return filteredBands[0].data.count
             default:
                 return 0
         }
@@ -33,40 +33,50 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
                    imageView.contentMode = UIView.ContentMode.scaleAspectFit
             
             
-            var imagePath = "AdvancedFeatureImages/"
+            var imagePath = "AdvancedFeatureImages/HorseColor/brown"
             
-            switch(indexPath.row) {
-                case 0: // Color
-                    imagePath += "HorseColor/" + data[selectedIndex].Color.lowercased().filter{!" \n\t\r".contains($0)}
-                case 1: // Mane
-                    imagePath += "HorseMane/" + data[selectedIndex].Mane.lowercased().filter{!" \n\t\r".contains($0)}
-                case 2: // Face
-                    imagePath += "HorseFace/" + data[selectedIndex].Face.lowercased().filter{!" \n\t\r".contains($0)}
-                case 3: // Whorl
-                    imagePath += "HorseWhorl/" + data[selectedIndex].Whorl.lowercased().filter{!" \n\t\r".contains($0)}
-                case 4: // Right Front Foot
-                    imagePath += "HorseFeet/" + data[selectedIndex].rfFeet.lowercased().filter{!" \n\t\r".contains($0)}
-                case 5: // Right Back Foot
-                    imagePath += "HorseFeet/" + data[selectedIndex].rrFeet.lowercased().filter{!" \n\t\r".contains($0)}
-                case 6: // Left Front Foot
-                    imagePath += "HorseFeet/" + data[selectedIndex].lfFeet.lowercased().filter{!" \n\t\r".contains($0)}
-                case 7: // Left Back Foot
-                    imagePath += "HorseFeet/" + data[selectedIndex].lrFeet.lowercased().filter{!" \n\t\r".contains($0)}
-                default:
-                    imagePath += "missing"
-            }
+//            switch(indexPath.row) {
+//                case 0: // Color
+//                    imagePath += "HorseColor/" + data[selectedIndex].Color.lowercased().filter{!" \n\t\r".contains($0)}
+//                case 1: // Mane
+//                    imagePath += "HorseMane/" + data[selectedIndex].Mane.lowercased().filter{!" \n\t\r".contains($0)}
+//                case 2: // Face
+//                    imagePath += "HorseFace/" + data[selectedIndex].Face.lowercased().filter{!" \n\t\r".contains($0)}
+//                case 3: // Whorl
+//                    imagePath += "HorseWhorl/" + data[selectedIndex].Whorl.lowercased().filter{!" \n\t\r".contains($0)}
+//                case 4: // Right Front Foot
+//                    imagePath += "HorseFeet/" + data[selectedIndex].rfFeet.lowercased().filter{!" \n\t\r".contains($0)}
+//                case 5: // Right Back Foot
+//                    imagePath += "HorseFeet/" + data[selectedIndex].rrFeet.lowercased().filter{!" \n\t\r".contains($0)}
+//                case 6: // Left Front Foot
+//                    imagePath += "HorseFeet/" + data[selectedIndex].lfFeet.lowercased().filter{!" \n\t\r".contains($0)}
+//                case 7: // Left Back Foot
+//                    imagePath += "HorseFeet/" + data[selectedIndex].lrFeet.lowercased().filter{!" \n\t\r".contains($0)}
+//                default:
+//                    imagePath += "missing"
+//            }
         
-            var image = UIImage()
             if(SegmentedController.selectedSegmentIndex == 0) {
-                image = self.resizeImage(image: UIImage(named: imagePath)!, targetSize: CGSize(width: 80, height: 80))
+                imageView.image = self.resizeImage(image: UIImage(named: imagePath)!, targetSize: CGSize(width: 80, height: 80))
             } else if(SegmentedController.selectedSegmentIndex == 1) {
-                image = self.resizeImage(image: UIImage(named: "missing")!, targetSize: CGSize(width: 80, height: 80))
+                imageView.image = imageView.image?.circleMask
+                imageView.kf.indicatorType = .activity
+                imageView.kf.setImage(with: URL(string: HorseImageData[0].data.filter({ (Photo) -> Bool in
+                        return Photo.ID == filteredBands[0].data[indexPath.row].ID
+                })[0].ImageFile.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil))) { result in
+                    switch(result) {
+                        case .success(let value):
+                            imageView.image = self.resizeImage(image: value.image, targetSize: CGSize(width: 100, height: 100))
+                            self.AttributeCollectionView.reloadItems(at: [indexPath])
+                        case .failure(_): break
+                    }
+                }
             } else {
-                image = self.resizeImage(image: UIImage(named: "missing")!, targetSize: CGSize(width: 80, height: 80))
+                imageView.image = self.resizeImage(image: UIImage(named: "missing")!, targetSize: CGSize(width: 80, height: 80))
             }
 
             
-            imageView.image = image.circleMask
+            imageView.image = imageView.image?.circleMask
             return imageView
         }()
         
@@ -74,28 +84,29 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let label: UILabel = {
             let label = UILabel(frame: CGRect(x: 0,y: 0, width: 10, height: 200))
             if(SegmentedController.selectedSegmentIndex == 0) {
-             switch(indexPath.row) {
-                    case 0: // Color
-                        label.text = data[selectedIndex].Color
-                    case 1: // Mane
-                        label.text = data[selectedIndex].Mane
-                    case 2: // Face
-                        label.text = data[selectedIndex].Face
-                    case 3: // Whorl
-                        label.text = data[selectedIndex].Whorl
-                    case 4: // Right Front Foot
-                        label.text = "Right Front: " + data[selectedIndex].rfFeet
-                    case 5: // Right Back Foot
-                        label.text = "Right Back: " + data[selectedIndex].rrFeet
-                    case 6: // Left Front Foot
-                        label.text = "Left Front: " + data[selectedIndex].lfFeet
-                    case 7: // Left Back Foot
-                        label.text = "Left Back: " + data[selectedIndex].lrFeet
-                    default:
-                        label.text = "MISSING"
-                }
+//             switch(indexPath.row) {
+//                    case 0: // Color
+//                        label.text = data[selectedIndex].Color
+//                    case 1: // Mane
+//                        label.text = data[selectedIndex].Mane
+//                    case 2: // Face
+//                        label.text = data[selectedIndex].Face
+//                    case 3: // Whorl
+//                        label.text = data[selectedIndex].Whorl
+//                    case 4: // Right Front Foot
+//                        label.text = "Right Front: " + data[selectedIndex].rfFeet
+//                    case 5: // Right Back Foot
+//                        label.text = "Right Back: " + data[selectedIndex].rrFeet
+//                    case 6: // Left Front Foot
+//                        label.text = "Left Front: " + data[selectedIndex].lfFeet
+//                    case 7: // Left Back Foot
+//                        label.text = "Left Back: " + data[selectedIndex].lrFeet
+//                    default:
+//                        label.text = "MISSING"
+//                }
+                label.text = "Coming Soon"
             } else if(SegmentedController.selectedSegmentIndex == 1) {
-                label.text = filteredBands[indexPath.row].Name
+                label.text = filteredBands[0].data[indexPath.row].Name
             } else {
                 label.text = "Missing"
             }
@@ -149,9 +160,17 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
 
        let location = sender.location(in: AttributeCollectionView)
        let indexPath = AttributeCollectionView.indexPathForItem(at: location)
-        selectedIndex = filteredBands[indexPath!.row].id
+        selectedIndex = Int(filteredBands[0].data[indexPath!.row].ID)!
       let vc = self.storyboard?.instantiateViewController(withIdentifier: "HorseViewController") as! HorseViewController
-          vc.data = data
+            vc.HorseData = BaseHorseData[0].data.filter({ (horse) -> Bool in
+                return Int(horse.ID)! == selectedIndex
+            })[0]
+          vc.BaseHorseData = BaseHorseData
+          vc.filteredBands = BaseHorseData
+          vc.HorseImageData = HorseImageData
+          vc.imageArray = HorseImageData[0].data.filter({ (Photo) -> Bool in
+            return Int(Photo.ID)! == selectedIndex
+        })
       self.navigationController?.pushViewController(vc, animated: true)
     }
     

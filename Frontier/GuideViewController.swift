@@ -93,7 +93,6 @@ class GuideViewController: UIViewController{
 extension GuideViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        print("Getting 1")
         return 1
     }
     
@@ -106,7 +105,6 @@ extension GuideViewController: UITableViewDataSource, UITableViewDelegate {
 //    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Getting 2")
         print(data.count)
         return data.count
     }

@@ -14,7 +14,6 @@ import struct Kingfisher.BlurImageProcessor
 import struct Kingfisher.TintImageProcessor
 
 var Bands = ["Horse Band 1", "Horse Band 2", "Horse Band 3", "Horse Band 4", "Horse Band 5", "Horse Band 6","Horse Band 7", "Horse Band 8", "Horse Band 9", "Horse Band 10", "Horse Band 11", "Horse Band 12", "Horse Band 13", "Horse Band 14", "Horse Band 15", "Horse Band 16", "Horse Band 17", "Horse Band 18", "Horse Band 19", "Horse Band 20"]
-var filteredBands = [HorseData]()
 
 var images = [UIImage(named: "black"), UIImage(named: "bay")]
 class HorseViewController: UIViewController {
@@ -32,8 +31,11 @@ class HorseViewController: UIViewController {
     
     
 
-    var data = [HorseData]()
-    var imageArray = [String]()
+    var BaseHorseData = [BaseHorse]()
+    var filteredBands = [BaseHorse]()
+    var HorseData = NameBandHerd(ID: "0", Name: "", herd: "", bands: "")
+    var HorseImageData = [HorsePhotos]()
+    var imageArray = [Photo]()
     var firstImage = false
     
     // Collection View Definitions
@@ -47,41 +49,30 @@ class HorseViewController: UIViewController {
         setCVConstraints()
         /// Set the size of each cell relative ot screen size
         defineCellSize()
-                
+        navigationItem.title = HorseData.Name
+        NameLabel.text = HorseData.Name
+        
         filterBands()
-        navigationItem.title = data[selectedIndex].Name
-        
-        NameLabel.text = data[selectedIndex].Name
-        LocationLabel.text = data[selectedIndex].Location
-        
-        
-        imageArray = ["https://whims.wildhorsepreservation.org/UNR/2_0_59090036bdec6.jpg",
-                      "https://whims.wildhorsepreservation.org/UNR/2_1_59090036d6816.jpg",
-                      "https://whims.wildhorsepreservation.org/UNR/2_0_5914b6736bb29.jpg",
-                      "https://whims.wildhorsepreservation.org/UNR/2_0_5d2bd072dad87.jpg",
-                      "https://whims.wildhorsepreservation.org/UNR/2_0_5bc4cb1c501c0.jpg"
-        ]
         
         let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         SegmentedController.setTitleTextAttributes(titleTextAttributes, for: .selected)
         
         for i in 0..<imageArray.count {
+            print(imageArray[i].ImageFile)
             switch(i) {
                 case 0:
-                    //FirstImage.superview!.frame = CGRect(x:20, y: 20, width: FirstImage.superview!.frame.width, height: self.view.frame.width)
-                    FirstImage.superview!.backgroundColor = .yellow
                     FirstImage.kf.indicatorType = .activity
-                    FirstImage.kf.setImage(with: URL(string: imageArray[i]))
+                    FirstImage.kf.setImage(with: URL(string: imageArray[i].ImageFile.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)))
                 case 1:
                     SecondImage.kf.indicatorType = .activity
-                    SecondImage.kf.setImage(with: URL(string: imageArray[i]))
+                    SecondImage.kf.setImage(with: URL(string: imageArray[i].ImageFile.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)))
                 case 2:
                     let blurProcessor = BlurImageProcessor(blurRadius: 75)
-                    FirstImage.kf.indicatorType = .activity
+                    ThirdImage.kf.indicatorType = .activity
                     if(imageArray.count > 3) {
-                        ThirdImage.kf.setImage(with: URL(string: imageArray[i]), options: [.processor(blurProcessor)])
+                        ThirdImage.kf.setImage(with: URL(string: imageArray[i].ImageFile.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)), options: [.processor(blurProcessor)])
                     } else {
-                        ThirdImage.kf.setImage(with: URL(string: imageArray[i]))
+                        ThirdImage.kf.setImage(with: URL(string: imageArray[i].ImageFile))
                     }
                 default:
                     print("Extra")
@@ -126,10 +117,10 @@ class HorseViewController: UIViewController {
     }
     
     func filterBands() {
-        filteredBands = data.filter({ horse -> Bool in
-            return horse.Band == data[selectedIndex].Band && horse.Name != data[selectedIndex].Name
+        filteredBands[0].data = BaseHorseData[0].data.filter({ horse -> Bool in
+            return horse.bands == HorseData.bands && horse.Name != HorseData.Name
         })
-        filteredBands.sort(by: {$0.Name < $1.Name})
+        filteredBands[0].data.sort(by: {$0.Name < $1.Name})
     }
     
     func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {

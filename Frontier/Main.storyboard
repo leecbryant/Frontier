@@ -231,6 +231,11 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <color key="sectionIndexBackgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <color key="sectionIndexTrackingBackgroundColor" red="0.17941194769999999" green="0.41339629890000001" blue="0.49805468320000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="GsL-Oy-ELM">
+                            <rect key="frame" x="0.0" y="111.5" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" textLabel="lsh-Fe-Wde" detailTextLabel="nqO-U5-2Bi" style="IBUITableViewCellStyleSubtitle" id="qA8-ry-dU2">
                                 <rect key="frame" x="0.0" y="28" width="375" height="55.5"/>
@@ -295,16 +300,16 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="M4x-EF-ppd">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="200"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="missing" translatesAutoresizingMaskIntoConstraints="NO" id="dq5-Lv-49u">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dq5-Lv-49u">
                                                 <rect key="frame" x="0.0" y="0.0" width="198" height="200"/>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Y7P-iS-tqS">
                                                 <rect key="frame" x="208" y="0.0" width="127" height="200"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="missing" translatesAutoresizingMaskIntoConstraints="NO" id="gPc-DH-uxd">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gPc-DH-uxd">
                                                         <rect key="frame" x="0.0" y="0.0" width="127" height="95"/>
                                                     </imageView>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="missing" translatesAutoresizingMaskIntoConstraints="NO" id="yQQ-GS-wjS">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yQQ-GS-wjS">
                                                         <rect key="frame" x="0.0" y="105" width="127" height="95"/>
                                                     </imageView>
                                                 </subviews>
@@ -1189,7 +1194,6 @@
         <image name="info" width="25" height="25"/>
         <image name="logo_transparent" width="502" height="498"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
-        <image name="missing" width="96" height="96"/>
         <image name="more-menu" width="25" height="25"/>
     </resources>
     <color key="tintColor" red="0.047036342320000001" green="0.53120297189999999" blue="0.63139021399999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
