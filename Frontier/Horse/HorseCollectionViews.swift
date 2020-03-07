@@ -57,7 +57,7 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
 //            }
         
             if(SegmentedController.selectedSegmentIndex == 0) {
-                imageView.image = self.resizeImage(image: UIImage(named: imagePath)!, targetSize: CGSize(width: 80, height: 80))
+                imageView.image = self.resizeImage(image: UIImage(named: imagePath)!, targetSize: CGSize(width: 100, height: 100))
             } else if(SegmentedController.selectedSegmentIndex == 1) {
                 imageView.kf.indicatorType = .activity
                 imageView.kf.setImage(with: URL(string: HorseImageData[0].data.filter({ (Photo) -> Bool in
@@ -72,7 +72,7 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
                     }
                 }
             } else {
-                imageView.image = self.resizeImage(image: UIImage(named: "missing")!, targetSize: CGSize(width: 80, height: 80))
+                imageView.image = self.resizeImage(image: UIImage(named: "missing")!, targetSize: CGSize(width: 100, height: 100))
             }
 
             

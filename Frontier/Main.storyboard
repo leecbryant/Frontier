@@ -1008,7 +1008,9 @@
                             <outlet property="delegate" destination="zuq-fi-e6c" id="WqY-kF-joo"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="jBp-bE-gHm"/>
+                    <navigationItem key="navigationItem" id="jBp-bE-gHm">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="nkg-Dr-mXM"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="79e-Ec-1Ag" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1249,6 +1251,7 @@
         <image name="logo_transparent" width="502" height="498"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
         <image name="more-menu" width="25" height="25"/>
+        <image name="plus" catalog="system" width="64" height="56"/>
     </resources>
     <color key="tintColor" red="0.047036342320000001" green="0.53120297189999999" blue="0.63139021399999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
 </document>
