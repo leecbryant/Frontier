@@ -29,6 +29,7 @@ class HorseViewController: UIViewController {
     @IBOutlet weak var AttributeCollectionView: UICollectionView!
     @IBOutlet weak var SegmentedController: UISegmentedControl!
     
+    @IBOutlet weak var DartButton: UIButton!
     
     // Base horse information
     var BaseHorseData = [BaseHorse]()
@@ -113,6 +114,11 @@ class HorseViewController: UIViewController {
         let image = UIImage(named: "more-menu")?.withRenderingMode(.alwaysTemplate)
         ThirdImage.setImage(image, for: .normal)
         ThirdImage.tintColor = UIColor.white
+        
+        // Dart Button Setup
+        let dartimage = UIImage(named: "needle")?.withRenderingMode(.alwaysTemplate)
+        DartButton.setImage(dartimage, for: .normal)
+        DartButton.tintColor = UIColor.white
     }
 
     @IBAction func DartPress(_ sender: Any) {

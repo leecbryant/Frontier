@@ -33,7 +33,7 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
                    imageView.contentMode = UIView.ContentMode.scaleAspectFit
             
             
-            var imagePath = "AdvancedFeatureImages/HorseColor/brown"
+            let imagePath = "AdvancedFeatureImages/HorseColor/brown"
             
 //            switch(indexPath.row) {
 //                case 0: // Color
