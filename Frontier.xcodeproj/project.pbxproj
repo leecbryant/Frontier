@@ -34,6 +34,7 @@
 		41E84C55238D088A004A4392 /* HorseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E84C54238D088A004A4392 /* HorseViewController.swift */; };
 		41ED39792411F2F700B1CB18 /* PicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41ED39782411F2F700B1CB18 /* PicViewController.swift */; };
 		41ED397B2412E35100B1CB18 /* HorseCollectionViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41ED397A2412E35100B1CB18 /* HorseCollectionViews.swift */; };
+		41ED397D24135F6000B1CB18 /* DartTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41ED397C24135F6000B1CB18 /* DartTableViewController.swift */; };
 		C84D504124102F8E00E52999 /* More.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C84D503D24102F8E00E52999 /* More.storyboard */; };
 		C84D504224102F8E00E52999 /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84D503E24102F8E00E52999 /* MoreTableViewController.swift */; };
 		C84D504324102F8E00E52999 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84D503F24102F8E00E52999 /* AboutViewController.swift */; };
@@ -89,6 +90,7 @@
 		41E84C54238D088A004A4392 /* HorseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseViewController.swift; sourceTree = "<group>"; };
 		41ED39782411F2F700B1CB18 /* PicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicViewController.swift; sourceTree = "<group>"; };
 		41ED397A2412E35100B1CB18 /* HorseCollectionViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseCollectionViews.swift; sourceTree = "<group>"; };
+		41ED397C24135F6000B1CB18 /* DartTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DartTableViewController.swift; sourceTree = "<group>"; };
 		C84D503D24102F8E00E52999 /* More.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = More.storyboard; sourceTree = "<group>"; };
 		C84D503E24102F8E00E52999 /* MoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreTableViewController.swift; sourceTree = "<group>"; };
 		C84D503F24102F8E00E52999 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				41A14C80240F64FA0094D872 /* HorseCollectionViewCell.swift */,
 				41ED39782411F2F700B1CB18 /* PicViewController.swift */,
 				41ED397A2412E35100B1CB18 /* HorseCollectionViews.swift */,
+				41ED397C24135F6000B1CB18 /* DartTableViewController.swift */,
 			);
 			path = Horse;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				41E5DB6A240DDC9200306799 /* ForgotPasswordViewController.swift in Sources */,
 				417E9B2723EA860800308EBE /* ButtonBadge.swift in Sources */,
 				418224F323CA95180043A086 /* ViewController.swift in Sources */,
+				41ED397D24135F6000B1CB18 /* DartTableViewController.swift in Sources */,
 				418224F423CA95180043A086 /* CollectionViewCell.swift in Sources */,
 				418224EB23CA94C80043A086 /* FeatureCell.swift in Sources */,
 				C84D504324102F8E00E52999 /* AboutViewController.swift in Sources */,

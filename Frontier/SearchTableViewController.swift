@@ -36,24 +36,18 @@ struct Photo: Decodable {
    var ImageFile: String
 }
 
-//
-//struct HorseData: Decodable {
-//    var id: Int
-//    var Name: String
-//    var Image: String
-//    var Band: Int
-//    var Color: String
-//    var Mane: String
-//    var Face: String
-//    var Whorl: String
-//    var rfFeet: String
-//    var rrFeet: String
-//    var lfFeet: String
-//    var lrFeet: String
-//    var Location: String
-//    var DartStatus: String
-//    var DartDate: String
-//}
+struct HorseTreatments: Decodable {
+    var type: String
+    var name: String
+    var database: String
+    var data: [Treatment]
+}
+
+struct Treatment: Decodable {
+   var HorseID: String
+   var Date: String
+   var Action: String
+}
 
 struct Features {
     var Color: [String]
@@ -77,12 +71,13 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     var BaseHorseData = [BaseHorse]()
     var FilteredBaseData = [BaseHorse]()
     var HorsePictures = [HorsePhotos]()
+    var HorseLedger = [HorseTreatments]()
     
     var advancedFeatures = Features(Color: [], Mane: [], Face: [], Whorl: [], rightFront: [], rightBack: [], leftFront: [], leftBack: [])
     var count = 0
     var loaded = false
     var isSearching = false
-    
+        
     // Loading Circle
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
@@ -109,12 +104,20 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
                 self.parseHorsePicturesJSON(withCompletion: { horsePictures, error in
                     if error != nil {
                         print(error!)
-                        self.createAlert(title: "Error", message: "Error loading horse data")
+                        self.createAlert(title: "Error", message: "Error loading horse picture data")
                     } else if let horsePictures = horsePictures {
-                        self.BaseHorseData = horseData
-                        self.FilteredBaseData = horseData
-                        self.HorsePictures = horsePictures
-                        self.loadComplete()
+                        self.parseHorseTreatmentJSON(withCompletion: { horseTreatments, error in
+                            if error != nil {
+                                print(error!)
+                                self.createAlert(title: "Error", message: "Error loading horse treatment data")
+                            } else if let horseTreatments = horseTreatments {
+                                self.BaseHorseData = horseData
+                                self.FilteredBaseData = horseData
+                                self.HorsePictures = horsePictures
+                                self.HorseLedger = horseTreatments
+                                self.loadComplete()
+                            }
+                        })
                     }
                 })
             }
@@ -185,8 +188,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndex = Int(FilteredBaseData[0].data[indexPath.row].ID)!
-        print(selectedIndex)
-        performSegue(withIdentifier: "horseView", sender: self)
+            performSegue(withIdentifier: "horseView", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -202,6 +204,10 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
                 vc.imageArray = HorsePictures[0].data.filter({ (Photo) -> Bool in
                     return Int(Photo.ID)! == selectedIndex
                 })
+                vc.HorseLedger = HorseLedger
+                vc.HorseDartData = HorseLedger[0].data.sorted(by: {$0.Date > $1.Date}).filter{ (Horse) -> Bool in
+                    return Int(Horse.HorseID)! == selectedIndex
+                }
             break
             case "showAdvanced":
                 let vc = segue.destination as! FeatureListScreen
@@ -298,6 +304,23 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
             guard let horsePictures = horsePictures else { return }
             do {
                 let data = try JSONDecoder().decode([HorsePhotos].self, from: horsePictures)
+                completion(data, nil)
+            } catch let jsonErr {
+                print("Error serializing json:", jsonErr)
+               completion(nil, err)
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func parseHorseTreatmentJSON(withCompletion completion: @escaping ([HorseTreatments]?, Error?) -> Void) {
+        let jsonUrlString = "https://projectfrontier.dev/data/TreatmentLedger.json"
+            guard let url = URL(string: jsonUrlString) else { return }
+        let task = URLSession.shared.dataTask(with: url) { (horseTreatments, response, err) in
+            guard let horseTreatments = horseTreatments else { return }
+            do {
+                let data = try JSONDecoder().decode([HorseTreatments].self, from: horseTreatments)
                 completion(data, nil)
             } catch let jsonErr {
                 print("Error serializing json:", jsonErr)

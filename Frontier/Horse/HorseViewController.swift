@@ -30,13 +30,16 @@ class HorseViewController: UIViewController {
     @IBOutlet weak var SegmentedController: UISegmentedControl!
     
     
-
+    // Base horse information
     var BaseHorseData = [BaseHorse]()
     var filteredBands = [BaseHorse]()
     var HorseData = NameBandHerd(ID: "0", Name: "", herd: "", bands: "")
+    // Horse Picture Information
     var HorseImageData = [HorsePhotos]()
     var imageArray = [Photo]()
-    var firstImage = false
+    // Horse Dart Information
+    var HorseLedger = [HorseTreatments]()
+    var HorseDartData = [Treatment]()
     
     // Collection View Definitions
     let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -51,7 +54,19 @@ class HorseViewController: UIViewController {
         defineCellSize()
         navigationItem.title = HorseData.Name
         NameLabel.text = HorseData.Name
-        
+        if(HorseDartData.count > 0) {
+            LocationLabel.text = "Recent Shot: "
+            switch(HorseDartData[0].Action) {
+                case "P":
+                    LocationLabel.text! += "Primer"
+                case "B":
+                    LocationLabel.text! += "Booster"
+                default:
+                    break
+            }
+        } else {
+            LocationLabel.text = "Not Darted"
+        }
         filterBands()
         
         let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -95,6 +110,12 @@ class HorseViewController: UIViewController {
         ThirdImage.tag = 3
     }
 
+    @IBAction func DartPress(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "dart") as! DartTableViewController
+        vc.HorseDartData = HorseDartData
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @objc private func imageTapped(_ recognizer: UITapGestureRecognizer, index: Int) {
         
         let otherViewController = self.storyboard?.instantiateViewController(withIdentifier: "preview") as? PicViewController

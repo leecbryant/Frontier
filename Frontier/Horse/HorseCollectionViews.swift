@@ -59,13 +59,13 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
             if(SegmentedController.selectedSegmentIndex == 0) {
                 imageView.image = self.resizeImage(image: UIImage(named: imagePath)!, targetSize: CGSize(width: 80, height: 80))
             } else if(SegmentedController.selectedSegmentIndex == 1) {
-                imageView.image = imageView.image?.circleMask
                 imageView.kf.indicatorType = .activity
                 imageView.kf.setImage(with: URL(string: HorseImageData[0].data.filter({ (Photo) -> Bool in
                         return Photo.ID == filteredBands[0].data[indexPath.row].ID
                 })[0].ImageFile.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil))) { result in
                     switch(result) {
                         case .success(let value):
+                            imageView.image = imageView.image?.circleMask
                             imageView.image = self.resizeImage(image: value.image, targetSize: CGSize(width: 100, height: 100))
                             self.AttributeCollectionView.reloadItems(at: [indexPath])
                         case .failure(_): break
@@ -170,7 +170,11 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
           vc.HorseImageData = HorseImageData
           vc.imageArray = HorseImageData[0].data.filter({ (Photo) -> Bool in
             return Int(Photo.ID)! == selectedIndex
-        })
+          })
+          vc.HorseLedger = HorseLedger
+          vc.HorseDartData = HorseLedger[0].data.sorted(by: {$0.Date > $1.Date}).filter{ (Horse) -> Bool in
+              return Int(Horse.HorseID)! == selectedIndex
+          }
       self.navigationController?.pushViewController(vc, animated: true)
     }
     
