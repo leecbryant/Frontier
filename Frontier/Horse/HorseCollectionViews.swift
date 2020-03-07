@@ -26,26 +26,24 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func getAttributeCount() -> Int {
         var Max = 8
-        if(HorseMarkingData.Mane_Color == nil) {
+        if(HorseMarkingData.Position == nil) {
             Max = Max - 1
             if let index = returnableIndex.firstIndex(of: 1) {
                 returnableIndex.remove(at: index)
             }
         }
-        if(HorseMarkingData.FaceString == nil) {
+        if(HorseMarkingData.Mane_Color == nil) {
             Max = Max - 1
             if let index = returnableIndex.firstIndex(of: 2) {
                 returnableIndex.remove(at: index)
             }
         }
-        
-        // Remove Whorl
-        Max = Max - 1
-        if let index = returnableIndex.firstIndex(of: 3) {
-            returnableIndex.remove(at: index)
+        if(HorseMarkingData.FaceString == nil) {
+            Max = Max - 1
+            if let index = returnableIndex.firstIndex(of: 3) {
+                returnableIndex.remove(at: index)
+            }
         }
-        
-        
         if(HorseMarkingData.RFMarking == nil) {
             Max = Max - 1
             if let index = returnableIndex.firstIndex(of: 4) {
@@ -85,17 +83,20 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
                 switch(returnableIndex[indexPath.row]) {
                     case 0: // Color
                         imagePath += "HorseColor/" + HorseMarkingData.color.lowercased().filter{!" \n\t\r".contains($0)}
-                    case 1: // Mane
+                    case 1: // Mane Position
+                        if(HorseMarkingData.Position != nil) {
+                            imagePath += "HorseMane/" + HorseMarkingData.Position!.lowercased().filter{!" \n\t\r".contains($0)}
+                        }
+                        break
+                    case 2: // Mane
                         if(HorseMarkingData.Mane_Color != nil) {
                             imagePath += "HorseMane/" + HorseMarkingData.Mane_Color!.lowercased().filter{!" \n\t\r".contains($0)}
                         }
                         break
-                    case 2: // Face
+                    case 3: // Face
                         if(HorseMarkingData.FaceString != nil) {
                             imagePath += "HorseFace/" + HorseMarkingData.FaceString!.lowercased().filter{!" \n\t\r".contains($0)}
                         }
-                        break
-                    case 3: // Whorl
                         break
                     case 4: // Right Front Foot
                         if(HorseMarkingData.RFMarking != nil) {
@@ -150,17 +151,20 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
                 switch(returnableIndex[indexPath.row]) {
                         case 0: // Color
                             label.text = "Color: " + HorseMarkingData.color
-                        case 1: // Mane
+                        case 1: // Mane Position
+                            if(HorseMarkingData.Position != nil) {
+                                label.text = "Mane Position: " + HorseMarkingData.Position!
+                            }
+                            break
+                        case 2: // Mane
                             if(HorseMarkingData.Mane_Color != nil) {
                                 label.text = "Mane: " + HorseMarkingData.Mane_Color!
                             }
                             break
-                        case 2: // Face
+                        case 3: // Face
                             if(HorseMarkingData.FaceString != nil) {
                                 label.text = "Face: " + HorseMarkingData.FaceString!
                             }
-                            break
-                        case 3: // Whorl
                             break
                         case 4: // Right Front Foot
                             if(HorseMarkingData.RFMarking != nil) {

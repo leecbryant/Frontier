@@ -72,6 +72,7 @@ struct Marking: Decodable {
 struct Features {
     var Color: [String]
     var Mane: [String]
+    var ManePosition: [String]
     var Face: [String]
     var Whorl: [String]
     var rightFront: [String]
@@ -95,7 +96,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     var HorseAttributes = [HorseMarkings]()
     var FilteredAttributes = [HorseMarkings]()
 
-    var advancedFeatures = Features(Color: [], Mane: [], Face: [], Whorl: [], rightFront: [], rightBack: [], leftFront: [], leftBack: [])
+    var advancedFeatures = Features(Color: [], Mane: [], ManePosition: [], Face: [], Whorl: [], rightFront: [], rightBack: [], leftFront: [], leftBack: [])
     var count = 0
     var loaded = false
     var isSearching = false

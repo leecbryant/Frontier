@@ -40,10 +40,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                   "Black", "Blue Roan", "Brown",
                   "Buckskin", "Chestnut", "Cremello",
                   "Gray", "Palomino", "Pinto","Red Roan"]
-    let manes = ["Left", "Right", "Split", "Alternating",
+    let manes = ["Alternating",
                  "Flaxen", "Black", "Brown", "Gray",
-                 "Multicolor","Red", "White", "Body - Same",
-                 "Body - Lighter", "Body - Darker"]
+                 "Multicolor","Red", "White", "Body Color - Same Shade",
+                 "Body Color - Lighter Shade", "Body Color - Darker Shade"]
+    let manepositions = ["Left", "Right", "Split"]
     let faces = ["None", "Blaze", "Star", "Snip", "Strip"]
     let whorls = ["At Eye Level", "Above Eye Level", "Below Eye Level", "Double", "Neck" ]
     let allFeet = ["None", "Coronet", "Pastern", "Heel", "Fetlock", "Tall Socks", "Stocking", "Ermine"]
@@ -89,24 +90,26 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         defineCellSize()
         
         switch currFeature {
-        case "color":
-            myLabels = colors
-        case "mane":
-            myLabels = manes
-        case "face":
-            myLabels = faces
-        case "whorl":
-            myLabels = whorls
-        case "rfFeet":
-            myLabels = allFeet
-        case "rrFeet":
-            myLabels = allFeet
-        case "lfFeet":
-            myLabels = allFeet
-        case "lrFeet":
-            myLabels = allFeet
-        default:
-            print("Error: Invalid segue to collectionview")
+            case "color":
+                myLabels = colors
+            case "mane":
+                myLabels = manes
+            case "maneposition":
+                myLabels = manepositions
+            case "face":
+                myLabels = faces
+            case "whorl":
+                myLabels = whorls
+            case "rfFeet":
+                myLabels = allFeet
+            case "rrFeet":
+                myLabels = allFeet
+            case "lfFeet":
+                myLabels = allFeet
+            case "lrFeet":
+                myLabels = allFeet
+            default:
+                print("Error: Invalid segue to collectionview")
         }
         
         // Cancel Button Setup

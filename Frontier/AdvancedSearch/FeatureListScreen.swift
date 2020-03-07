@@ -15,7 +15,7 @@ protocol PassDataToSearch {
 class FeatureListScreen: UIViewController, CanRecieve {
     
     var delegate:PassDataToSearch?
-    var selectedFeatures = Features(Color: [], Mane: [], Face: [], Whorl: [], rightFront: [], rightBack: [], leftFront: [], leftBack: [])
+    var selectedFeatures = Features(Color: [], Mane: [], ManePosition: [], Face: [], Whorl: [], rightFront: [], rightBack: [], leftFront: [], leftBack: [])
 
     func passDataBack(currFeature: String, data: [String]) {
         switch currFeature {
@@ -23,6 +23,8 @@ class FeatureListScreen: UIViewController, CanRecieve {
                 colorFeatures = data
             case "mane":
                 maneFeatures = data
+            case "maneposition":
+                manePositionFeatures = data
             case "face":
                 faceFeatures = data
             case "whorl":
@@ -51,6 +53,7 @@ class FeatureListScreen: UIViewController, CanRecieve {
     
     var colorFeatures: [String] = []
     var maneFeatures: [String] = []
+    var manePositionFeatures: [String] = []
     var faceFeatures: [String] = []
     var whorlFeatures: [String] = []
     var rfFeetFeatures: [String] = []
@@ -85,8 +88,8 @@ class FeatureListScreen: UIViewController, CanRecieve {
         
         let feature1 = Feature(image: UIImage(named:"color")! ,title: "Color",  selection: "")
         let feature2 = Feature(image: UIImage(named:"mane")! ,title: "Mane",  selection: "")
-        let feature3 = Feature(image: UIImage(named:"face")! ,title: "Face",  selection: "")
-        let feature4 = Feature(image: UIImage(named:"whorl")! ,title: "Whorl",  selection: "")
+        let feature3 = Feature(image: UIImage(named:"mane")! ,title: "Mane Position",  selection: "")
+        let feature4 = Feature(image: UIImage(named:"face")! ,title: "Face",  selection: "")
         let feature5 = Feature(image: UIImage(named:"feet")! ,title: "Right Front",  selection: "")
         let feature6 = Feature(image: UIImage(named:"feet")! ,title: "Right Rear",  selection: "")
         let feature7 = Feature(image: UIImage(named:"feet")! ,title: "Left Front",  selection: "")
@@ -105,7 +108,7 @@ class FeatureListScreen: UIViewController, CanRecieve {
     
     
     @objc func goBack(sender: UIBarButtonItem) {
-        let count = colorFeatures.count + maneFeatures.count +
+        let count = colorFeatures.count + maneFeatures.count + manePositionFeatures.count +
         faceFeatures.count + whorlFeatures.count +
         rfFeetFeatures.count + rrFeetFeatures.count +
         lfFeetFeatures.count + lrFeetFeatures.count
@@ -136,10 +139,12 @@ class FeatureListScreen: UIViewController, CanRecieve {
                    secondVC.data = colorFeatures
                case "mane":
                    secondVC.data = maneFeatures
+               case "maneposition":
+                    secondVC.data = manePositionFeatures
                case "face":
                    secondVC.data = faceFeatures
-               case "whorl":
-                   secondVC.data = whorlFeatures
+//               case "whorl":
+//                   secondVC.data = whorlFeatures
                case "rfFeet":
                    secondVC.data = rfFeetFeatures
                case "rrFeet":
@@ -158,7 +163,7 @@ class FeatureListScreen: UIViewController, CanRecieve {
        }
        
        @IBAction func onSubmit(_ sender: Any) {
-           let selectedFeatures = Features(Color: colorFeatures, Mane: maneFeatures, Face: faceFeatures, Whorl: whorlFeatures, rightFront: rfFeetFeatures, rightBack: rrFeetFeatures, leftFront: lfFeetFeatures, leftBack: lrFeetFeatures)
+        let selectedFeatures = Features(Color: colorFeatures, Mane: maneFeatures, ManePosition: manePositionFeatures, Face: faceFeatures, Whorl: whorlFeatures, rightFront: rfFeetFeatures, rightBack: rrFeetFeatures, leftFront: lfFeetFeatures, leftBack: lrFeetFeatures)
            
            delegate?.advancedPassBack(userInput: selectedFeatures)
            presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
@@ -191,6 +196,16 @@ extension FeatureListScreen: UITableViewDataSource, UITableViewDelegate {
                     if maneFeatures.count != 0{
                         if maneFeatures.count == 1 {
                             feature.selection = maneFeatures[0]
+                        } else {
+                            feature.selection = "Multiple"
+                        }
+                    } else {
+                        feature.selection = ""
+                    }
+                case "ManePosition":
+                    if manePositionFeatures.count != 0{
+                        if manePositionFeatures.count == 1 {
+                            feature.selection = manePositionFeatures[0]
                         } else {
                             feature.selection = "Multiple"
                         }
@@ -280,6 +295,8 @@ extension FeatureListScreen: UITableViewDataSource, UITableViewDelegate {
                 selectedFeature = "color"
             case "Mane":
                 selectedFeature = "mane"
+            case "ManePosition":
+                selectedFeature = "maneposition"
             case "Face":
                 selectedFeature = "face"
             case "Whorl":
@@ -334,6 +351,9 @@ extension FeatureListScreen: UITableViewDataSource, UITableViewDelegate {
                 selectedFeature = ""
              case "Mane":
                 maneFeatures.removeAll()
+                selectedFeature = ""
+            case "ManePosition":
+                manePositionFeatures.removeAll()
                 selectedFeature = ""
              case "Face":
                 faceFeatures.removeAll()
