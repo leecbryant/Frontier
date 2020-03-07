@@ -14,7 +14,7 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
             case 0:
                 return 8
             case 1:
-                return 3
+                return filteredBands.count
             default:
                 return 0
         }
@@ -135,8 +135,24 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
         verticalStackView.trailingAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.trailingAnchor).isActive = true
         verticalStackView.topAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.topAnchor).isActive = true
         
+    
+        // Add tap gesture to band member cells
+        if(SegmentedController.selectedSegmentIndex == 1) {
+            cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(_:))))
+        }
         
         return cell
+    }
+    
+    // Function is ran whenever a user taps on a cell
+    @objc func tap(_ sender: UITapGestureRecognizer) {
+
+       let location = sender.location(in: AttributeCollectionView)
+       let indexPath = AttributeCollectionView.indexPathForItem(at: location)
+        selectedIndex = filteredBands[indexPath!.row].id
+      let vc = self.storyboard?.instantiateViewController(withIdentifier: "HorseViewController") as! HorseViewController
+          vc.data = data
+      self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
