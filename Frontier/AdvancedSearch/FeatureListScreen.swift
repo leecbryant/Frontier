@@ -68,6 +68,7 @@ class FeatureListScreen: UIViewController, CanRecieve {
         
         colorFeatures = selectedFeatures.Color
         maneFeatures = selectedFeatures.Mane
+        manePositionFeatures = selectedFeatures.ManePosition
         faceFeatures = selectedFeatures.Face
         whorlFeatures = selectedFeatures.Whorl
         rfFeetFeatures = selectedFeatures.rightFront
@@ -143,8 +144,8 @@ class FeatureListScreen: UIViewController, CanRecieve {
                     secondVC.data = manePositionFeatures
                case "face":
                    secondVC.data = faceFeatures
-//               case "whorl":
-//                   secondVC.data = whorlFeatures
+               case "whorl":
+                   secondVC.data = whorlFeatures
                case "rfFeet":
                    secondVC.data = rfFeetFeatures
                case "rrFeet":
@@ -202,7 +203,7 @@ extension FeatureListScreen: UITableViewDataSource, UITableViewDelegate {
                     } else {
                         feature.selection = ""
                     }
-                case "ManePosition":
+                case "Mane Position":
                     if manePositionFeatures.count != 0{
                         if manePositionFeatures.count == 1 {
                             feature.selection = manePositionFeatures[0]
@@ -295,7 +296,7 @@ extension FeatureListScreen: UITableViewDataSource, UITableViewDelegate {
                 selectedFeature = "color"
             case "Mane":
                 selectedFeature = "mane"
-            case "ManePosition":
+            case "Mane Position":
                 selectedFeature = "maneposition"
             case "Face":
                 selectedFeature = "face"

@@ -165,7 +165,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
             if (currFeature == "color") {
                 imageDirectory = "HorseColor/"
-            } else if (currFeature == "mane") {
+            } else if (currFeature == "mane" || currFeature == "maneposition") {
                 imageDirectory = "HorseMane/"
             } else if (currFeature == "face") {
                 imageDirectory = "HorseFace/"

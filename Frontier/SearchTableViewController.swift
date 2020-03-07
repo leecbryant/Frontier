@@ -261,6 +261,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
             //Always make filteredData a copy of data when there is no filter applied
               FilteredAttributes[0].data = HorseAttributes[0].data.filter ({ horsemark -> Bool in
                       return ((advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horsemark.color) : true)) &&
+                          (advancedFeatures.ManePosition.count > 0 ? horsemark.Position != nil ? advancedFeatures.ManePosition.contains(horsemark.Position!) : false : true)  &&
                           (advancedFeatures.Mane.count > 0 ? horsemark.Mane_Color != nil ? advancedFeatures.Mane.contains(horsemark.Mane_Color!) : false : true) &&
                           (advancedFeatures.Face.count > 0 ? horsemark.FaceString != nil ? advancedFeatures.Face.contains(horsemark.FaceString!) : false : true) &&
                           (advancedFeatures.rightFront.count > 0 ? horsemark.RFMarking != nil ? advancedFeatures.rightFront.contains(horsemark.RFMarking!) : false : true) &&
@@ -286,6 +287,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
 
             FilteredAttributes[0].data = HorseAttributes[0].data.filter ({ horsemark -> Bool in
                     return ((advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horsemark.color) : true)) &&
+                    (advancedFeatures.ManePosition.count > 0 ? horsemark.Position != nil ? advancedFeatures.ManePosition.contains(horsemark.Position!) : false : true) &&
                         (advancedFeatures.Mane.count > 0 ? horsemark.Mane_Color != nil ? advancedFeatures.Mane.contains(horsemark.Mane_Color!) : false : true) &&
                         (advancedFeatures.Face.count > 0 ? horsemark.FaceString != nil ? advancedFeatures.Face.contains(horsemark.FaceString!) : false : true) &&
                         (advancedFeatures.rightFront.count > 0 ? horsemark.RFMarking != nil ? advancedFeatures.rightFront.contains(horsemark.RFMarking!) : false : true) &&
@@ -402,7 +404,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     func advancedPassBack(userInput: Features) {
         advancedFeatures = userInput
                 
-        count = advancedFeatures.Color.count + advancedFeatures.Mane.count +
+        count = advancedFeatures.Color.count + advancedFeatures.ManePosition.count + advancedFeatures.Mane.count +
             advancedFeatures.Face.count + advancedFeatures.Whorl.count +
             advancedFeatures.rightFront.count + advancedFeatures.rightBack.count +
             advancedFeatures.leftFront.count + advancedFeatures.leftBack.count
@@ -412,6 +414,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
             isSearching = true
             FilteredAttributes[0].data = HorseAttributes[0].data.filter ({ horsemark -> Bool in
                     return ((advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horsemark.color) : true)) &&
+                        (advancedFeatures.ManePosition.count > 0 ? horsemark.Position != nil ? advancedFeatures.ManePosition.contains(horsemark.Position!) : false : true) &&
                         (advancedFeatures.Mane.count > 0 ? horsemark.Mane_Color != nil ? advancedFeatures.Mane.contains(horsemark.Mane_Color!) : false : true) &&
                         (advancedFeatures.Face.count > 0 ? horsemark.FaceString != nil ? advancedFeatures.Face.contains(horsemark.FaceString!) : false : true) &&
                         (advancedFeatures.rightFront.count > 0 ? horsemark.RFMarking != nil ? advancedFeatures.rightFront.contains(horsemark.RFMarking!) : false : true) &&
