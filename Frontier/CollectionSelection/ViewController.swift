@@ -56,9 +56,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     
     
-    func defineCellSize()
-    {
-       
+    func defineCellSize() {
         let screenSize = UIScreen.main.bounds
         let screenWidth = screenSize.width
         
@@ -74,13 +72,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         collectionView.collectionViewLayout = layout
     }
     
-    func setCVConstraints()
-    {
+    func setCVConstraints() {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.addConstraint(NSLayoutConstraint(item: collectionView as Any, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: collectionView.superview!.bounds.height))
-        collectionView.addConstraint(NSLayoutConstraint(item: collectionView as Any, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: collectionView.superview!.bounds.width))
-        collectionView.frame = CGRect(x: 10 , y: 10, width: collectionView.superview!.bounds.width, height: self.view.frame.height)
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -166,7 +159,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
             // Determine directory for feature images
             var imageDirectory: String = ""
-            print(currFeature)
+
             if (currFeature == "color") {
                 imageDirectory = "HorseColor/"
             } else if (currFeature == "mane") {
@@ -210,13 +203,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             stackView.alignment = .center
             stackView.distribution = .fillProportionally
             stackView.spacing = cellSpacing
-            stackView.contentMode = .scaleAspectFit
             return stackView
         }()
         
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        
         
         ///Add image/label stack to the cell
         // Insets for cell layout
@@ -242,10 +232,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         //Round Edges
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
-        
-        print(cell.bounds.width)
-        
-        print(cell.bounds.height)
         
         return cell
     }
