@@ -13,9 +13,7 @@ import class Kingfisher.ImagePrefetcher
 import struct Kingfisher.BlurImageProcessor
 import struct Kingfisher.TintImageProcessor
 import struct Kingfisher.BlendImageProcessor
-var Bands = ["Horse Band 1", "Horse Band 2", "Horse Band 3", "Horse Band 4", "Horse Band 5", "Horse Band 6","Horse Band 7", "Horse Band 8", "Horse Band 9", "Horse Band 10", "Horse Band 11", "Horse Band 12", "Horse Band 13", "Horse Band 14", "Horse Band 15", "Horse Band 16", "Horse Band 17", "Horse Band 18", "Horse Band 19", "Horse Band 20"]
 
-var images = [UIImage(named: "black"), UIImage(named: "bay")]
 class HorseViewController: UIViewController {
     // Labels
     @IBOutlet weak var tableView: UITableView!
@@ -76,7 +74,6 @@ class HorseViewController: UIViewController {
         SegmentedController.setTitleTextAttributes(titleTextAttributes, for: .selected)
         
         for i in 0..<imageArray.count {
-            print(imageArray[i].ImageFile)
             switch(i) {
                 case 0:
                     FirstImage.kf.indicatorType = .activity
@@ -92,8 +89,7 @@ class HorseViewController: UIViewController {
                     } else {
                         ThirdImage.kf.setBackgroundImage(with: URL(string: imageArray[i].ImageFile), for: .normal)
                     }
-                default:
-                    print("Extra")
+                default: break
             }
         }
         
@@ -121,14 +117,6 @@ class HorseViewController: UIViewController {
         let dartimage = UIImage(named: "needle")?.withRenderingMode(.alwaysTemplate)
         DartButton.setImage(dartimage, for: .normal)
         DartButton.tintColor = UIColor.white
-        
-        // Clear empty cells
-        for i in (0...7) {
-            if(!returnabl[i]) {
-                let indexPath = IndexPath(item: i, section: 1)
-                AttributeCollectionView.deleteItems(at: [indexPath])
-            }
-        }
     }
 
     @IBAction func DartPress(_ sender: Any) {

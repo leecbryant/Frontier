@@ -24,14 +24,8 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "attributeCell", for: indexPath) as! HorseCollectionViewCell
          let imageView :UIImageView = {
-                   let imageView = UIImageView(frame: CGRect(   x: 0,
-                                                        y: 0,
-                                                        width: (super.view.frame.width),
-                                                        height: (collectionView.collectionViewLayout
-                       .collectionViewContentSize.width)
-                       ))
-                   imageView.contentMode = UIView.ContentMode.scaleAspectFit
-            
+            let imageView = UIImageView()
+            imageView.contentMode = UIView.ContentMode.scaleAspectFit
             
             var imagePath = "AdvancedFeatureImages/"
             
@@ -179,14 +173,11 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
             stackView.alignment = .center
             stackView.distribution = .fillProportionally
             stackView.spacing = 5
-            stackView.contentMode = .scaleAspectFit
             return stackView
         }()
         
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        
+                
         ///Add image/label stack to the cell
         // Insets for cell layout
         cell.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
@@ -265,10 +256,6 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func setCVConstraints() {
         AttributeCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        AttributeCollectionView.addConstraint(NSLayoutConstraint(item: AttributeCollectionView as Any, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: AttributeCollectionView.superview!.bounds.height))
-        AttributeCollectionView.addConstraint(NSLayoutConstraint(item: AttributeCollectionView as Any, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: AttributeCollectionView.superview!.bounds.width))
-        AttributeCollectionView.frame = CGRect(x: 10 , y: 10, width: AttributeCollectionView.superview!.bounds.width, height: self.view.frame.height)
-
     }
 
 }
