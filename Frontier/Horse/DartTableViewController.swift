@@ -32,9 +32,6 @@ class DartTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "dartCell", for: indexPath)
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yyyy"
-        
         switch(HorseDartData[indexPath.row].Action) {
             case "P":
                 cell.textLabel?.text = "Primer"
@@ -43,7 +40,20 @@ class DartTableViewController: UITableViewController {
             default:break
         }
         
-        cell.detailTextLabel?.text = HorseDartData[indexPath.row].Date
+        // Date Format
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.locale   = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = .current
+        guard let date = dateFormatter.date(from: HorseDartData[indexPath.row].Date) else {
+            fatalError()
+        }
+        
+        // Date date to custom string
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
+        let newDate = dateFormatter.string(from: date)
+
+        cell.detailTextLabel?.text = newDate
         
         return cell
     }
