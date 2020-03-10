@@ -182,7 +182,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         searchController.obscuresBackgroundDuringPresentation = false        
         searchController.searchBar.sizeToFit()
         searchController.searchBar.returnKeyType = UIReturnKeyType.search
-        searchController.searchBar.placeholder = "Search here"
+        searchController.searchBar.placeholder = "Search horse by name or band..."
         searchController.searchBar.showsCancelButton = false
         
         navigationItem.searchController = searchController
