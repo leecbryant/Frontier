@@ -12,39 +12,83 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var UsernameText: UITextField!
     @IBOutlet weak var PasswordText: UITextField!
     @IBOutlet weak var pal: UILabel!
-    
-    // Loading Circle
-    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+    var activityView: UIActivityIndicatorView?
+
     
     @IBAction func login(_ sender: Any) {
-        activityIndicator.center = self.view.center
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = UIActivityIndicatorView.Style.gray
-        
-        view.addSubview(activityIndicator)
-        
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        if UsernameText.text == "admin" && PasswordText.text == "admin" {
-            self.performSegue(withIdentifier: "loginComplete", sender: self)
-            activityIndicator.stopAnimating()
-            UIApplication.shared.endIgnoringInteractionEvents()
-        } else {
-            activityIndicator.stopAnimating()
-            UIApplication.shared.endIgnoringInteractionEvents()
-            if UsernameText.text == "" || PasswordText.text == "" {
-                if UsernameText.text == "" && PasswordText.text == "" {
-                    createAlert(title: "Empty Fields", message: "Username and Password cannot be left blank.")
-                }
-                if UsernameText.text == "" {
-                    createAlert(title: "Empty Field", message: "Username cannot be left blank.")
-                }
-                if PasswordText.text == "" {
-                    createAlert(title: "Empty Field", message: "Password cannot be left blank.")
-                }
-            } else {
-                createAlert(title: "Invalid Login", message: "Username or Password is incorrect.")
+        if UsernameText.text == "" || PasswordText.text == "" {
+            if UsernameText.text == "" && PasswordText.text == "" {
+                createAlert(title: "Empty Fields", message: "Username and Password cannot be left blank.")
             }
+            if UsernameText.text == "" {
+                createAlert(title: "Empty Field", message: "Username cannot be left blank.")
+            }
+            if PasswordText.text == "" {
+                createAlert(title: "Empty Field", message: "Password cannot be left blank.")
+            }
+        } else {
+            // Stop everything to load
+            UIApplication.shared.beginIgnoringInteractionEvents()
+            showActivityIndicator()
+            // Data Structs
+            struct ToDoResponseModel: Codable {
+                var Username: String?
+                var Password: String?
+            }
+            struct ReturnModel: Codable {
+                var auth: Bool?
+                var token: String?
+            }
+            
+            // Begin Call
+            let url = URL(string: "https://f1fb8cc1.ngrok.io/api/users/login")
+            guard let requestUrl = url else { fatalError() }
+            var request = URLRequest(url: requestUrl)
+            request.httpMethod = "POST"
+            // Set HTTP Request Header
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let newTodoItem = ToDoResponseModel(Username: UsernameText.text, Password: PasswordText.text)
+            let jsonData = try? JSONEncoder().encode(newTodoItem)
+            request.httpBody = jsonData
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    
+                    if let error = error {
+                        print("Error took place \(error)")
+                        return
+                    }
+                    guard let data = data else {return}
+                    do {
+                         let todoItemModel = try JSONDecoder().decode(ReturnModel.self, from: data)
+                            DispatchQueue.main.async {
+                                UIApplication.shared.endIgnoringInteractionEvents()
+                                self.hideActivityIndicator()
+                                if todoItemModel.auth == nil || todoItemModel.auth == false {
+                                    self.createAlert(title: "Invalid Login", message: "Invalid Username or Password")
+                                } else {
+                                    self.performSegue(withIdentifier: "loginComplete", sender: self)
+                                    // NEED to ADD way to carry token
+                                }
+                            }
+                    } catch let jsonErr {
+                        print(jsonErr)
+                   }
+             
+            }
+            task.resume()
+        }
+    }
+    
+    func showActivityIndicator() {
+        activityView = UIActivityIndicatorView()
+        activityView?.center = self.view.center
+        self.view.addSubview(activityView!)
+        activityView?.startAnimating()
+    }
+
+    func hideActivityIndicator(){
+        if (activityView != nil){
+            activityView?.stopAnimating()
         }
     }
     

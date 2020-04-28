@@ -184,8 +184,14 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         searchController.searchBar.returnKeyType = UIReturnKeyType.search
         searchController.searchBar.placeholder = "Search horse by name or band..."
         searchController.searchBar.showsCancelButton = false
-        
+        searchController.searchBar.showsBookmarkButton = true
+//        searchController.searchBar.setImage(UIImage(named: "advanced"), for: .bookmark, state: .disabled)
         navigationItem.searchController = searchController
+    }
+    
+    // Bookmark button pressed
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+       performSegue(withIdentifier: "showAdvanced", sender: self)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -321,6 +327,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     }
     
     @IBAction func advancedClick() {
+        print("NEW HORSE INCOMINGGG")
         performSegue(withIdentifier: "showAdvanced", sender: self)
     }
     
