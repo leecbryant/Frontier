@@ -10,41 +10,35 @@ import UIKit
 struct data {
     
 }
+
 struct BaseHorse: Decodable {
-    var type: String
-    var name: String
-    var database: String
     var data: [NameBandHerd]
 }
 
 struct NameBandHerd: Decodable {
-   var ID: String
+   var ID: Int?
    var Name: String
    var herd: String
    var bands: String
 }
 
 struct HorsePhotos: Decodable {
-    var type: String
-    var name: String
-    var database: String
     var data: [Photo]
 }
 
 struct Photo: Decodable {
-   var ID: String
-   var ImageFile: String
+    var ID: Int?
+    var HorseID: Int?
+    var ImageFile: String
 }
 
 struct HorseTreatments: Decodable {
-    var type: String
-    var name: String
-    var database: String
     var data: [Treatment]
 }
 
 struct Treatment: Decodable {
-   var HorseID: String
+    var id: Int?
+   var HorseID: Int?
    var Date: String
    var Action: String
 }
@@ -89,10 +83,10 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     @IBOutlet weak var AdvancedButton: UIBarButtonItem!
     
     // Data Setup
-    var BaseHorseData = [BaseHorse]()
-    var FilteredBaseData = [BaseHorse]()
-    var HorsePictures = [HorsePhotos]()
-    var HorseLedger = [HorseTreatments]()
+    var BaseHorseData: BaseHorse = BaseHorse(data: [NameBandHerd]())
+    var FilteredBaseData: BaseHorse = BaseHorse(data: [NameBandHerd]())
+    var HorsePictures:HorsePhotos = HorsePhotos(data: [Photo]())
+    var HorseLedger: HorseTreatments = HorseTreatments(data: [Treatment]())
     var HorseAttributes = [HorseMarkings]()
     var FilteredAttributes = [HorseMarkings]()
 
@@ -160,8 +154,8 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     func loadComplete() {
        DispatchQueue.main.async {
             self.loaded = true
-            self.BaseHorseData[0].data.sort(by: {$0.Name < $1.Name})
-            self.FilteredBaseData[0].data.sort(by: {$0.Name < $1.Name})
+            self.BaseHorseData.data.sort(by: {$0.Name < $1.Name})
+            self.FilteredBaseData.data.sort(by: {$0.Name < $1.Name})
             self.activityIndicator.stopAnimating()
             self.activityIndicator.removeFromSuperview()
             UIApplication.shared.endIgnoringInteractionEvents()
@@ -202,10 +196,10 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(loaded) {
             if isSearching {
-                return FilteredBaseData[0].data.count
+                return FilteredBaseData.data.count
             }
             
-            return BaseHorseData[0].data.count
+            return BaseHorseData.data.count
         }
         
         return 0
@@ -215,18 +209,18 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
         if isSearching {
-            cell.textLabel?.text = FilteredBaseData[0].data[indexPath.row].Name
-            cell.detailTextLabel?.text = FilteredBaseData[0].data[indexPath.row].bands
+            cell.textLabel?.text = FilteredBaseData.data[indexPath.row].Name
+            cell.detailTextLabel?.text = FilteredBaseData.data[indexPath.row].bands
         } else {
-            cell.textLabel?.text = BaseHorseData[0].data[indexPath.row].Name
-            cell.detailTextLabel?.text = "Band: " + BaseHorseData[0].data[indexPath.row].bands
+            cell.textLabel?.text = BaseHorseData.data[indexPath.row].Name
+            cell.detailTextLabel?.text = "Band: " + BaseHorseData.data[indexPath.row].bands
         }
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedIndex = Int(FilteredBaseData[0].data[indexPath.row].ID)!
+        selectedIndex = FilteredBaseData.data[indexPath.row].ID!
             performSegue(withIdentifier: "horseView", sender: self)
     }
     
@@ -236,16 +230,16 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
                 let vc = segue.destination as! HorseViewController
                 vc.BaseHorseData = BaseHorseData
                 vc.filteredBands = BaseHorseData
-                vc.HorseData = BaseHorseData[0].data.filter({ (horse) -> Bool in
-                    return Int(horse.ID)! == selectedIndex
+                vc.HorseData = BaseHorseData.data.filter({ (horse) -> Bool in
+                    return horse.ID! == selectedIndex
                 })[0]
                 vc.HorseImageData = HorsePictures
-                vc.imageArray = HorsePictures[0].data.filter({ (Photo) -> Bool in
-                    return Int(Photo.ID)! == selectedIndex
+                vc.imageArray = HorsePictures.data.filter({ (Photo) -> Bool in
+                    return Photo.HorseID! == selectedIndex
                 })
                 vc.HorseLedger = HorseLedger
-                vc.HorseDartData = HorseLedger[0].data.sorted(by: {$0.Date > $1.Date}).filter{ (Horse) -> Bool in
-                    return Int(Horse.HorseID)! == selectedIndex
+                vc.HorseDartData = HorseLedger.data.sorted(by: {$0.Date > $1.Date}).filter{ (Horse) -> Bool in
+                    return Horse.HorseID! == selectedIndex
                 }
                 vc.HorseAttributes = HorseAttributes
                 vc.HorseMarkingData = HorseAttributes[0].data.filter{ (Horse) -> Bool in
@@ -275,9 +269,9 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
                           (advancedFeatures.leftFront.count > 0 ? horsemark.LFMarking != nil ? advancedFeatures.leftFront.contains(horsemark.LFMarking!) : false : true) &&
                           (advancedFeatures.leftBack.count > 0 ? horsemark.LHMarking != nil ? advancedFeatures.leftBack.contains(horsemark.LHMarking!) : false : true)
                 })
-              FilteredBaseData[0].data = BaseHorseData[0].data.filter({ (horse) -> Bool in
+              FilteredBaseData.data = BaseHorseData.data.filter({ (horse) -> Bool in
                   return FilteredAttributes[0].data.contains { (mark) -> Bool in
-                      return horse.ID == mark.ID
+                      return horse.ID == Int(mark.ID)
                   }
               })
             if(advancedFeatures.Color.count > 0 || advancedFeatures.Face.count > 0 || advancedFeatures.Mane.count > 0 || advancedFeatures.Whorl.count > 0 || advancedFeatures.rightFront.count > 0 || advancedFeatures.rightBack.count > 0 || advancedFeatures.leftFront.count > 0 || advancedFeatures.leftBack.count > 0) {
@@ -301,9 +295,9 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
                         (advancedFeatures.leftFront.count > 0 ? horsemark.LFMarking != nil ? advancedFeatures.leftFront.contains(horsemark.LFMarking!) : false : true) &&
                         (advancedFeatures.leftBack.count > 0 ? horsemark.LHMarking != nil ? advancedFeatures.leftBack.contains(horsemark.LHMarking!) : false : true)
               })
-              FilteredBaseData[0].data = BaseHorseData[0].data.filter({ (horse) -> Bool in
+              FilteredBaseData.data = BaseHorseData.data.filter({ (horse) -> Bool in
                     return FilteredAttributes[0].data.contains { (mark) -> Bool in
-                        return horse.ID == mark.ID
+                        return horse.ID == Int(mark.ID)!
                     }
                 }).filter({ horse -> Bool in
                 guard let text = searchBar.text else { return false }
@@ -331,55 +325,90 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         performSegue(withIdentifier: "showAdvanced", sender: self)
     }
     
-    func parseHorseJSON(withCompletion completion: @escaping ([BaseHorse]?, Error?) -> Void) {
-        let jsonUrlString = "https://projectfrontier.dev/data/NameHerdBand.json"
-            guard let url = URL(string: jsonUrlString) else { return }
-            
-        let task = URLSession.shared.dataTask(with: url) { (horseData, response, err) in
-            guard let horseData = horseData else { return }
-            do {
-                let horses = try JSONDecoder().decode([BaseHorse].self, from: horseData)
-                completion(horses, nil)
-            } catch let jsonErr {
-                print("Error serializing json:", jsonErr)
-               completion(nil, err)
-            }
+    func parseHorseJSON(withCompletion completion: @escaping (BaseHorse?, Error?) -> Void) {
+        // Begin Call
+        let url = URL(string: "https://f1fb8cc1.ngrok.io/api/base/horses")
+        guard let requestUrl = url else { fatalError() }
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "GET"
+        // Set HTTP Request Header
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                
+                if let error = error {
+                    print("Error took place \(error)")
+                    return
+                }
+                
+                guard let data = data else {return}
+                do {
+                    print(data)
+                    let horses = try JSONDecoder().decode(BaseHorse.self, from: data)
+                    completion(horses, nil)
+                } catch let jsonErr {
+                    print(jsonErr)
+               }
+         
         }
-        
         task.resume()
     }
     
-    func parseHorsePicturesJSON(withCompletion completion: @escaping ([HorsePhotos]?, Error?) -> Void) {
-        let jsonUrlString = "https://projectfrontier.dev/data/HorsesPhotos.json"
-            guard let url = URL(string: jsonUrlString) else { return }
-        let task = URLSession.shared.dataTask(with: url) { (horsePictures, response, err) in
-            guard let horsePictures = horsePictures else { return }
-            do {
-                let data = try JSONDecoder().decode([HorsePhotos].self, from: horsePictures)
-                completion(data, nil)
-            } catch let jsonErr {
-                print("Error serializing json:", jsonErr)
-               completion(nil, err)
-            }
+    func parseHorsePicturesJSON(withCompletion completion: @escaping (HorsePhotos?, Error?) -> Void) {
+        // Begin Call
+        let url = URL(string: "https://f1fb8cc1.ngrok.io/api/base/horseimages")
+        guard let requestUrl = url else { fatalError() }
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "GET"
+        // Set HTTP Request Header
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                
+                if let error = error {
+                    print("Error took place \(error)")
+                    return
+                }
+                
+                guard let data = data else {return}
+                do {
+                    print(data)
+                    let horses = try JSONDecoder().decode(HorsePhotos.self, from: data)
+                    completion(horses, nil)
+                } catch let jsonErr {
+                    print(jsonErr)
+               }
+         
         }
-        
         task.resume()
     }
     
-    func parseHorseTreatmentJSON(withCompletion completion: @escaping ([HorseTreatments]?, Error?) -> Void) {
-        let jsonUrlString = "https://projectfrontier.dev/data/TreatmentLedger.json"
-            guard let url = URL(string: jsonUrlString) else { return }
-        let task = URLSession.shared.dataTask(with: url) { (horseTreatments, response, err) in
-            guard let horseTreatments = horseTreatments else { return }
-            do {
-                let data = try JSONDecoder().decode([HorseTreatments].self, from: horseTreatments)
-                completion(data, nil)
-            } catch let jsonErr {
-                print("Error serializing json:", jsonErr)
-               completion(nil, err)
-            }
+    func parseHorseTreatmentJSON(withCompletion completion: @escaping (HorseTreatments?, Error?) -> Void) {
+        // Begin Call
+        let url = URL(string: "https://f1fb8cc1.ngrok.io/api/base/horsetreatments")
+        guard let requestUrl = url else { fatalError() }
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "GET"
+        // Set HTTP Request Header
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                
+                if let error = error {
+                    print("Error took place \(error)")
+                    return
+                }
+                
+                guard let data = data else {return}
+                do {
+                    print(data)
+                    let horses = try JSONDecoder().decode(HorseTreatments.self, from: data)
+                    completion(horses, nil)
+                } catch let jsonErr {
+                    print(jsonErr)
+               }
+         
         }
-        
         task.resume()
     }
     
@@ -429,9 +458,9 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
                         (advancedFeatures.leftFront.count > 0 ? horsemark.LFMarking != nil ? advancedFeatures.leftFront.contains(horsemark.LFMarking!) : false : true) &&
                         (advancedFeatures.leftBack.count > 0 ? horsemark.LHMarking != nil ? advancedFeatures.leftBack.contains(horsemark.LHMarking!) : false : true)
               })
-            FilteredBaseData[0].data = BaseHorseData[0].data.filter({ (horse) -> Bool in
+            FilteredBaseData.data = BaseHorseData.data.filter({ (horse) -> Bool in
                 return FilteredAttributes[0].data.contains { (mark) -> Bool in
-                    return horse.ID == mark.ID
+                    return horse.ID == Int(mark.ID)!
                 }
             })
             tableView.reloadData()

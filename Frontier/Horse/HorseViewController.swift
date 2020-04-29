@@ -30,14 +30,14 @@ class HorseViewController: UIViewController {
     @IBOutlet weak var DartButton: UIButton!
     
     // Base horse information
-    var BaseHorseData = [BaseHorse]()
-    var filteredBands = [BaseHorse]()
-    var HorseData = NameBandHerd(ID: "0", Name: "", herd: "", bands: "")
+    var BaseHorseData: BaseHorse = BaseHorse(data: [NameBandHerd]())
+    var filteredBands: BaseHorse = BaseHorse(data: [NameBandHerd]())
+    var HorseData = NameBandHerd(ID: 0, Name: "", herd: "", bands: "")
     // Horse Picture Information
-    var HorseImageData = [HorsePhotos]()
+    var HorseImageData: HorsePhotos = HorsePhotos(data: [Photo]())
     var imageArray = [Photo]()
     // Horse Dart Information
-    var HorseLedger = [HorseTreatments]()
+    var HorseLedger:HorseTreatments = HorseTreatments(data: [Treatment]())
     var HorseDartData = [Treatment]()
     // Horse Attribute Information
     var HorseAttributes = [HorseMarkings]()
@@ -147,10 +147,10 @@ class HorseViewController: UIViewController {
     }
     
     func filterBands() {
-        filteredBands[0].data = BaseHorseData[0].data.filter({ horse -> Bool in
+        filteredBands.data = BaseHorseData.data.filter({ horse -> Bool in
             return horse.bands == HorseData.bands && horse.Name != HorseData.Name
         })
-        filteredBands[0].data.sort(by: {$0.Name < $1.Name})
+        filteredBands.data.sort(by: {$0.Name < $1.Name})
     }
     
     func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {

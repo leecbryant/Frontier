@@ -18,7 +18,7 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
                     return getAttributeCount()
                 }
             case 1:
-                return filteredBands[0].data.count
+                return filteredBands.data.count
             default:
                 return 0
         }
@@ -124,8 +124,8 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
                 imageView.image = self.resizeImage(image: UIImage(named: imagePath) ?? UIImage(named: "missing")!, targetSize: CGSize(width: 100, height: 100))
             } else if(SegmentedController.selectedSegmentIndex == 1) {
                 imageView.kf.indicatorType = .activity
-                imageView.kf.setImage(with: URL(string: HorseImageData[0].data.filter({ (Photo) -> Bool in
-                        return Photo.ID == filteredBands[0].data[indexPath.row].ID
+                imageView.kf.setImage(with: URL(string: HorseImageData.data.filter({ (Photo) -> Bool in
+                        return Photo.HorseID! == filteredBands.data[indexPath.row].ID
                 })[0].ImageFile.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil))) { result in
                     switch(result) {
                         case .success(let value):
@@ -189,7 +189,7 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
                             label.text = "MISSING"
                     }
             } else if(SegmentedController.selectedSegmentIndex == 1) {
-                label.text = filteredBands[0].data[indexPath.row].Name
+                label.text = filteredBands.data[indexPath.row].Name
             } else {
                 label.text = "Missing"
             }
@@ -241,20 +241,20 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
         if(SegmentedController.selectedSegmentIndex == 1) {
            let location = sender.location(in: AttributeCollectionView)
            let indexPath = AttributeCollectionView.indexPathForItem(at: location)
-            selectedIndex = Int(filteredBands[0].data[indexPath!.row].ID)!
+            selectedIndex = filteredBands.data[indexPath!.row].ID!
            let vc = self.storyboard?.instantiateViewController(withIdentifier: "HorseViewController") as! HorseViewController
-                vc.HorseData = BaseHorseData[0].data.filter({ (horse) -> Bool in
-                    return Int(horse.ID)! == selectedIndex
+                vc.HorseData = BaseHorseData.data.filter({ (horse) -> Bool in
+                    return horse.ID! == selectedIndex
                 })[0]
               vc.BaseHorseData = BaseHorseData
               vc.filteredBands = BaseHorseData
               vc.HorseImageData = HorseImageData
-              vc.imageArray = HorseImageData[0].data.filter({ (Photo) -> Bool in
-                return Int(Photo.ID)! == selectedIndex
+              vc.imageArray = HorseImageData.data.filter({ (Photo) -> Bool in
+                return Photo.HorseID! == selectedIndex
               })
               vc.HorseLedger = HorseLedger
-              vc.HorseDartData = HorseLedger[0].data.sorted(by: {$0.Date > $1.Date}).filter{ (Horse) -> Bool in
-                  return Int(Horse.HorseID)! == selectedIndex
+              vc.HorseDartData = HorseLedger.data.sorted(by: {$0.Date > $1.Date}).filter{ (Horse) -> Bool in
+                  return Horse.HorseID! == selectedIndex
               }
               vc.HorseAttributes = HorseAttributes
               vc.HorseMarkingData = HorseAttributes[0].data.filter{ (Horse) -> Bool in

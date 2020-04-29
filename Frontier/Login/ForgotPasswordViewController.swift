@@ -12,6 +12,8 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var Email: UITextField!
     
+    var activityView: UIActivityIndicatorView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
             Email.delegate = self
@@ -32,14 +34,70 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
     @IBAction func onSubmit(_ sender: Any) {
         if(Email.text != "") {
             if(isValidEmail(emailStr: Email.text!)) {
-                createAlert(title: "Success", message: "If your account exists, an email has been dispatched with instructions on how to reset your password.", success: true)
-            } else {
+                // Stop everything to load
+                UIApplication.shared.beginIgnoringInteractionEvents()
+                showActivityIndicator()
+                // Data Structs
+                struct ToDoResponseModel: Codable {
+                     var Email: String?
+                }
+                struct ReturnModel: Codable {
+                    var success: Bool?
+                }
+                
+                // Begin Call
+                let url = URL(string: "https://f1fb8cc1.ngrok.io/api/users/forgotpassword")
+                guard let requestUrl = url else { fatalError() }
+                var request = URLRequest(url: requestUrl)
+                request.httpMethod = "POST"
+                // Set HTTP Request Header
+                request.setValue("application/json", forHTTPHeaderField: "Accept")
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                 let newTodoItem = ToDoResponseModel(Email: Email.text)
+                let jsonData = try? JSONEncoder().encode(newTodoItem)
+                request.httpBody = jsonData
+                    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                        
+                        if let error = error {
+                            print("Error took place \(error)")
+                            return
+                        }
+                        guard let data = data else {return}
+                        do {
+                             let todoItemModel = try JSONDecoder().decode(ReturnModel.self, from: data)
+                                DispatchQueue.main.async {
+                                    UIApplication.shared.endIgnoringInteractionEvents()
+                                    self.hideActivityIndicator()
+                                    if todoItemModel.success == nil || todoItemModel.success == false {
+                                     self.createAlert(title: "Error", message: "Something went wrong while creating account. Please try again later or contact an admin.", success: false)
+                                    } else {
+                                        self.createAlert(title: "Success", message: "Password reset sent to given email.", success: true)
+                                    }
+                                }
+                        } catch let jsonErr {
+                            print(jsonErr)
+                       }
+                }
+                task.resume()            } else {
                 createAlert(title: "Error", message: "Must provide valid email.", success: false)
             }
         } else {
             createAlert(title: "Error", message: "Must provide an email.", success: false)
         }
     }
+    
+    func showActivityIndicator() {
+           activityView = UIActivityIndicatorView()
+           activityView?.center = self.view.center
+           self.view.addSubview(activityView!)
+           activityView?.startAnimating()
+       }
+
+       func hideActivityIndicator(){
+           if (activityView != nil){
+               activityView?.stopAnimating()
+           }
+       }
     
     func createAlert(title:String, message:String, success:Bool) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
