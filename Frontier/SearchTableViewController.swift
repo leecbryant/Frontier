@@ -44,14 +44,11 @@ struct Treatment: Decodable {
 }
 
 struct HorseMarkings: Decodable {
-    var type: String
-    var name: String
-    var database: String
     var data: [Marking]
 }
 
 struct Marking: Decodable {
-    var ID: String
+    var HorseID: Int?
     var color: String
     var Position: String?
     var Mane_Color: String?
@@ -87,8 +84,8 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     var FilteredBaseData: BaseHorse = BaseHorse(data: [NameBandHerd]())
     var HorsePictures:HorsePhotos = HorsePhotos(data: [Photo]())
     var HorseLedger: HorseTreatments = HorseTreatments(data: [Treatment]())
-    var HorseAttributes = [HorseMarkings]()
-    var FilteredAttributes = [HorseMarkings]()
+    var HorseAttributes: HorseMarkings = HorseMarkings(data: [Marking]())
+    var FilteredAttributes: HorseMarkings = HorseMarkings(data: [Marking]())
 
     var advancedFeatures = Features(Color: [], Mane: [], ManePosition: [], Face: [], Whorl: [], rightFront: [], rightBack: [], leftFront: [], leftBack: [])
     var count = 0
@@ -242,8 +239,8 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
                     return Horse.HorseID! == selectedIndex
                 }
                 vc.HorseAttributes = HorseAttributes
-                vc.HorseMarkingData = HorseAttributes[0].data.filter{ (Horse) -> Bool in
-                    return Int(Horse.ID)! == selectedIndex
+                vc.HorseMarkingData = HorseAttributes.data.filter{ (Horse) -> Bool in
+                    return Horse.HorseID! == selectedIndex
                 }[0]
             break
             case "showAdvanced":
@@ -259,7 +256,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text == nil || searchBar.text?.trimmingCharacters(in: .whitespaces) == "" {
             //Always make filteredData a copy of data when there is no filter applied
-              FilteredAttributes[0].data = HorseAttributes[0].data.filter ({ horsemark -> Bool in
+              FilteredAttributes.data = HorseAttributes.data.filter ({ horsemark -> Bool in
                       return ((advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horsemark.color) : true)) &&
                           (advancedFeatures.ManePosition.count > 0 ? horsemark.Position != nil ? advancedFeatures.ManePosition.contains(horsemark.Position!) : false : true)  &&
                           (advancedFeatures.Mane.count > 0 ? horsemark.Mane_Color != nil ? advancedFeatures.Mane.contains(horsemark.Mane_Color!) : false : true) &&
@@ -270,8 +267,8 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
                           (advancedFeatures.leftBack.count > 0 ? horsemark.LHMarking != nil ? advancedFeatures.leftBack.contains(horsemark.LHMarking!) : false : true)
                 })
               FilteredBaseData.data = BaseHorseData.data.filter({ (horse) -> Bool in
-                  return FilteredAttributes[0].data.contains { (mark) -> Bool in
-                      return horse.ID == Int(mark.ID)
+                  return FilteredAttributes.data.contains { (mark) -> Bool in
+                      return horse.ID == mark.HorseID
                   }
               })
             if(advancedFeatures.Color.count > 0 || advancedFeatures.Face.count > 0 || advancedFeatures.Mane.count > 0 || advancedFeatures.Whorl.count > 0 || advancedFeatures.rightFront.count > 0 || advancedFeatures.rightBack.count > 0 || advancedFeatures.leftFront.count > 0 || advancedFeatures.leftBack.count > 0) {
@@ -285,7 +282,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
             isSearching = true
         
 
-            FilteredAttributes[0].data = HorseAttributes[0].data.filter ({ horsemark -> Bool in
+            FilteredAttributes.data = HorseAttributes.data.filter ({ horsemark -> Bool in
                     return ((advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horsemark.color) : true)) &&
                     (advancedFeatures.ManePosition.count > 0 ? horsemark.Position != nil ? advancedFeatures.ManePosition.contains(horsemark.Position!) : false : true) &&
                         (advancedFeatures.Mane.count > 0 ? horsemark.Mane_Color != nil ? advancedFeatures.Mane.contains(horsemark.Mane_Color!) : false : true) &&
@@ -296,8 +293,8 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
                         (advancedFeatures.leftBack.count > 0 ? horsemark.LHMarking != nil ? advancedFeatures.leftBack.contains(horsemark.LHMarking!) : false : true)
               })
               FilteredBaseData.data = BaseHorseData.data.filter({ (horse) -> Bool in
-                    return FilteredAttributes[0].data.contains { (mark) -> Bool in
-                        return horse.ID == Int(mark.ID)!
+                    return FilteredAttributes.data.contains { (mark) -> Bool in
+                        return horse.ID == mark.HorseID!
                     }
                 }).filter({ horse -> Bool in
                 guard let text = searchBar.text else { return false }
@@ -327,7 +324,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     
     func parseHorseJSON(withCompletion completion: @escaping (BaseHorse?, Error?) -> Void) {
         // Begin Call
-        let url = URL(string: "https://f1fb8cc1.ngrok.io/api/base/horses")
+        let url = URL(string: Constants.config.apiLink + "api/base/horses")
         guard let requestUrl = url else { fatalError() }
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "GET"
@@ -356,7 +353,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     
     func parseHorsePicturesJSON(withCompletion completion: @escaping (HorsePhotos?, Error?) -> Void) {
         // Begin Call
-        let url = URL(string: "https://f1fb8cc1.ngrok.io/api/base/horseimages")
+        let url = URL(string: Constants.config.apiLink + "api/base/horseimages")
         guard let requestUrl = url else { fatalError() }
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "GET"
@@ -385,7 +382,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     
     func parseHorseTreatmentJSON(withCompletion completion: @escaping (HorseTreatments?, Error?) -> Void) {
         // Begin Call
-        let url = URL(string: "https://f1fb8cc1.ngrok.io/api/base/horsetreatments")
+        let url = URL(string: Constants.config.apiLink + "api/base/horsetreatments")
         guard let requestUrl = url else { fatalError() }
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "GET"
@@ -412,20 +409,32 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         task.resume()
     }
     
-    func parseHorseMarkingsJSON(withCompletion completion: @escaping ([HorseMarkings]?, Error?) -> Void) {
-        let jsonUrlString = "https://projectfrontier.dev/data/HorsesMarkings.json"
-            guard let url = URL(string: jsonUrlString) else { return }
-        let task = URLSession.shared.dataTask(with: url) { (horseMarkings, response, err) in
-            guard let horseMarkings = horseMarkings else { return }
-            do {
-                let data = try JSONDecoder().decode([HorseMarkings].self, from: horseMarkings)
-                completion(data, nil)
-            } catch let jsonErr {
-                print("Error serializing json:", jsonErr)
-                completion(nil, err)
-            }
+    func parseHorseMarkingsJSON(withCompletion completion: @escaping (HorseMarkings?, Error?) -> Void) {
+        // Begin Call
+        let url = URL(string: Constants.config.apiLink + "api/base/horsemarkings")
+        guard let requestUrl = url else { fatalError() }
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "GET"
+        // Set HTTP Request Header
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                
+                if let error = error {
+                    print("Error took place \(error)")
+                    return
+                }
+                
+                guard let data = data else {return}
+                do {
+                    print(data)
+                    let horses = try JSONDecoder().decode(HorseMarkings.self, from: data)
+                    completion(horses, nil)
+                } catch let jsonErr {
+                    print(jsonErr)
+               }
+         
         }
-        
         task.resume()
     }
     
@@ -448,7 +457,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         if(count > 0) {
             AdvancedButton?.addBadge(text: String(count))
             isSearching = true
-            FilteredAttributes[0].data = HorseAttributes[0].data.filter ({ horsemark -> Bool in
+            FilteredAttributes.data = HorseAttributes.data.filter ({ horsemark -> Bool in
                     return ((advancedFeatures.Color.count > 0 ? advancedFeatures.Color.contains(horsemark.color) : true)) &&
                         (advancedFeatures.ManePosition.count > 0 ? horsemark.Position != nil ? advancedFeatures.ManePosition.contains(horsemark.Position!) : false : true) &&
                         (advancedFeatures.Mane.count > 0 ? horsemark.Mane_Color != nil ? advancedFeatures.Mane.contains(horsemark.Mane_Color!) : false : true) &&
@@ -459,8 +468,8 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
                         (advancedFeatures.leftBack.count > 0 ? horsemark.LHMarking != nil ? advancedFeatures.leftBack.contains(horsemark.LHMarking!) : false : true)
               })
             FilteredBaseData.data = BaseHorseData.data.filter({ (horse) -> Bool in
-                return FilteredAttributes[0].data.contains { (mark) -> Bool in
-                    return horse.ID == Int(mark.ID)!
+                return FilteredAttributes.data.contains { (mark) -> Bool in
+                    return horse.ID == mark.HorseID!
                 }
             })
             tableView.reloadData()

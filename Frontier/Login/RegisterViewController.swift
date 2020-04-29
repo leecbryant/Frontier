@@ -76,7 +76,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                        }
                        
                        // Begin Call
-                       let url = URL(string: "https://f1fb8cc1.ngrok.io/api/users/register")
+                       let url = URL(string: Constants.config.apiLink + "api/users/register")
                        guard let requestUrl = url else { fatalError() }
                        var request = URLRequest(url: requestUrl)
                        request.httpMethod = "POST"

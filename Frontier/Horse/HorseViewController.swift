@@ -40,8 +40,8 @@ class HorseViewController: UIViewController {
     var HorseLedger:HorseTreatments = HorseTreatments(data: [Treatment]())
     var HorseDartData = [Treatment]()
     // Horse Attribute Information
-    var HorseAttributes = [HorseMarkings]()
-    var HorseMarkingData = Marking(ID: "", color: "", Position: nil, Mane_Color: nil, LFMarking: nil, RFMarking: nil, LHMarking: nil, RHMarking: nil, FaceString: nil)
+    var HorseAttributes: HorseMarkings = HorseMarkings(data: [Marking]())
+    var HorseMarkingData = Marking(HorseID: 0, color: "", Position: nil, Mane_Color: nil, LFMarking: nil, RFMarking: nil, LHMarking: nil, RHMarking: nil, FaceString: nil)
     // Collection View Definitions
     let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     let cellSpacing: CGFloat = 2

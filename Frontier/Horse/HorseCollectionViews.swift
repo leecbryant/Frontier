@@ -257,8 +257,8 @@ extension HorseViewController: UICollectionViewDelegate, UICollectionViewDataSou
                   return Horse.HorseID! == selectedIndex
               }
               vc.HorseAttributes = HorseAttributes
-              vc.HorseMarkingData = HorseAttributes[0].data.filter{ (Horse) -> Bool in
-                    return Int(Horse.ID)! == selectedIndex
+              vc.HorseMarkingData = HorseAttributes.data.filter{ (Horse) -> Bool in
+                    return Horse.HorseID! == selectedIndex
               }[0]
             self.navigationController?.pushViewController(vc, animated: true)
         }

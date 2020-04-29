@@ -39,9 +39,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 var auth: Bool?
                 var token: String?
             }
-            
             // Begin Call
-            let url = URL(string: "https://f1fb8cc1.ngrok.io/api/users/login")
+            let url = URL(string: Constants.config.apiLink + "api/users/login")
             guard let requestUrl = url else { fatalError() }
             var request = URLRequest(url: requestUrl)
             request.httpMethod = "POST"

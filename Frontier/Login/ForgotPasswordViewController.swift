@@ -46,7 +46,7 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
                 }
                 
                 // Begin Call
-                let url = URL(string: "https://f1fb8cc1.ngrok.io/api/users/forgotpassword")
+                let url = URL(string: Constants.config.apiLink + "api/users/forgotpassword")
                 guard let requestUrl = url else { fatalError() }
                 var request = URLRequest(url: requestUrl)
                 request.httpMethod = "POST"
