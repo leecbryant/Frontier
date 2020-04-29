@@ -10,33 +10,38 @@ import UIKit
 
 class RegisterViewController: UIViewController, UITextFieldDelegate {
     
+    @IBOutlet weak var Username: UITextField!
     @IBOutlet weak var FirstName: UITextField!
     @IBOutlet weak var LastName: UITextField!
     @IBOutlet weak var Email: UITextField!
     @IBOutlet weak var VerifyEmail: UITextField!
     @IBOutlet weak var Password: UITextField!
     @IBOutlet weak var VerifyPassword: UITextField!
-    
+    var activityView: UIActivityIndicatorView?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Text field setup
+        Username.delegate = self
+        Username.tag = 0
+        Username.returnKeyType = UIReturnKeyType.next
         FirstName.delegate = self
-        FirstName.tag = 0
+        FirstName.tag = 1
         FirstName.returnKeyType = UIReturnKeyType.next
         LastName.delegate = self
-        LastName.tag = 1
+        LastName.tag = 2
         LastName.returnKeyType = UIReturnKeyType.next
         Email.delegate = self
-        Email.tag = 2
+        Email.tag = 3
         Email.returnKeyType = UIReturnKeyType.next
         VerifyEmail.delegate = self
-        VerifyEmail.tag = 3
+        VerifyEmail.tag = 4
         VerifyEmail.returnKeyType = UIReturnKeyType.next
         Password.delegate = self
-        Password.tag = 4
+        Password.tag = 5
         Password.returnKeyType = UIReturnKeyType.next
         VerifyPassword.delegate = self
-        VerifyPassword.tag = 5
+        VerifyPassword.tag = 6
         VerifyPassword.returnKeyType = UIReturnKeyType.done
     }
 
@@ -51,11 +56,59 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func Submit(_ sender: Any) {
-        if(FirstName.text != "" && LastName.text != "" && Email.text != "" && VerifyEmail.text != "" && Password.text != "" && VerifyPassword.text != "") {
+        if(Username.text != "" && FirstName.text != "" && LastName.text != "" && Email.text != "" && VerifyEmail.text != "" && Password.text != "" && VerifyPassword.text != "") {
             if(Password.text == VerifyPassword.text) {
                 if(Email.text == VerifyEmail.text) {
                     if(isValidEmail(emailStr: Email.text!)) {
-                        createAlert(title: "Success", message: "An email has been sent with instructions on how to validate your account", success: true)
+                       // Stop everything to load
+                       UIApplication.shared.beginIgnoringInteractionEvents()
+                       showActivityIndicator()
+                       // Data Structs
+                       struct ToDoResponseModel: Codable {
+                            var Username: String?
+                            var FirstName: String?
+                            var LastName: String?
+                            var Email: String?
+                            var Password: String?
+                       }
+                       struct ReturnModel: Codable {
+                           var success: Bool?
+                       }
+                       
+                       // Begin Call
+                       let url = URL(string: "https://f1fb8cc1.ngrok.io/api/users/register")
+                       guard let requestUrl = url else { fatalError() }
+                       var request = URLRequest(url: requestUrl)
+                       request.httpMethod = "POST"
+                       // Set HTTP Request Header
+                       request.setValue("application/json", forHTTPHeaderField: "Accept")
+                       request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                        let newTodoItem = ToDoResponseModel(Username: Username.text?.lowercased(), FirstName: FirstName.text, LastName: LastName.text, Email: Email.text, Password: Password.text)
+                       let jsonData = try? JSONEncoder().encode(newTodoItem)
+                       request.httpBody = jsonData
+                           let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                               
+                               if let error = error {
+                                   print("Error took place \(error)")
+                                   return
+                               }
+                               guard let data = data else {return}
+                               do {
+                                    let todoItemModel = try JSONDecoder().decode(ReturnModel.self, from: data)
+                                       DispatchQueue.main.async {
+                                           UIApplication.shared.endIgnoringInteractionEvents()
+                                           self.hideActivityIndicator()
+                                           if todoItemModel.success == nil || todoItemModel.success == false {
+                                            self.createAlert(title: "Error", message: "Something went wrong while creating account. Please try again later or contact an admin.", success: false)
+                                           } else {
+                                               self.createAlert(title: "Success", message: "Account registration complete.", success: true)
+                                           }
+                                       }
+                               } catch let jsonErr {
+                                   print(jsonErr)
+                              }
+                       }
+                       task.resume()
                     } else {
                         createAlert(title: "Error", message: "Email must be valid", success: false)
                     }
@@ -69,6 +122,20 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             createAlert(title: "Error", message: "All fields must be filled out.", success: false)
         }
     }
+    
+    func showActivityIndicator() {
+        activityView = UIActivityIndicatorView()
+        activityView?.center = self.view.center
+        self.view.addSubview(activityView!)
+        activityView?.startAnimating()
+    }
+
+    func hideActivityIndicator(){
+        if (activityView != nil){
+            activityView?.stopAnimating()
+        }
+    }
+    
     
     func createAlert(title:String, message:String, success:Bool) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)

@@ -48,7 +48,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             // Set HTTP Request Header
             request.setValue("application/json", forHTTPHeaderField: "Accept")
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let newTodoItem = ToDoResponseModel(Username: UsernameText.text, Password: PasswordText.text)
+            let newTodoItem = ToDoResponseModel(Username: UsernameText.text?.lowercased(), Password: PasswordText.text)
             let jsonData = try? JSONEncoder().encode(newTodoItem)
             request.httpBody = jsonData
                 let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -67,7 +67,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                                     self.createAlert(title: "Invalid Login", message: "Invalid Username or Password")
                                 } else {
                                     self.performSegue(withIdentifier: "loginComplete", sender: self)
-                                    // NEED to ADD way to carry token
+                                    // NEED to ADD way to carry token after receiving from server
                                 }
                             }
                     } catch let jsonErr {

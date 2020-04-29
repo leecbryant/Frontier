@@ -644,7 +644,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uBp-x8-ZH3">
-                                <rect key="frame" x="20" y="168.5" width="335" height="310"/>
+                                <rect key="frame" x="20" y="148.5" width="335" height="350"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Fe6-6e-cgF" userLabel="Row Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
@@ -664,7 +664,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Vsh-8E-3dA" userLabel="Row Stack View">
                                         <rect key="frame" x="0.0" y="40" width="335" height="30"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="7od-og-jLy">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="7od-og-jLy" userLabel="Username">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -680,8 +680,27 @@
                                         </constraints>
                                         <viewLayoutGuide key="safeArea" id="8g9-zd-PTe"/>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PG7-Hm-HqE" userLabel="Row Stack View">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qwO-Pl-gAn" userLabel="Row Stack View">
                                         <rect key="frame" x="0.0" y="80" width="335" height="30"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UcI-8q-PvR">
+                                                <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
+                                                        <color key="value" red="0.25503098959999998" green="0.25470802190000003" blue="0.26274654269999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="LUx-Dq-jEp"/>
+                                        </constraints>
+                                        <viewLayoutGuide key="safeArea" id="8iv-6V-U3k"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PG7-Hm-HqE" userLabel="Row Stack View">
+                                        <rect key="frame" x="0.0" y="120" width="335" height="30"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="leC-P4-H3m">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
@@ -700,7 +719,7 @@
                                         <viewLayoutGuide key="safeArea" id="wGj-a1-AUZ"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="REa-QF-DsS" userLabel="Row Stack View">
-                                        <rect key="frame" x="0.0" y="120" width="335" height="30"/>
+                                        <rect key="frame" x="0.0" y="160" width="335" height="30"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hEd-4J-MX1">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
@@ -719,7 +738,7 @@
                                         <viewLayoutGuide key="safeArea" id="wXE-YC-Ew5"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="v3S-jN-OdV" userLabel="Row Stack View">
-                                        <rect key="frame" x="0.0" y="160" width="335" height="30"/>
+                                        <rect key="frame" x="0.0" y="200" width="335" height="30"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Verify Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="USB-iz-g6m">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
@@ -738,7 +757,7 @@
                                         <viewLayoutGuide key="safeArea" id="Lmt-4l-VjG"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="IHA-52-BFw" userLabel="Row Stack View">
-                                        <rect key="frame" x="0.0" y="200" width="335" height="30"/>
+                                        <rect key="frame" x="0.0" y="240" width="335" height="30"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="q7g-Im-brH">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
@@ -757,7 +776,7 @@
                                         <viewLayoutGuide key="safeArea" id="rvg-MW-JHE"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fuc-g0-YQ0" userLabel="Row Stack View">
-                                        <rect key="frame" x="0.0" y="240" width="335" height="30"/>
+                                        <rect key="frame" x="0.0" y="280" width="335" height="30"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Verify Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Rpq-Nd-zeG">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
@@ -776,7 +795,7 @@
                                         <viewLayoutGuide key="safeArea" id="Tfs-Mx-PLe"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UrC-PW-T5m" userLabel="Row Stack View">
-                                        <rect key="frame" x="0.0" y="280" width="335" height="30"/>
+                                        <rect key="frame" x="0.0" y="320" width="335" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cmR-KY-qHI">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
@@ -804,7 +823,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vhf-dQ-j5t">
-                                <rect key="frame" x="64" y="128.5" width="247.5" height="41.5"/>
+                                <rect key="frame" x="64" y="108.5" width="247.5" height="41.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FRONTIER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddY-2G-6Rt">
                                         <rect key="frame" x="0.0" y="0.0" width="184" height="41.5"/>
@@ -842,9 +861,10 @@
                     <navigationItem key="navigationItem" id="JXW-4r-tAy"/>
                     <connections>
                         <outlet property="Email" destination="hEd-4J-MX1" id="80a-qr-8K1"/>
-                        <outlet property="FirstName" destination="7od-og-jLy" id="jb5-zz-km7"/>
+                        <outlet property="FirstName" destination="UcI-8q-PvR" id="lHw-aJ-krd"/>
                         <outlet property="LastName" destination="leC-P4-H3m" id="aTm-T2-y0c"/>
                         <outlet property="Password" destination="q7g-Im-brH" id="89p-ev-W0X"/>
+                        <outlet property="Username" destination="7od-og-jLy" id="Zcz-zQ-UAa"/>
                         <outlet property="VerifyEmail" destination="USB-iz-g6m" id="22p-TX-50C"/>
                         <outlet property="VerifyPassword" destination="Rpq-Nd-zeG" id="LdJ-3F-f1w"/>
                     </connections>
