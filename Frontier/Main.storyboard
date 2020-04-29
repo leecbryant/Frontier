@@ -913,8 +913,8 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3jq-37-P4f" userLabel="Row Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="30"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fs3-du-o5i">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="30"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fs3-du-o5i">
+                                                <rect key="frame" x="0.0" y="0.0" width="269" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                 <userDefinedRuntimeAttributes>
@@ -923,6 +923,13 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wnb-tc-OhE">
+                                                <rect key="frame" x="279" y="0.0" width="76" height="30"/>
+                                                <state key="normal" title="Randomize"/>
+                                                <connections>
+                                                    <action selector="Randomize:" destination="mec-6N-LBu" eventType="touchUpInside" id="wTB-TL-WFC"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="THB-wH-TWV"/>
