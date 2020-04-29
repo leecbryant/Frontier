@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol CanRecieve {
-    func passDataBack(currFeature: String, data: [String])
+protocol CanRecieveNew {
+    func passDataBackNew(currFeature: String, data: [String])
 }
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class NewHorseFeatureSelect: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
     @IBOutlet weak var collectionView: UICollectionView!
         
-    var delegate:CanRecieve?
+    var delegate:CanRecieveNew?
     
     //Data to send back to previous View
     var currFeature: String = ""
@@ -255,17 +255,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         //Code for Selecting a feature
         if data.count == (data.filter { $0 != myLabels[index.row]}).count {
             //Debugging Console
-            if(data.count == 0) { // Limit One Selection
-                //Add feature to array of selected features
-                data.append(myLabels[index.row])
-                //Change appearance of cell
-                cell.contentView.backgroundColor = cell.tintColor
-                // Auto Pass back information to remove necessity to click save button - Only use when single selection is active
-                delegate?.passDataBack(currFeature: currFeature, data: data)
-                    presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-                self.navigationController?.popViewController(animated: true)
-            }
-        } else {
+            print("Selecting Feature: " + myLabels[index.row])
+            //Add feature to array of selected features
+            data.append(myLabels[index.row])
+            //Change appearance of cell
+            cell.contentView.backgroundColor = cell.tintColor
+        }
+            //Code for De-Selecting a feature
+        else{
             //Debugging Console
             print("Deselecting Feature: " + myLabels[index.row])
             //Remove feature from array of selected features
@@ -275,13 +272,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             } else {
                 cell.contentView.backgroundColor = .white
             }
-         }
+        }
        }
       
     }
     
     @IBAction func submitFeature(_ sender: Any) {
-        delegate?.passDataBack(currFeature: currFeature, data: data)
+        delegate?.passDataBackNew(currFeature: currFeature, data: data)
         presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     self.navigationController?.popViewController(animated: true)
         

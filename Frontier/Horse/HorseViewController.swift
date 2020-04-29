@@ -32,7 +32,7 @@ class HorseViewController: UIViewController {
     // Base horse information
     var BaseHorseData: BaseHorse = BaseHorse(data: [NameBandHerd]())
     var filteredBands: BaseHorse = BaseHorse(data: [NameBandHerd]())
-    var HorseData = NameBandHerd(ID: 0, Name: "", herd: "", bands: "")
+    var HorseData = NameBandHerd(ID: 0, Name: "", herd: "", bands: "", Status: "")
     // Horse Picture Information
     var HorseImageData: HorsePhotos = HorsePhotos(data: [Photo]())
     var imageArray = [Photo]()
@@ -55,19 +55,20 @@ class HorseViewController: UIViewController {
         defineCellSize()
         navigationItem.title = HorseData.Name
         NameLabel.text = HorseData.Name
-        if(HorseDartData.count > 0) {
-            LocationLabel.text = "Recent Shot: "
-            switch(HorseDartData[0].Action) {
-                case "P":
-                    LocationLabel.text! += "Primer"
-                case "B":
-                    LocationLabel.text! += "Booster"
+//        if(HorseDartData.count > 0) {
+            LocationLabel.text = "Status: "
+//            switch(HorseDartData[0].Action) {
+            switch(HorseData.Status) {
+                case "S":
+                    LocationLabel.text! += "Seen with Band"
+                case "M":
+                    LocationLabel.text! += "Missing from Band"
                 default:
                     break
             }
-        } else {
-            LocationLabel.text = "Not Darted"
-        }
+//        } else {
+//            LocationLabel.text = "Not Darted"
+//        }
         filterBands()
         
         let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]

@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol PassDataToSearch {
-    func advancedPassBack(userInput: Features)
+protocol PassNewToSearch {
+    func newPassBack(response: Bool)
 }
 
-class FeatureListScreen: UIViewController, CanRecieve {
-    
-    var delegate:PassDataToSearch?
+class NewHorse: UIViewController, CanRecieve {
+    var activityView: UIActivityIndicatorView?
+    var delegate: PassNewToSearch?
     var selectedFeatures = Features(Color: [], Mane: [], ManePosition: [], Face: [], Whorl: [], rightFront: [], rightBack: [], leftFront: [], leftBack: [])
 
     func passDataBack(currFeature: String, data: [String]) {
@@ -47,6 +47,11 @@ class FeatureListScreen: UIViewController, CanRecieve {
 
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var Name: UITextField!
+    @IBOutlet weak var Band: UITextField!
+    @IBOutlet weak var Location: UITextField!
+    
+    
     var backButton : UIBarButtonItem!
 
     var features: [Feature] = []
@@ -63,7 +68,7 @@ class FeatureListScreen: UIViewController, CanRecieve {
     var lrFeetFeatures: [String] = []
     
     override func viewDidLoad() {
-        navigationItem.title = "Advanced Search"
+        navigationItem.title = "New Horse"
         
         super.viewDidLoad()
         
@@ -165,15 +170,102 @@ class FeatureListScreen: UIViewController, CanRecieve {
        }
        
        @IBAction func onSubmit(_ sender: Any) {
-        let selectedFeatures = Features(Color: colorFeatures, Mane: maneFeatures, ManePosition: manePositionFeatures, Face: faceFeatures, Whorl: whorlFeatures, rightFront: rfFeetFeatures, rightBack: rrFeetFeatures, leftFront: lfFeetFeatures, leftBack: lrFeetFeatures)
-           
-           delegate?.advancedPassBack(userInput: selectedFeatures)
-           presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-           self.navigationController?.popViewController(animated: true)
-       }
+        struct SubmitFeatures: Codable {
+            var Color: String?
+            var Mane: String?
+            var ManePosition: String?
+            var Whorl: String?
+            var Face: String?
+            var rightFront: String?
+            var rightBack: String?
+            var leftFront: String?
+            var leftBack: String?
+        }
+        let selectedFeatures = SubmitFeatures(Color: colorFeatures.count > 0 ? colorFeatures[0] : nil, Mane: maneFeatures.count > 0 ? maneFeatures[0] : nil, ManePosition: manePositionFeatures.count > 0 ? manePositionFeatures[0] : nil, Whorl: whorlFeatures.count > 0 ? whorlFeatures[0] : nil, Face: faceFeatures.count > 0 ? faceFeatures[0] : nil, rightFront: rfFeetFeatures.count > 0 ? rfFeetFeatures[0] : nil, rightBack: rrFeetFeatures.count > 0 ? rrFeetFeatures[0] : nil, leftFront: lfFeetFeatures.count > 0 ? lfFeetFeatures[0] : nil, leftBack: lrFeetFeatures.count > 0 ? lrFeetFeatures[0] : nil)
+        
+        struct SubmitObj: Codable {
+            var Name: String?
+            var BandName: String?
+            var Location: String?
+            var Features: SubmitFeatures
+        }
+        
+        let submit = SubmitObj(Name: Name.text, BandName: Band.text, Location: Location.text, Features: selectedFeatures)
+        
+        if Name.text == "" || Band.text == "" || Location.text == "" {
+            createAlert(title: "Error", message: "Name, Band, and Location must be filled out.")
+        } else if colorFeatures.count > 0 {
+            // Stop everything to load
+            UIApplication.shared.beginIgnoringInteractionEvents()
+            showActivityIndicator()
+            // Data Structs
+            struct ReturnModel: Codable {
+                var success: Bool?
+            }
+            // Begin Call
+            let url = URL(string: Constants.config.apiLink + "api/base/horses")
+            guard let requestUrl = url else { fatalError() }
+            var request = URLRequest(url: requestUrl)
+            request.httpMethod = "POST"
+            // Set HTTP Request Header
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let jsonData = try? JSONEncoder().encode(submit)
+            request.httpBody = jsonData
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    
+                    if let error = error {
+                        print("Error took place \(error)")
+                        return
+                    }
+                    guard let data = data else {return}
+                    do {
+                         let todoItemModel = try JSONDecoder().decode(ReturnModel.self, from: data)
+                            DispatchQueue.main.async {
+                                UIApplication.shared.endIgnoringInteractionEvents()
+                                self.hideActivityIndicator()
+                                if todoItemModel.success == false {
+                                    self.createAlert(title: "Error", message: "Unable to create new horse record")
+                                } else {
+                                    self.delegate?.newPassBack(response: todoItemModel.success ?? false)
+                                    self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                                    self.navigationController?.popViewController(animated: true)
+                                }
+                            }
+                    } catch let jsonErr {
+                        print(jsonErr)
+                   }
+             
+            }
+            task.resume()
+        } else {
+            createAlert(title: "Error", message: "Horse color must be selected.")
+        }
+    }
+    
+    func showActivityIndicator() {
+        activityView = UIActivityIndicatorView()
+        activityView?.center = self.view.center
+        self.view.addSubview(activityView!)
+        activityView?.startAnimating()
+    }
+
+    func hideActivityIndicator(){
+        if (activityView != nil){
+            activityView?.stopAnimating()
+        }
+    }
+    
+    func createAlert(title:String, message:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 
-extension FeatureListScreen: UITableViewDataSource, UITableViewDelegate {
+extension NewHorse: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return features.count
     }
@@ -316,7 +408,7 @@ extension FeatureListScreen: UITableViewDataSource, UITableViewDelegate {
             
         }
         
-        performSegue(withIdentifier: "showColors", sender: self)
+        performSegue(withIdentifier: "showSelect", sender: self)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

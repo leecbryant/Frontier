@@ -13,6 +13,7 @@
 		415A605F23FCBA9100A5DB61 /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 415A605E23FCBA9100A5DB61 /* KingfisherSwiftUI */; };
 		415A60612400736100A5DB61 /* DetailedDescViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415A60602400736100A5DB61 /* DetailedDescViewController.swift */; };
 		415BD5D324591E3E000118E1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415BD5D224591E3E000118E1 /* Constants.swift */; };
+		415BD5D5245950F1000118E1 /* NewHorse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415BD5D4245950F1000118E1 /* NewHorse.swift */; };
 		417E9B2723EA860800308EBE /* ButtonBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417E9B2623EA860800308EBE /* ButtonBadge.swift */; };
 		418224EB23CA94C80043A086 /* FeatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224E823CA94C70043A086 /* FeatureCell.swift */; };
 		418224EC23CA94C80043A086 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224E923CA94C80043A086 /* Feature.swift */; };
@@ -64,6 +65,7 @@
 		415A605923FCA04D00A5DB61 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		415A60602400736100A5DB61 /* DetailedDescViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedDescViewController.swift; sourceTree = "<group>"; };
 		415BD5D224591E3E000118E1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		415BD5D4245950F1000118E1 /* NewHorse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHorse.swift; sourceTree = "<group>"; };
 		417E9B2623EA860800308EBE /* ButtonBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBadge.swift; sourceTree = "<group>"; };
 		418224E823CA94C70043A086 /* FeatureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureCell.swift; sourceTree = "<group>"; };
 		418224E923CA94C80043A086 /* Feature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				41ED39782411F2F700B1CB18 /* PicViewController.swift */,
 				41ED397A2412E35100B1CB18 /* HorseCollectionViews.swift */,
 				41ED397C24135F6000B1CB18 /* DartTableViewController.swift */,
+				415BD5D4245950F1000118E1 /* NewHorse.swift */,
 			);
 			path = Horse;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 			files = (
 				415BD5D324591E3E000118E1 /* Constants.swift in Sources */,
 				41B64332238BC87B00F95C95 /* GuideTableViewController.swift in Sources */,
+				415BD5D5245950F1000118E1 /* NewHorse.swift in Sources */,
 				41E84C53238D072D004A4392 /* SearchTableViewController.swift in Sources */,
 				C84D504424102F8E00E52999 /* AccountTableViewController.swift in Sources */,
 				41E84C55238D088A004A4392 /* HorseViewController.swift in Sources */,

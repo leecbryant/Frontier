@@ -20,6 +20,7 @@ struct NameBandHerd: Decodable {
    var Name: String
    var herd: String
    var bands: String
+   var Status: String
 }
 
 struct HorsePhotos: Decodable {
@@ -75,7 +76,7 @@ struct Features {
 
 var selectedIndex = 0
 
-class SearchTableViewController: UITableViewController, UISearchBarDelegate, PassDataToSearch {
+class SearchTableViewController: UITableViewController, UISearchBarDelegate, PassDataToSearch, PassNewToSearch {
     
     @IBOutlet weak var AdvancedButton: UIBarButtonItem!
     
@@ -93,23 +94,21 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     var isSearching = false
         
     // Loading Circle
-    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
-    
+    var activityView: UIActivityIndicatorView?
+
     override func viewDidLoad() {
-        activityIndicator.center = self.view.center
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
-        
-        view.addSubview(activityIndicator)
-        
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        
+
         super.viewDidLoad()
         navigationItem.title = "Horses"
         
-        showSearchBar()
+        loadData()
         
+        showSearchBar()
+    }
+
+    func loadData() {
+        showActivityIndicator()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         // Grab Data from EACH URL - Should eventually become a SQL Left Join
         parseHorseJSON(withCompletion: { horseData, error in
             if error != nil {
@@ -147,19 +146,31 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
             }
         })
     }
-
+    
     func loadComplete() {
        DispatchQueue.main.async {
             self.loaded = true
             self.BaseHorseData.data.sort(by: {$0.Name < $1.Name})
             self.FilteredBaseData.data.sort(by: {$0.Name < $1.Name})
-            self.activityIndicator.stopAnimating()
-            self.activityIndicator.removeFromSuperview()
+            self.hideActivityIndicator()
             UIApplication.shared.endIgnoringInteractionEvents()
             self.tableView.reloadData()
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
        }
+    }
+    
+    func showActivityIndicator() {
+        activityView = UIActivityIndicatorView()
+        activityView?.center = self.view.center
+        self.view.addSubview(activityView!)
+        activityView?.startAnimating()
+    }
+
+    func hideActivityIndicator(){
+        if (activityView != nil){
+            activityView?.stopAnimating()
+        }
     }
     
     //Generates search bar data for search screen
@@ -173,16 +184,11 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         searchController.obscuresBackgroundDuringPresentation = false        
         searchController.searchBar.sizeToFit()
         searchController.searchBar.returnKeyType = UIReturnKeyType.search
-        searchController.searchBar.placeholder = "Search horse by name or band..."
+        searchController.searchBar.placeholder = "Search horse by name or location..."
         searchController.searchBar.showsCancelButton = false
-        searchController.searchBar.showsBookmarkButton = true
+//        searchController.searchBar.showsBookmarkButton = true
 //        searchController.searchBar.setImage(UIImage(named: "advanced"), for: .bookmark, state: .disabled)
         navigationItem.searchController = searchController
-    }
-    
-    // Bookmark button pressed
-    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-       performSegue(withIdentifier: "showAdvanced", sender: self)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -207,10 +213,10 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
 
         if isSearching {
             cell.textLabel?.text = FilteredBaseData.data[indexPath.row].Name
-            cell.detailTextLabel?.text = FilteredBaseData.data[indexPath.row].bands
+            cell.detailTextLabel?.text = FilteredBaseData.data[indexPath.row].herd
         } else {
             cell.textLabel?.text = BaseHorseData.data[indexPath.row].Name
-            cell.detailTextLabel?.text = "Band: " + BaseHorseData.data[indexPath.row].bands
+            cell.detailTextLabel?.text = "Location: " + BaseHorseData.data[indexPath.row].herd
         }
         
         return cell
@@ -246,6 +252,10 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
             case "showAdvanced":
                 let vc = segue.destination as! FeatureListScreen
                 vc.selectedFeatures = advancedFeatures
+                vc.delegate = self
+            break
+            case "showNew":
+                let vc = segue.destination as! NewHorse
                 vc.delegate = self
             break
             default: break
@@ -306,7 +316,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
                 //Loop through all inputted features and see if current horse fits any of them
                 //If current horse matches a searched filter, retHorse will be set to true and then then add the current to the filtered array
                 for myText in textArr {
-                    retHorse =  horse.Name.lowercased().contains(myText.lowercased()) || horse.bands.lowercased().contains(myText.lowercased())
+                    retHorse =  horse.Name.lowercased().contains(myText.lowercased()) || horse.herd.lowercased().contains(myText.lowercased())
                 }
                 //Return false if horse match no features
                 return retHorse
@@ -318,9 +328,13 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     }
     
     @IBAction func advancedClick() {
-        print("NEW HORSE INCOMINGGG")
         performSegue(withIdentifier: "showAdvanced", sender: self)
     }
+    
+    @IBAction func showNew(_ sender: Any) {
+        performSegue(withIdentifier: "showNew", sender: self)
+    }
+    
     
     func parseHorseJSON(withCompletion completion: @escaping (BaseHorse?, Error?) -> Void) {
         // Begin Call
@@ -444,6 +458,12 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func newPassBack(response: Bool) {
+        if response {
+            loadData()
+        }
     }
     
     func advancedPassBack(userInput: Features) {
