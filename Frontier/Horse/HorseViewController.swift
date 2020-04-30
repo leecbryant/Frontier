@@ -122,8 +122,8 @@ class HorseViewController: UIViewController, PassEditToHorse {
             ThirdImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(moreImages)))
         }
         ThirdImage.tag = 3
-        let image = UIImage(named: "more-menu")?.withRenderingMode(.alwaysTemplate)
-        ThirdImage.setImage(image, for: .normal)
+//        let image = UIImage(named: "more-menu")?.withRenderingMode(.alwaysTemplate)
+//        ThirdImage.setImage(image, for: .normal)
         ThirdImage.tintColor = UIColor.white
         
         // Dart Button Setup
