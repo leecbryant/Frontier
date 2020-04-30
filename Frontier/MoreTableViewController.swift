@@ -8,7 +8,7 @@
 
 import UIKit
 
-var MoreItems = ["Account Settings", "Support Ticket", "About Us", "Logout"]
+var MoreItems = ["Support Ticket", "About Us", "Logout"]
 var MoreIndex = 0
 
 class MoreTableViewController: UITableViewController {
@@ -45,13 +45,14 @@ class MoreTableViewController: UITableViewController {
         MoreIndex = indexPath.row
         
         switch (MoreIndex){
-            case 0: performSegue(withIdentifier: "Account", sender: self)
+//            case 0:
+//                    performSegue(withIdentifier: "Account", sender: self)
+//                    break
+            case 0: performSegue(withIdentifier: "SupportTicket", sender: self)
                     break
-            case 1: performSegue(withIdentifier: "SupportTicket", sender: self)
+            case 1: performSegue(withIdentifier: "About", sender: self)
                     break
-            case 2: performSegue(withIdentifier: "About", sender: self)
-                    break
-            case 3:
+            case 2:
                 // Declare Alert message
                 let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to log out?", preferredStyle: .alert)
                 

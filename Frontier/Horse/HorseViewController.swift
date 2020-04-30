@@ -14,7 +14,8 @@ import struct Kingfisher.BlurImageProcessor
 import struct Kingfisher.TintImageProcessor
 import struct Kingfisher.BlendImageProcessor
 
-class HorseViewController: UIViewController {
+class HorseViewController: UIViewController, PassEditToHorse {
+    
     // Labels
     @IBOutlet weak var tableView: UITableView!
     // Image Definitions
@@ -28,7 +29,8 @@ class HorseViewController: UIViewController {
     @IBOutlet weak var SegmentedController: UISegmentedControl!
     
     @IBOutlet weak var DartButton: UIButton!
-    
+    var activityView: UIActivityIndicatorView?
+
     // Base horse information
     var BaseHorseData: BaseHorse = BaseHorse(data: [NameBandHerd]())
     var filteredBands: BaseHorse = BaseHorse(data: [NameBandHerd]())
@@ -186,6 +188,226 @@ class HorseViewController: UIViewController {
         AttributeCollectionView.setContentOffset(CGPoint.zero, animated: true)
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+            case "showEdit":
+                let vc = segue.destination as! EditHorse
+                vc.BaseHorseData = BaseHorseData
+                vc.filteredBands = BaseHorseData
+                vc.HorseData = BaseHorseData.data.filter({ (horse) -> Bool in
+                    return horse.ID! == selectedIndex
+                })[0]
+                vc.HorseLedger = HorseLedger
+                vc.HorseDartData = HorseLedger.data.sorted(by: {$0.Date > $1.Date}).filter{ (Horse) -> Bool in
+                    return Horse.HorseID! == selectedIndex
+                }
+                vc.HorseAttributes = HorseAttributes
+                vc.HorseMarkingData = HorseAttributes.data.filter{ (Horse) -> Bool in
+                    return Horse.HorseID! == selectedIndex
+                }[0]
+                vc.delegate = self
+            break
+            default: break
+            // Unreachable
+        }
+    }
+    @IBAction func onEdit(_ sender: Any) {
+         performSegue(withIdentifier: "showEdit", sender: self)
+    }
+    
+    func loadData() {
+        showActivityIndicator()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        // Grab Data from EACH URL - Should eventually become a SQL Left Join
+        parseHorseJSON(withCompletion: { horseData, error in
+            if error != nil {
+                print(error!)
+                self.createAlert(title: "Error", message: "Error loading horse data")
+            } else if let horseData = horseData {
+                self.parseHorsePicturesJSON(withCompletion: { horsePictures, error in
+                    if error != nil {
+                        print(error!)
+                        self.createAlert(title: "Error", message: "Error loading horse picture data")
+                    } else if let horsePictures = horsePictures {
+                        self.parseHorseTreatmentJSON(withCompletion: { horseTreatments, error in
+                            if error != nil {
+                                print(error!)
+                                self.createAlert(title: "Error", message: "Error loading horse treatment data")
+                            } else if let horseTreatments = horseTreatments {
+                                self.parseHorseMarkingsJSON(withCompletion: { horseMarkings, error in
+                                    if error != nil {
+                                        print(error!)
+                                        self.createAlert(title: "Error", message: "Error loading horse treatment data")
+                                    } else if let horseMarkings = horseMarkings {
+                                        self.BaseHorseData = horseData
+                                        self.filteredBands = horseData
+                                        self.HorseImageData = horsePictures
+                                        self.HorseLedger = horseTreatments
+                                        self.HorseAttributes = horseMarkings
+                                        self.HorseAttributes = horseMarkings
+                                        self.loadComplete()
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    }
+    
+    func editPassBack(response: Bool) {
+        if response {
+            loadData()
+        }
+    }
+    
+    
+    func loadComplete() {
+       DispatchQueue.main.async {
+            self.BaseHorseData.data.sort(by: {$0.Name < $1.Name})
+            self.filteredBands.data.sort(by: {$0.Name < $1.Name})
+            self.hideActivityIndicator()
+            UIApplication.shared.endIgnoringInteractionEvents()
+       }
+    }
+    
+    func showActivityIndicator() {
+        activityView = UIActivityIndicatorView()
+        activityView?.center = self.view.center
+        self.view.addSubview(activityView!)
+        activityView?.startAnimating()
+    }
+
+    func hideActivityIndicator(){
+        if (activityView != nil){
+            activityView?.stopAnimating()
+        }
+    }
+    
+    func parseHorseJSON(withCompletion completion: @escaping (BaseHorse?, Error?) -> Void) {
+        // Begin Call
+        let url = URL(string: Constants.config.apiLink + "api/base/horses")
+        guard let requestUrl = url else { fatalError() }
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "GET"
+        // Set HTTP Request Header
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                
+                if let error = error {
+                    print("Error took place \(error)")
+                    return
+                }
+                
+                guard let data = data else {return}
+                do {
+                    print(data)
+                    let horses = try JSONDecoder().decode(BaseHorse.self, from: data)
+                    completion(horses, nil)
+                } catch let jsonErr {
+                    print(jsonErr)
+               }
+         
+        }
+        task.resume()
+    }
+    
+    func parseHorsePicturesJSON(withCompletion completion: @escaping (HorsePhotos?, Error?) -> Void) {
+        // Begin Call
+        let url = URL(string: Constants.config.apiLink + "api/base/horseimages")
+        guard let requestUrl = url else { fatalError() }
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "GET"
+        // Set HTTP Request Header
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                
+                if let error = error {
+                    print("Error took place \(error)")
+                    return
+                }
+                
+                guard let data = data else {return}
+                do {
+                    print(data)
+                    let horses = try JSONDecoder().decode(HorsePhotos.self, from: data)
+                    completion(horses, nil)
+                } catch let jsonErr {
+                    print(jsonErr)
+               }
+         
+        }
+        task.resume()
+    }
+    
+    func parseHorseTreatmentJSON(withCompletion completion: @escaping (HorseTreatments?, Error?) -> Void) {
+        // Begin Call
+        let url = URL(string: Constants.config.apiLink + "api/base/horsetreatments")
+        guard let requestUrl = url else { fatalError() }
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "GET"
+        // Set HTTP Request Header
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                
+                if let error = error {
+                    print("Error took place \(error)")
+                    return
+                }
+                
+                guard let data = data else {return}
+                do {
+                    print(data)
+                    let horses = try JSONDecoder().decode(HorseTreatments.self, from: data)
+                    completion(horses, nil)
+                } catch let jsonErr {
+                    print(jsonErr)
+               }
+         
+        }
+        task.resume()
+    }
+    
+    func parseHorseMarkingsJSON(withCompletion completion: @escaping (HorseMarkings?, Error?) -> Void) {
+        // Begin Call
+        let url = URL(string: Constants.config.apiLink + "api/base/horsemarkings")
+        guard let requestUrl = url else { fatalError() }
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "GET"
+        // Set HTTP Request Header
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                
+                if let error = error {
+                    print("Error took place \(error)")
+                    return
+                }
+                
+                guard let data = data else {return}
+                do {
+                    print(data)
+                    let horses = try JSONDecoder().decode(HorseMarkings.self, from: data)
+                    completion(horses, nil)
+                } catch let jsonErr {
+                    print(jsonErr)
+               }
+         
+        }
+        task.resume()
+    }
+    
+    func createAlert(title:String, message:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     
 }
 

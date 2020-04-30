@@ -84,10 +84,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if data.count > 0 { if data[0] == "" { data = [] } }
         /// Set overall collectionview constraints
         setCVConstraints()
         /// Set the size of each cell relative ot screen size
         defineCellSize()
+                    
         
         switch currFeature {
             case "color":

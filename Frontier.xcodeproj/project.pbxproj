@@ -14,6 +14,7 @@
 		415A60612400736100A5DB61 /* DetailedDescViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415A60602400736100A5DB61 /* DetailedDescViewController.swift */; };
 		415BD5D324591E3E000118E1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415BD5D224591E3E000118E1 /* Constants.swift */; };
 		415BD5D5245950F1000118E1 /* NewHorse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415BD5D4245950F1000118E1 /* NewHorse.swift */; };
+		415BD5D9245A0970000118E1 /* EditHorse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415BD5D8245A0970000118E1 /* EditHorse.swift */; };
 		417E9B2723EA860800308EBE /* ButtonBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417E9B2623EA860800308EBE /* ButtonBadge.swift */; };
 		418224EB23CA94C80043A086 /* FeatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224E823CA94C70043A086 /* FeatureCell.swift */; };
 		418224EC23CA94C80043A086 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224E923CA94C80043A086 /* Feature.swift */; };
@@ -26,7 +27,6 @@
 		418AE8492388BFFB00E13BC3 /* FrontierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418AE8482388BFFB00E13BC3 /* FrontierTests.swift */; };
 		418AE8542388BFFB00E13BC3 /* FrontierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418AE8532388BFFB00E13BC3 /* FrontierUITests.swift */; };
 		41A14C81240F64FA0094D872 /* HorseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A14C80240F64FA0094D872 /* HorseCollectionViewCell.swift */; };
-		41AFDB76240F1E66003339AC /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AFDB75240F1E66003339AC /* EditViewController.swift */; };
 		41B6432A238B87E500F95C95 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B64329238B87E500F95C95 /* SupportViewController.swift */; };
 		41B6432C238B9C1F00F95C95 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B6432B238B9C1F00F95C95 /* LoginViewController.swift */; };
 		41B64332238BC87B00F95C95 /* GuideTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B64331238BC87B00F95C95 /* GuideTableViewController.swift */; };
@@ -66,6 +66,7 @@
 		415A60602400736100A5DB61 /* DetailedDescViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedDescViewController.swift; sourceTree = "<group>"; };
 		415BD5D224591E3E000118E1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		415BD5D4245950F1000118E1 /* NewHorse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHorse.swift; sourceTree = "<group>"; };
+		415BD5D8245A0970000118E1 /* EditHorse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHorse.swift; sourceTree = "<group>"; };
 		417E9B2623EA860800308EBE /* ButtonBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBadge.swift; sourceTree = "<group>"; };
 		418224E823CA94C70043A086 /* FeatureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureCell.swift; sourceTree = "<group>"; };
 		418224E923CA94C80043A086 /* Feature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
@@ -84,7 +85,6 @@
 		418AE8532388BFFB00E13BC3 /* FrontierUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontierUITests.swift; sourceTree = "<group>"; };
 		418AE8552388BFFB00E13BC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41A14C80240F64FA0094D872 /* HorseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseCollectionViewCell.swift; sourceTree = "<group>"; };
-		41AFDB75240F1E66003339AC /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		41B64329238B87E500F95C95 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
 		41B6432B238B9C1F00F95C95 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		41B64331238BC87B00F95C95 /* GuideTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideTableViewController.swift; sourceTree = "<group>"; };
@@ -206,12 +206,12 @@
 			isa = PBXGroup;
 			children = (
 				41E84C54238D088A004A4392 /* HorseViewController.swift */,
-				41AFDB75240F1E66003339AC /* EditViewController.swift */,
 				41A14C80240F64FA0094D872 /* HorseCollectionViewCell.swift */,
 				41ED39782411F2F700B1CB18 /* PicViewController.swift */,
 				41ED397A2412E35100B1CB18 /* HorseCollectionViews.swift */,
 				41ED397C24135F6000B1CB18 /* DartTableViewController.swift */,
 				415BD5D4245950F1000118E1 /* NewHorse.swift */,
+				415BD5D8245A0970000118E1 /* EditHorse.swift */,
 			);
 			path = Horse;
 			sourceTree = "<group>";
@@ -405,13 +405,13 @@
 				41E84C53238D072D004A4392 /* SearchTableViewController.swift in Sources */,
 				C84D504424102F8E00E52999 /* AccountTableViewController.swift in Sources */,
 				41E84C55238D088A004A4392 /* HorseViewController.swift in Sources */,
+				415BD5D9245A0970000118E1 /* EditHorse.swift in Sources */,
 				C84D504224102F8E00E52999 /* MoreTableViewController.swift in Sources */,
 				41ED39792411F2F700B1CB18 /* PicViewController.swift in Sources */,
 				418AE8322388BFFA00E13BC3 /* AppDelegate.swift in Sources */,
 				41B6432A238B87E500F95C95 /* SupportViewController.swift in Sources */,
 				418224EC23CA94C80043A086 /* Feature.swift in Sources */,
 				418224ED23CA94C80043A086 /* FeatureListScreen.swift in Sources */,
-				41AFDB76240F1E66003339AC /* EditViewController.swift in Sources */,
 				41A14C81240F64FA0094D872 /* HorseCollectionViewCell.swift in Sources */,
 				415A605A23FCA04D00A5DB61 /* RegisterViewController.swift in Sources */,
 				41B6432C238B9C1F00F95C95 /* LoginViewController.swift in Sources */,

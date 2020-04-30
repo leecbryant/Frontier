@@ -13,7 +13,8 @@ class SupportViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     @IBOutlet weak var comments: UITextView!
     @IBOutlet weak var Name: UITextField!
     @IBOutlet weak var Email: UITextField!
-    
+    var activityView: UIActivityIndicatorView?
+
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
     @IBAction func onSubmit(_ sender: Any) {
@@ -25,7 +26,7 @@ class SupportViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     
     activityIndicator.startAnimating()
     UIApplication.shared.beginIgnoringInteractionEvents()
-        if Name.text == "" || Email.text == "" {
+        if Name.text == "" || Email.text == "" || comments.text == "" {
             activityIndicator.stopAnimating()
             UIApplication.shared.endIgnoringInteractionEvents()
             if Name.text == "" && Email.text == "" {
@@ -37,16 +38,80 @@ class SupportViewController: UIViewController, UITextViewDelegate, UITextFieldDe
             if Email.text == "" {
                 createAlert(title: "Empty Field", message: "Email cannot be left blank.")
             }
+            
+            if comments.text == "" {
+                createAlert(title: "Empty Field", message: "Comments cannot be left blank.")
+            }
         } else {
             UIApplication.shared.endIgnoringInteractionEvents()
             activityIndicator.stopAnimating()
             if isValidEmail(emailStr: Email.text!) {
-                createAlert(title: "Support Request", message: "A ticket has been created and sent to the admins.")
-                Name.text = ""
-                Email.text = ""
+                // Stop everything to load
+                UIApplication.shared.beginIgnoringInteractionEvents()
+                showActivityIndicator()
+                // Data Structs
+                struct ToDoResponseModel: Codable {
+                    var Name: String?
+                    var Email: String?
+                    var Comments: String?
+                }
+                struct ReturnModel: Codable {
+                    var success: Bool?
+                }
+                // Begin Call
+                let url = URL(string: Constants.config.apiLink + "api/base/support")
+                guard let requestUrl = url else { fatalError() }
+                var request = URLRequest(url: requestUrl)
+                request.httpMethod = "POST"
+                // Set HTTP Request Header
+                request.setValue("application/json", forHTTPHeaderField: "Accept")
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                let newTodoItem = ToDoResponseModel(Name: Name.text, Email: Email.text, Comments: comments.text)
+                let jsonData = try? JSONEncoder().encode(newTodoItem)
+                request.httpBody = jsonData
+                    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                        
+                        if let error = error {
+                            print("Error took place \(error)")
+                            return
+                        }
+                        guard let data = data else {return}
+                        do {
+                             let todoItemModel = try JSONDecoder().decode(ReturnModel.self, from: data)
+                                DispatchQueue.main.async {
+                                    UIApplication.shared.endIgnoringInteractionEvents()
+                                    self.hideActivityIndicator()
+                                    if todoItemModel.success == nil || todoItemModel.success == false {
+                                        self.createAlert(title: "Error", message: "Error submitting support ticket")
+                                    } else {
+                                        self.Name.text = ""
+                                        self.Email.text = ""
+                                        self.comments.text = ""
+                                        self.createAlert(title: "Support Request", message: "A ticket has been created and sent to the admins.")
+                                    }
+                                }
+                        } catch let jsonErr {
+                            print(jsonErr)
+                       }
+                 
+                }
+                task.resume()
             } else {
                 createAlert(title: "Invalid Email", message: "Email must be in proper format.")
             }
+        }
+    }
+    
+    func showActivityIndicator() {
+        activityView = UIActivityIndicatorView()
+        activityView?.center = self.view.center
+        self.view.addSubview(activityView!)
+        activityView?.startAnimating()
+    }
+
+    func hideActivityIndicator(){
+        if (activityView != nil){
+            activityView?.stopAnimating()
         }
     }
     

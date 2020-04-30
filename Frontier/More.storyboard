@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Huk-tG-C5L">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Huk-tG-C5L">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -112,7 +112,17 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hq3-0a-X1B">
                                 <rect key="frame" x="20" y="20" width="374" height="788"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <string key="text">The creators of Frontier Pal have worked with Project Frontier and the American Wild Horse Society to provide easy access to horse records to the talented volunteer darters out in the field every day.</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Thank you for supporting Project Frontier by downloading Frontier Pal!" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fnz-6I-aoO">
+                                <rect key="frame" x="0.0" y="758" width="414" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="9EF-F9-p7w"/>
+                                </constraints>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -120,11 +130,14 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="fnz-6I-aoO" firstAttribute="bottom" secondItem="Pgy-me-ydw" secondAttribute="bottom" id="Ctl-gd-g33"/>
                             <constraint firstItem="Hq3-0a-X1B" firstAttribute="top" secondItem="Pgy-me-ydw" secondAttribute="top" constant="20" id="Gp3-kW-Vnr"/>
                             <constraint firstItem="Hq3-0a-X1B" firstAttribute="centerX" secondItem="Pgy-me-ydw" secondAttribute="centerX" id="PJZ-VV-2qG"/>
                             <constraint firstItem="Hq3-0a-X1B" firstAttribute="leading" secondItem="Pgy-me-ydw" secondAttribute="leading" constant="20" id="RGB-hc-fBq"/>
                             <constraint firstItem="Pgy-me-ydw" firstAttribute="bottom" secondItem="Hq3-0a-X1B" secondAttribute="bottom" id="UrW-lT-WBS"/>
                             <constraint firstItem="Pgy-me-ydw" firstAttribute="trailing" secondItem="Hq3-0a-X1B" secondAttribute="trailing" constant="20" id="Yj3-Vh-8xN"/>
+                            <constraint firstItem="Pgy-me-ydw" firstAttribute="trailing" secondItem="fnz-6I-aoO" secondAttribute="trailing" id="hLv-xF-u4s"/>
+                            <constraint firstItem="fnz-6I-aoO" firstAttribute="leading" secondItem="Pgy-me-ydw" secondAttribute="leading" id="jS3-2g-GaO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Pgy-me-ydw"/>
                     </view>
@@ -249,7 +262,7 @@
                     <connections>
                         <outlet property="Email" destination="WVX-k1-GyK" id="j67-UB-xAv"/>
                         <outlet property="Name" destination="vDP-up-7eK" id="9Gi-dl-Dat"/>
-                        <outlet property="comments" destination="84w-mp-IgZ" id="pag-yp-Kse"/>
+                        <outlet property="comments" destination="84w-mp-IgZ" id="Okd-sh-MDi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jab-uk-u2t" userLabel="First Responder" sceneMemberID="firstResponder"/>
