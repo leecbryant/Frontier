@@ -76,7 +76,7 @@ struct Features {
 
 var selectedIndex = 0
 
-class SearchTableViewController: UITableViewController, UISearchBarDelegate, PassDataToSearch, PassNewToSearch {
+class SearchTableViewController: UITableViewController, UISearchBarDelegate, PassDataToSearch, PassNewToSearch, PassEditToSearch {
     
     @IBOutlet weak var AdvancedButton: UIBarButtonItem!
     
@@ -106,15 +106,21 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
 //        showSearchBar()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        BaseHorseData.data = [NameBandHerd]()
+        FilteredBaseData.data = [NameBandHerd]()
+        tableView.reloadData()
         
-        if ReloadData {
-            loadData()
+        loadData()
+        
+        showSearchBar()
+    }
+
+    
+    func editPassBack(response: Bool) {
+        if response {
             
-            showSearchBar()
-        } else {
-            ReloadData = true
         }
     }
 
@@ -283,6 +289,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
                 vc.HorseMarkingData = HorseAttributes.data.filter{ (Horse) -> Bool in
                     return Horse.HorseID! == selectedIndex
                 }[0]
+                vc.delegate = self
             break
             case "showAdvanced":
                 let vc = segue.destination as! FeatureListScreen

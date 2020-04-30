@@ -14,7 +14,12 @@ import struct Kingfisher.BlurImageProcessor
 import struct Kingfisher.TintImageProcessor
 import struct Kingfisher.BlendImageProcessor
 
+protocol PassEditToSearch {
+    func editPassBack(response: Bool)
+}
+
 class HorseViewController: UIViewController, PassEditToHorse {
+    
     
     // Labels
     @IBOutlet weak var tableView: UITableView!
@@ -49,7 +54,7 @@ class HorseViewController: UIViewController, PassEditToHorse {
     let cellSpacing: CGFloat = 2
     let cellsPerRow: CGFloat = 2
     var returnableIndex: [Int] = [0, 1, 2, 3, 4, 5, 6, 7]
-    
+    var delegate: PassEditToSearch?
     var Refresh = false
     override func viewDidLoad() {
         
@@ -89,9 +94,10 @@ class HorseViewController: UIViewController, PassEditToHorse {
                     SecondImage.kf.setImage(with: URL(string: imageArray[i].ImageFile.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)))
                 case 2:
 //                    let blurProcessor = BlurImageProcessor(blurRadius: 75)
-                    let blendProcessor = BlendImageProcessor(blendMode: .darken, alpha: 0.7, backgroundColor: .darkGray)
+//                    let blendProcessor = BlendImageProcessor(blendMode: .darken, alpha: 0.7, backgroundColor: .darkGray)
                     if(imageArray.count > 3) {
-                        ThirdImage.kf.setBackgroundImage(with: URL(string: imageArray[i].ImageFile.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)), for: .normal, options: [.processor(blendProcessor)])
+//                        ThirdImage.kf.setBackgroundImage(with: URL(string: imageArray[i].ImageFile.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)), for: .normal, options: [.processor(blendProcessor)])
+                        ThirdImage.kf.setBackgroundImage(with: URL(string: imageArray[i].ImageFile.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)), for: .normal)
                     } else {
                         ThirdImage.kf.setBackgroundImage(with: URL(string: imageArray[i].ImageFile), for: .normal)
                     }
@@ -151,7 +157,21 @@ class HorseViewController: UIViewController, PassEditToHorse {
     }
     
     @objc private func moreImages(_ recognizer: UITapGestureRecognizer) {
-        print("image tapped more")
+       
+        let otherViewController = self.storyboard?.instantiateViewController(withIdentifier: "preview") as? PicViewController
+        switch(recognizer.view!.tag) {
+            case 1:
+                otherViewController?.image = FirstImage.image!
+            case 2:
+                otherViewController?.image = SecondImage.image!
+            case 3:
+                otherViewController?.image = ThirdImage.currentBackgroundImage!
+            default:
+                print("Out of range")
+        }
+        
+        show(otherViewController!, sender: self)
+        
     }
     
     func filterBands() {
@@ -199,17 +219,13 @@ class HorseViewController: UIViewController, PassEditToHorse {
                 let vc = segue.destination as! EditHorse
                 vc.BaseHorseData = BaseHorseData
                 vc.filteredBands = BaseHorseData
-                vc.HorseData = BaseHorseData.data.filter({ (horse) -> Bool in
-                    return horse.ID! == selectedIndex
-                })[0]
+                vc.HorseData = HorseData
                 vc.HorseLedger = HorseLedger
                 vc.HorseDartData = HorseLedger.data.sorted(by: {$0.Date > $1.Date}).filter{ (Horse) -> Bool in
                     return Horse.HorseID! == selectedIndex
                 }
                 vc.HorseAttributes = HorseAttributes
-                vc.HorseMarkingData = HorseAttributes.data.filter{ (Horse) -> Bool in
-                    return Horse.HorseID! == selectedIndex
-                }[0]
+                vc.HorseMarkingData = HorseMarkingData
                 vc.delegate = self
             break
             default: break
@@ -220,190 +236,18 @@ class HorseViewController: UIViewController, PassEditToHorse {
          performSegue(withIdentifier: "showEdit", sender: self)
     }
     
-    func loadData() {
-        showActivityIndicator()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        // Grab Data from EACH URL - Should eventually become a SQL Left Join
-        parseHorseJSON(withCompletion: { horseData, error in
-            if error != nil {
-                print(error!)
-                self.createAlert(title: "Error", message: "Error loading horse data")
-            } else if let horseData = horseData {
-                self.parseHorsePicturesJSON(withCompletion: { horsePictures, error in
-                    if error != nil {
-                        print(error!)
-                        self.createAlert(title: "Error", message: "Error loading horse picture data")
-                    } else if let horsePictures = horsePictures {
-                        self.parseHorseTreatmentJSON(withCompletion: { horseTreatments, error in
-                            if error != nil {
-                                print(error!)
-                                self.createAlert(title: "Error", message: "Error loading horse treatment data")
-                            } else if let horseTreatments = horseTreatments {
-                                self.parseHorseMarkingsJSON(withCompletion: { horseMarkings, error in
-                                    if error != nil {
-                                        print(error!)
-                                        self.createAlert(title: "Error", message: "Error loading horse treatment data")
-                                    } else if let horseMarkings = horseMarkings {
-                                        self.BaseHorseData = horseData
-                                        self.filteredBands = horseData
-                                        self.HorseImageData = horsePictures
-                                        self.HorseLedger = horseTreatments
-                                        self.HorseAttributes = horseMarkings
-                                        self.HorseAttributes = horseMarkings
-                                        self.loadComplete()
-                                    }
-                                })
-                            }
-                        })
-                    }
-                })
-            }
-        })
-    }
-    
-    func editPassBack(response: Bool) {
+    func editPassBack(response: Bool, Name: String, Band: String, Location: String) {
         if response {
-            loadData()
+            // loadData()
+            HorseData.bands = Band
+            HorseData.Name = Name
+            HorseData.herd = Location
+            //HorseMarkingData = Marking(
+            NameLabel.text = Name
+            LocationLabel.text = Location
+            navigationItem.title = Name
+            filterBands()
         }
-    }
-    
-    
-    func loadComplete() {
-       DispatchQueue.main.async {
-            self.BaseHorseData.data.sort(by: {$0.Name < $1.Name})
-            self.filteredBands.data.sort(by: {$0.Name < $1.Name})
-            self.hideActivityIndicator()
-            UIApplication.shared.endIgnoringInteractionEvents()
-       }
-    }
-    
-    func showActivityIndicator() {
-        activityView = UIActivityIndicatorView()
-        activityView?.center = self.view.center
-        self.view.addSubview(activityView!)
-        activityView?.startAnimating()
-    }
-
-    func hideActivityIndicator(){
-        if (activityView != nil){
-            activityView?.stopAnimating()
-        }
-    }
-    
-    func parseHorseJSON(withCompletion completion: @escaping (BaseHorse?, Error?) -> Void) {
-        // Begin Call
-        let url = URL(string: Constants.config.apiLink + "api/base/horses")
-        guard let requestUrl = url else { fatalError() }
-        var request = URLRequest(url: requestUrl)
-        request.httpMethod = "GET"
-        // Set HTTP Request Header
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                
-                if let error = error {
-                    print("Error took place \(error)")
-                    return
-                }
-                
-                guard let data = data else {return}
-                do {
-                    print(data)
-                    let horses = try JSONDecoder().decode(BaseHorse.self, from: data)
-                    completion(horses, nil)
-                } catch let jsonErr {
-                    print(jsonErr)
-               }
-         
-        }
-        task.resume()
-    }
-    
-    func parseHorsePicturesJSON(withCompletion completion: @escaping (HorsePhotos?, Error?) -> Void) {
-        // Begin Call
-        let url = URL(string: Constants.config.apiLink + "api/base/horseimages")
-        guard let requestUrl = url else { fatalError() }
-        var request = URLRequest(url: requestUrl)
-        request.httpMethod = "GET"
-        // Set HTTP Request Header
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                
-                if let error = error {
-                    print("Error took place \(error)")
-                    return
-                }
-                
-                guard let data = data else {return}
-                do {
-                    print(data)
-                    let horses = try JSONDecoder().decode(HorsePhotos.self, from: data)
-                    completion(horses, nil)
-                } catch let jsonErr {
-                    print(jsonErr)
-               }
-         
-        }
-        task.resume()
-    }
-    
-    func parseHorseTreatmentJSON(withCompletion completion: @escaping (HorseTreatments?, Error?) -> Void) {
-        // Begin Call
-        let url = URL(string: Constants.config.apiLink + "api/base/horsetreatments")
-        guard let requestUrl = url else { fatalError() }
-        var request = URLRequest(url: requestUrl)
-        request.httpMethod = "GET"
-        // Set HTTP Request Header
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                
-                if let error = error {
-                    print("Error took place \(error)")
-                    return
-                }
-                
-                guard let data = data else {return}
-                do {
-                    print(data)
-                    let horses = try JSONDecoder().decode(HorseTreatments.self, from: data)
-                    completion(horses, nil)
-                } catch let jsonErr {
-                    print(jsonErr)
-               }
-         
-        }
-        task.resume()
-    }
-    
-    func parseHorseMarkingsJSON(withCompletion completion: @escaping (HorseMarkings?, Error?) -> Void) {
-        // Begin Call
-        let url = URL(string: Constants.config.apiLink + "api/base/horsemarkings")
-        guard let requestUrl = url else { fatalError() }
-        var request = URLRequest(url: requestUrl)
-        request.httpMethod = "GET"
-        // Set HTTP Request Header
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                
-                if let error = error {
-                    print("Error took place \(error)")
-                    return
-                }
-                
-                guard let data = data else {return}
-                do {
-                    print(data)
-                    let horses = try JSONDecoder().decode(HorseMarkings.self, from: data)
-                    completion(horses, nil)
-                } catch let jsonErr {
-                    print(jsonErr)
-               }
-         
-        }
-        task.resume()
     }
     
     func createAlert(title:String, message:String) {
