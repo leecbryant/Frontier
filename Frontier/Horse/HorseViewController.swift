@@ -125,6 +125,7 @@ class HorseViewController: UIViewController, PassEditToHorse {
     @IBAction func DartPress(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "dart") as! DartTableViewController
         vc.HorseDartData = HorseDartData
+        vc.HorseID = HorseData.ID
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

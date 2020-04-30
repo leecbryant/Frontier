@@ -1198,8 +1198,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="jBp-bE-gHm">
-                        <barButtonItem key="rightBarButtonItem" title="New" id="nkg-Dr-mXM"/>
+                        <barButtonItem key="rightBarButtonItem" title="New" id="nkg-Dr-mXM">
+                            <connections>
+                                <action selector="onNew:" destination="zuq-fi-e6c" id="1Lf-Hl-pSa"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="TableView" destination="ia1-lT-XHP" id="0qS-Ec-dXC"/>
+                        <outlet property="tableView" destination="ia1-lT-XHP" id="Tyu-Bz-m39"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="79e-Ec-1Ag" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
