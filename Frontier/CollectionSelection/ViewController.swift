@@ -263,7 +263,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 //Change appearance of cell
                 cell.contentView.backgroundColor = cell.tintColor
                 // Auto Pass back information to remove necessity to click save button - Only use when single selection is active
-                delegate?.passDataBack(currFeature: currFeature, data: data)
+                delegate?.passDataBack(currFeature: currFeature, data: data.count > 0 ? data[0] == "" ? [] : data : [])
                     presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                 self.navigationController?.popViewController(animated: true)
             }

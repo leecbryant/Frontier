@@ -118,6 +118,7 @@ class FeatureListScreen: UIViewController, CanRecieve {
             let refreshAlert = UIAlertController(title: "Cancel", message: "Are you sure you want to cancel? All unsaved selections will be lost.", preferredStyle: UIAlertController.Style.alert)
 
             refreshAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { (action: UIAlertAction!) in
+                self.delegate?.advancedPassBack(userInput: self.selectedFeatures)
                 self.navigationController?.popViewController(animated: true)
             }))
 
@@ -127,6 +128,7 @@ class FeatureListScreen: UIViewController, CanRecieve {
 
             present(refreshAlert, animated: true, completion: nil)
         } else {
+            delegate?.advancedPassBack(userInput: selectedFeatures)
             navigationController?.popViewController(animated: true)
         }
     }
@@ -138,23 +140,23 @@ class FeatureListScreen: UIViewController, CanRecieve {
            switch selectedFeature {
                
                case "color":
-                   secondVC.data = colorFeatures
+                secondVC.data = colorFeatures.count > 0 ? colorFeatures[0] == "" ? [] : colorFeatures : []
                case "mane":
-                   secondVC.data = maneFeatures
+                   secondVC.data = maneFeatures.count > 0 ? maneFeatures[0] == "" ? [] : maneFeatures : []
                case "maneposition":
-                    secondVC.data = manePositionFeatures
+                    secondVC.data = manePositionFeatures.count > 0 ? manePositionFeatures[0] == "" ? [] : manePositionFeatures : []
                case "face":
-                   secondVC.data = faceFeatures
+                   secondVC.data = faceFeatures.count > 0 ? faceFeatures[0] == "" ? [] : faceFeatures : []
                case "whorl":
-                   secondVC.data = whorlFeatures
+                   secondVC.data = whorlFeatures.count > 0 ? whorlFeatures[0] == "" ? [] : whorlFeatures : []
                case "rfFeet":
-                   secondVC.data = rfFeetFeatures
+                   secondVC.data = rfFeetFeatures.count > 0 ? rfFeetFeatures[0] == "" ? [] : rfFeetFeatures : []
                case "rrFeet":
-                   secondVC.data = rrFeetFeatures
+                   secondVC.data = rrFeetFeatures.count > 0 ? rrFeetFeatures[0] == "" ? [] : rrFeetFeatures : []
                case "lfFeet":
-                   secondVC.data = lfFeetFeatures
+                   secondVC.data = lfFeetFeatures.count > 0 ? lfFeetFeatures[0] == "" ? [] : lfFeetFeatures : []
                case "lrFeet":
-                   secondVC.data = lrFeetFeatures
+                   secondVC.data = lrFeetFeatures.count > 0 ? lrFeetFeatures[0] == "" ? [] : lrFeetFeatures : []
                default:
                    print("Error: transfering saved features to collection view")
                

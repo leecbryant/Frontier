@@ -5,7 +5,7 @@ struct Constants {
   struct config {
 
     // Tunnel to Localhost
-    static let apiLink = "https://adc19c5c.ngrok.io/"
+    static let apiLink = "https://ca54688b.ngrok.io/"
 
   }
 

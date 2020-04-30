@@ -49,7 +49,10 @@ class HorseViewController: UIViewController, PassEditToHorse {
     let cellSpacing: CGFloat = 2
     let cellsPerRow: CGFloat = 2
     var returnableIndex: [Int] = [0, 1, 2, 3, 4, 5, 6, 7]
+    
+    var Refresh = false
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         /// Set overall collectionview constraints
         setCVConstraints()
@@ -94,6 +97,7 @@ class HorseViewController: UIViewController, PassEditToHorse {
                     }
                 default: break
             }
+            
         }
         
         // Make Images Clickable

@@ -95,15 +95,27 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
         
     // Loading Circle
     var activityView: UIActivityIndicatorView?
-
+    var ReloadData = true
     override func viewDidLoad() {
 
         super.viewDidLoad()
         navigationItem.title = "Horses"
         
-        loadData()
+//        loadData()
         
-        showSearchBar()
+//        showSearchBar()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if ReloadData {
+            loadData()
+            
+            showSearchBar()
+        } else {
+            ReloadData = true
+        }
     }
 
     func loadData() {
@@ -130,12 +142,35 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
                                         print(error!)
                                         self.createAlert(title: "Error", message: "Error loading horse treatment data")
                                     } else if let horseMarkings = horseMarkings {
+                                        let advancedcount = self.advancedFeatures.Color.count + self.advancedFeatures.ManePosition.count + self.advancedFeatures.Mane.count +
+                                            self.advancedFeatures.Face.count + self.advancedFeatures.Whorl.count +
+                                            self.advancedFeatures.rightFront.count + self.advancedFeatures.rightBack.count +
+                                            self.advancedFeatures.leftFront.count + self.advancedFeatures.leftBack.count
                                         self.BaseHorseData = horseData
-                                        self.FilteredBaseData = horseData
                                         self.HorsePictures = horsePictures
                                         self.HorseLedger = horseTreatments
                                         self.HorseAttributes = horseMarkings
                                         self.FilteredAttributes = horseMarkings
+                                        if(advancedcount == 0) {
+                                            self.FilteredBaseData = horseData
+                                        } else {
+                                            self.isSearching = true
+                                            self.FilteredAttributes.data = self.HorseAttributes.data.filter ({ horsemark -> Bool in
+                                                return ((self.advancedFeatures.Color.count > 0 ? self.advancedFeatures.Color.contains(horsemark.color) : true)) &&
+                                                    (self.advancedFeatures.ManePosition.count > 0 ? horsemark.Position != nil ? self.advancedFeatures.ManePosition.contains(horsemark.Position!) : false : true) &&
+                                                    (self.advancedFeatures.Mane.count > 0 ? horsemark.Mane_Color != nil ? self.advancedFeatures.Mane.contains(horsemark.Mane_Color!) : false : true) &&
+                                                    (self.advancedFeatures.Face.count > 0 ? horsemark.FaceString != nil ? self.advancedFeatures.Face.contains(horsemark.FaceString!) : false : true) &&
+                                                    (self.advancedFeatures.rightFront.count > 0 ? horsemark.RFMarking != nil ? self.advancedFeatures.rightFront.contains(horsemark.RFMarking!) : false : true) &&
+                                                    (self.advancedFeatures.rightBack.count > 0 ? horsemark.RHMarking != nil ? self.advancedFeatures.rightBack.contains(horsemark.RHMarking!) : false : true) &&
+                                                    (self.advancedFeatures.leftFront.count > 0 ? horsemark.LFMarking != nil ? self.advancedFeatures.leftFront.contains(horsemark.LFMarking!) : false : true) &&
+                                                    (self.advancedFeatures.leftBack.count > 0 ? horsemark.LHMarking != nil ? self.advancedFeatures.leftBack.contains(horsemark.LHMarking!) : false : true)
+                                              })
+                                            self.FilteredBaseData.data = self.BaseHorseData.data.filter({ (horse) -> Bool in
+                                                return self.FilteredAttributes.data.contains { (mark) -> Bool in
+                                                    return horse.ID == mark.HorseID!
+                                                }
+                                            })
+                                        }
                                         self.loadComplete()
                                     }
                                 })
@@ -467,6 +502,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Pas
     }
     
     func advancedPassBack(userInput: Features) {
+        ReloadData = false
         advancedFeatures = userInput
                 
         count = advancedFeatures.Color.count + advancedFeatures.ManePosition.count + advancedFeatures.Mane.count +
