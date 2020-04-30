@@ -12,65 +12,126 @@ struct Example {
     var Title: String?
     var Image: UIImage?
 }
-
+/*
 struct GuideData {
     var Description: String?
     var Examples: [Example]
-}
+}*/
 
-class GuideViewController: UIViewController {
+class GuideViewController: UIViewController{
 
-    @IBOutlet weak var Description: UITextView!
-    @IBOutlet weak var DescriptionHC: NSLayoutConstraint!
+    @IBOutlet weak var navBar: UINavigationItem!
+    //@IBOutlet weak var Description: UITextView!
     
-    @IBOutlet weak var tableView: UITableView!
     
-    var data = [GuideData]()
+    @IBOutlet weak var Description: UILabel!
+    @IBOutlet weak var tableview: UITableView!
+    
+    
+    var guideSelection = 0
+
+    //@IBOutlet weak var tableView: UITableView!
+    
+    var data = [String]()
+    
+    ///PASSED IN VARIABLES FROM PREVIOUS VIEW CONTROLLER
+    var items = [String]()
+    var selectedIndex = 0
+    
+
+    
+    
+     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tableView.register(CustomTopCell.self, forCellReuseIdentifier: "GuideCell")
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.estimatedRowHeight = 80
-        
+
         // Do any additional setup after loading the view.
         navigationItem.title = items[myIndex]
 
-        data = [
-            // Initialize Index 0 - Colors
-            GuideData.init(Description: "A horse's color is defined as the color of the fur. Examples of colors are listed below.", Examples:
-                [Example.init(Title: "Brown", Image: UIImage(named: "brown")),
-                Example.init(Title: "White", Image: UIImage(named: "white"))
-                ]
-            ),
-            // Initialize Index 1 - Markings
-            GuideData.init(Description: "A horse's marking is defined as the marking that is on the front of their skull. Examples of markings are listed below.", Examples: [Example.init(Title: "Circle", Image: UIImage(named: "circle"))]),
-            // Initialize Index 2 - Socks
-            GuideData.init(Description: "A horse's sock type is defined as the color of their fur on the bottom of each of their legs. Examples of sock types are listed below.", Examples: [Example.init(Title: "Back Left White Sock", Image: UIImage(named: "backsock"))])
-        ]
+        Description.superview!.bounds = Description.superview!.frame.insetBy(dx: 10.0, dy: 10.0)
         
-        Description.text = data[myIndex].Description
-        DescriptionHC.constant = self.Description.contentSize.height
+        if ((items[ selectedIndex ].lowercased() == "color"))
+        {
+            Description.text = "A horse's color is defined as the color of their fur, not including the mane or tail."
+            data = ["Applaloosa", "Bay", "Bay Roan", "Black", "Blue Roan", "Brown","Buckskin", "Chestnut", "Cremello", "Gray", "Palomino", "Pinto", "Red Roan"]
+        } else if ((items[ selectedIndex ].lowercased() == "mane"))
+        {
+            Description.text = "The horse's mane is the long fur on its head and on its rear, and can be a different color than the rest of the horse."
+            data = ["Alternating", "Black", "Brown", "Flaxen", "Gray", "Multicolor", "Red", "Split", "White", "Body-Same", "Body-Lighter", "Body-Darker"]
+        }  else if ((items[ selectedIndex ].lowercased() == "face"))
+        {
+            Description.text = "A horse's face markings can be used to identify them, usually being a different color than the rest of their skin."
+            data = ["Blaze","Snip", "Star", "Stripe"]
+            
+        }
+        else if ((items[ selectedIndex ].lowercased() == "whorl"))
+        {
+            Description.text = "A hair whorl is a patch of hair growing in the opposite direction of the rest of the hair."
+            data = ["Example"]
+        }
+        else if ((items[ selectedIndex ].lowercased() == "sock types"))
+        {
+            Description.text = "A sock is a different color marking on the legs and hoof-areas of a horse."
+            data = ["Coronet","Fetlock", "Heel", "Pastern", "Tall Socks"]
+        }
+        else if ((items[ selectedIndex ].lowercased() == "terminology"))
+        {
+            Description.text = "Click on one of the options below to learn more about the term."
+            data = ["Band"]
+        }
+        
+        
+        tableview.delegate = self
+        tableview.dataSource = self
+        tableview.reloadData()
     }
-    
+
 }
 
-extension GuideViewController: UITableViewDataSource {
+extension GuideViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "GuideCell", for: indexPath)
+//        cell.textLabel?.text = data[myIndex].Examples[indexPath.row].Title
+//        // cell.Image = data[myIndex].Examples[indexPath.row].Image
+//        cell.layoutSubviews()
+//        return cell
+//    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return data[myIndex].Examples.count
+        print(data.count)
+        return data.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("GENERATING CELLS")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GuideCell", for: indexPath)
+        
+        cell.textLabel?.text = data[indexPath.row]
+
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guideSelection = indexPath.row
+        performSegue(withIdentifier: "showDetails", sender: self)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "GuideCell", for: indexPath) as! CustomTopCell
-        cell.Message = data[myIndex].Examples[indexPath.row].Title
-        cell.Image = data[myIndex].Examples[indexPath.row].Image
-        cell.layoutSubviews()
-        return cell
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.destination is DetailedViewController
+        {
+            let vc = segue.destination as? DetailedViewController
+            vc?.item = items
+            vc?.data = data
+            vc?.selectedDataIndex = guideSelection
+            vc?.selectedItemIndex = selectedIndex
+
+        }
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-var items = ["Color", "Markings", "Sock Types"]
+var items = ["Color", "Mane", "Face", "Whorl", "Sock Types", "Terminology"]
 var myIndex = 0
 
 class GuideTableViewController: UITableViewController {
@@ -24,7 +24,6 @@ class GuideTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return items.count
     }
 
@@ -41,4 +40,13 @@ class GuideTableViewController: UITableViewController {
         performSegue(withIdentifier: "guideDesc", sender: self)
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.destination is GuideViewController
+        {
+            let vc = segue.destination as? GuideViewController
+            vc?.items = items
+            vc?.selectedIndex = myIndex
+        }
+    }
 }

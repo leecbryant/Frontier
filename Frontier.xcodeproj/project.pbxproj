@@ -3,33 +3,44 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		415A605823F7473A00A5DB61 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 415A605723F7473A00A5DB61 /* logo.png */; };
+		3F2F0AF62409C10C00FE3545 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F2F0AF52409C10C00FE3545 /* Main.storyboard */; };
+		415A605A23FCA04D00A5DB61 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415A605923FCA04D00A5DB61 /* RegisterViewController.swift */; };
+		415A605D23FCBA9100A5DB61 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 415A605C23FCBA9100A5DB61 /* Kingfisher */; };
+		415A605F23FCBA9100A5DB61 /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 415A605E23FCBA9100A5DB61 /* KingfisherSwiftUI */; };
+		415A60612400736100A5DB61 /* DetailedDescViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415A60602400736100A5DB61 /* DetailedDescViewController.swift */; };
+		415BD5D324591E3E000118E1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415BD5D224591E3E000118E1 /* Constants.swift */; };
+		415BD5D5245950F1000118E1 /* NewHorse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415BD5D4245950F1000118E1 /* NewHorse.swift */; };
+		415BD5D9245A0970000118E1 /* EditHorse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415BD5D8245A0970000118E1 /* EditHorse.swift */; };
 		417E9B2723EA860800308EBE /* ButtonBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417E9B2623EA860800308EBE /* ButtonBadge.swift */; };
 		418224EB23CA94C80043A086 /* FeatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224E823CA94C70043A086 /* FeatureCell.swift */; };
 		418224EC23CA94C80043A086 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224E923CA94C80043A086 /* Feature.swift */; };
 		418224ED23CA94C80043A086 /* FeatureListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224EA23CA94C80043A086 /* FeatureListScreen.swift */; };
 		418224F323CA95180043A086 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224EF23CA95180043A086 /* ViewController.swift */; };
 		418224F423CA95180043A086 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224F023CA95180043A086 /* CollectionViewCell.swift */; };
-		418224F523CA95180043A086 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224F123CA95180043A086 /* CollectionView.swift */; };
-		418224F623CA95180043A086 /* CustomLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418224F223CA95180043A086 /* CustomLayout.swift */; };
 		418AE8322388BFFA00E13BC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418AE8312388BFFA00E13BC3 /* AppDelegate.swift */; };
-		418AE8392388BFFA00E13BC3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 418AE8372388BFFA00E13BC3 /* Main.storyboard */; };
 		418AE83B2388BFFB00E13BC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 418AE83A2388BFFB00E13BC3 /* Assets.xcassets */; };
 		418AE83E2388BFFB00E13BC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 418AE83C2388BFFB00E13BC3 /* LaunchScreen.storyboard */; };
 		418AE8492388BFFB00E13BC3 /* FrontierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418AE8482388BFFB00E13BC3 /* FrontierTests.swift */; };
 		418AE8542388BFFB00E13BC3 /* FrontierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418AE8532388BFFB00E13BC3 /* FrontierUITests.swift */; };
+		41A14C81240F64FA0094D872 /* HorseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A14C80240F64FA0094D872 /* HorseCollectionViewCell.swift */; };
 		41B6432A238B87E500F95C95 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B64329238B87E500F95C95 /* SupportViewController.swift */; };
 		41B6432C238B9C1F00F95C95 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B6432B238B9C1F00F95C95 /* LoginViewController.swift */; };
 		41B64332238BC87B00F95C95 /* GuideTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B64331238BC87B00F95C95 /* GuideTableViewController.swift */; };
 		41B64334238BC9D400F95C95 /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B64333238BC9D400F95C95 /* GuideViewController.swift */; };
+		41E5DB6A240DDC9200306799 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E5DB69240DDC9200306799 /* ForgotPasswordViewController.swift */; };
 		41E84C53238D072D004A4392 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E84C52238D072D004A4392 /* SearchTableViewController.swift */; };
 		41E84C55238D088A004A4392 /* HorseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E84C54238D088A004A4392 /* HorseViewController.swift */; };
-		41EA351F2394BDDF00264344 /* CustomTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EA351E2394BDDF00264344 /* CustomTopCell.swift */; };
-		41EA35212394C74B00264344 /* CustomLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EA35202394C74B00264344 /* CustomLeftCell.swift */; };
+		41ED39792411F2F700B1CB18 /* PicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41ED39782411F2F700B1CB18 /* PicViewController.swift */; };
+		41ED397B2412E35100B1CB18 /* HorseCollectionViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41ED397A2412E35100B1CB18 /* HorseCollectionViews.swift */; };
+		41ED397D24135F6000B1CB18 /* DartTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41ED397C24135F6000B1CB18 /* DartTableViewController.swift */; };
+		C84D504124102F8E00E52999 /* More.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C84D503D24102F8E00E52999 /* More.storyboard */; };
+		C84D504224102F8E00E52999 /* MoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84D503E24102F8E00E52999 /* MoreTableViewController.swift */; };
+		C84D504324102F8E00E52999 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84D503F24102F8E00E52999 /* AboutViewController.swift */; };
+		C84D504424102F8E00E52999 /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84D504024102F8E00E52999 /* AccountTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,18 +61,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		415A605723F7473A00A5DB61 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		3F2F0AF52409C10C00FE3545 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		415A605923FCA04D00A5DB61 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		415A60602400736100A5DB61 /* DetailedDescViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedDescViewController.swift; sourceTree = "<group>"; };
+		415BD5D224591E3E000118E1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		415BD5D4245950F1000118E1 /* NewHorse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHorse.swift; sourceTree = "<group>"; };
+		415BD5D8245A0970000118E1 /* EditHorse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHorse.swift; sourceTree = "<group>"; };
 		417E9B2623EA860800308EBE /* ButtonBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBadge.swift; sourceTree = "<group>"; };
 		418224E823CA94C70043A086 /* FeatureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureCell.swift; sourceTree = "<group>"; };
 		418224E923CA94C80043A086 /* Feature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
 		418224EA23CA94C80043A086 /* FeatureListScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureListScreen.swift; sourceTree = "<group>"; };
 		418224EF23CA95180043A086 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		418224F023CA95180043A086 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
-		418224F123CA95180043A086 /* CollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
-		418224F223CA95180043A086 /* CustomLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLayout.swift; sourceTree = "<group>"; };
 		418AE82E2388BFFA00E13BC3 /* Frontier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Frontier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		418AE8312388BFFA00E13BC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		418AE8382388BFFA00E13BC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		418AE83A2388BFFB00E13BC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		418AE83D2388BFFB00E13BC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		418AE83F2388BFFB00E13BC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -71,14 +84,21 @@
 		418AE84F2388BFFB00E13BC3 /* FrontierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FrontierUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		418AE8532388BFFB00E13BC3 /* FrontierUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontierUITests.swift; sourceTree = "<group>"; };
 		418AE8552388BFFB00E13BC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		41A14C80240F64FA0094D872 /* HorseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseCollectionViewCell.swift; sourceTree = "<group>"; };
 		41B64329238B87E500F95C95 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
 		41B6432B238B9C1F00F95C95 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		41B64331238BC87B00F95C95 /* GuideTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideTableViewController.swift; sourceTree = "<group>"; };
 		41B64333238BC9D400F95C95 /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
+		41E5DB69240DDC9200306799 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		41E84C52238D072D004A4392 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		41E84C54238D088A004A4392 /* HorseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseViewController.swift; sourceTree = "<group>"; };
-		41EA351E2394BDDF00264344 /* CustomTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTopCell.swift; sourceTree = "<group>"; };
-		41EA35202394C74B00264344 /* CustomLeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLeftCell.swift; sourceTree = "<group>"; };
+		41ED39782411F2F700B1CB18 /* PicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicViewController.swift; sourceTree = "<group>"; };
+		41ED397A2412E35100B1CB18 /* HorseCollectionViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorseCollectionViews.swift; sourceTree = "<group>"; };
+		41ED397C24135F6000B1CB18 /* DartTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DartTableViewController.swift; sourceTree = "<group>"; };
+		C84D503D24102F8E00E52999 /* More.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = More.storyboard; sourceTree = "<group>"; };
+		C84D503E24102F8E00E52999 /* MoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreTableViewController.swift; sourceTree = "<group>"; };
+		C84D503F24102F8E00E52999 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		C84D504024102F8E00E52999 /* AccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +106,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				415A605F23FCBA9100A5DB61 /* KingfisherSwiftUI in Frameworks */,
+				415A605D23FCBA9100A5DB61 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,9 +141,7 @@
 		418224EE23CA94FC0043A086 /* CollectionSelection */ = {
 			isa = PBXGroup;
 			children = (
-				418224F123CA95180043A086 /* CollectionView.swift */,
 				418224F023CA95180043A086 /* CollectionViewCell.swift */,
-				418224F223CA95180043A086 /* CustomLayout.swift */,
 				418224EF23CA95180043A086 /* ViewController.swift */,
 			);
 			path = CollectionSelection;
@@ -150,18 +170,16 @@
 		418AE8302388BFFA00E13BC3 /* Frontier */ = {
 			isa = PBXGroup;
 			children = (
-				41B6432B238B9C1F00F95C95 /* LoginViewController.swift */,
+				41E5DB68240DDC7400306799 /* Login */,
 				41EA35242394EFB400264344 /* Guide */,
 				41EA35262394EFDF00264344 /* Search */,
-				41EA352B2394F16800264344 /* Support */,
+				C8DD76B9240790E400DA9D28 /* Settings */,
 				418AE8312388BFFA00E13BC3 /* AppDelegate.swift */,
-				418AE8372388BFFA00E13BC3 /* Main.storyboard */,
-				41EA351E2394BDDF00264344 /* CustomTopCell.swift */,
-				41EA35202394C74B00264344 /* CustomLeftCell.swift */,
 				418AE83A2388BFFB00E13BC3 /* Assets.xcassets */,
 				418AE83C2388BFFB00E13BC3 /* LaunchScreen.storyboard */,
 				418AE83F2388BFFB00E13BC3 /* Info.plist */,
-				415A605723F7473A00A5DB61 /* logo.png */,
+				3F2F0AF52409C10C00FE3545 /* Main.storyboard */,
+				415BD5D224591E3E000118E1 /* Constants.swift */,
 			);
 			path = Frontier;
 			sourceTree = "<group>";
@@ -184,11 +202,36 @@
 			path = FrontierUITests;
 			sourceTree = "<group>";
 		};
+		41AFDB74240F1DD5003339AC /* Horse */ = {
+			isa = PBXGroup;
+			children = (
+				41E84C54238D088A004A4392 /* HorseViewController.swift */,
+				41A14C80240F64FA0094D872 /* HorseCollectionViewCell.swift */,
+				41ED39782411F2F700B1CB18 /* PicViewController.swift */,
+				41ED397A2412E35100B1CB18 /* HorseCollectionViews.swift */,
+				41ED397C24135F6000B1CB18 /* DartTableViewController.swift */,
+				415BD5D4245950F1000118E1 /* NewHorse.swift */,
+				415BD5D8245A0970000118E1 /* EditHorse.swift */,
+			);
+			path = Horse;
+			sourceTree = "<group>";
+		};
+		41E5DB68240DDC7400306799 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				41B6432B238B9C1F00F95C95 /* LoginViewController.swift */,
+				415A605923FCA04D00A5DB61 /* RegisterViewController.swift */,
+				41E5DB69240DDC9200306799 /* ForgotPasswordViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		41EA35242394EFB400264344 /* Guide */ = {
 			isa = PBXGroup;
 			children = (
 				41B64331238BC87B00F95C95 /* GuideTableViewController.swift */,
 				41B64333238BC9D400F95C95 /* GuideViewController.swift */,
+				415A60602400736100A5DB61 /* DetailedDescViewController.swift */,
 			);
 			name = Guide;
 			sourceTree = "<group>";
@@ -196,21 +239,25 @@
 		41EA35262394EFDF00264344 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				41AFDB74240F1DD5003339AC /* Horse */,
 				418224EE23CA94FC0043A086 /* CollectionSelection */,
 				418224E723CA94BC0043A086 /* AdvancedSearch */,
 				41E84C52238D072D004A4392 /* SearchTableViewController.swift */,
-				41E84C54238D088A004A4392 /* HorseViewController.swift */,
 				417E9B2623EA860800308EBE /* ButtonBadge.swift */,
 			);
 			name = Search;
 			sourceTree = "<group>";
 		};
-		41EA352B2394F16800264344 /* Support */ = {
+		C8DD76B9240790E400DA9D28 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C84D503F24102F8E00E52999 /* AboutViewController.swift */,
+				C84D504024102F8E00E52999 /* AccountTableViewController.swift */,
+				C84D503D24102F8E00E52999 /* More.storyboard */,
+				C84D503E24102F8E00E52999 /* MoreTableViewController.swift */,
 				41B64329238B87E500F95C95 /* SupportViewController.swift */,
 			);
-			name = Support;
+			name = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,6 +276,10 @@
 			dependencies = (
 			);
 			name = Frontier;
+			packageProductDependencies = (
+				415A605C23FCBA9100A5DB61 /* Kingfisher */,
+				415A605E23FCBA9100A5DB61 /* KingfisherSwiftUI */,
+			);
 			productName = Frontier;
 			productReference = 418AE82E2388BFFA00E13BC3 /* Frontier.app */;
 			productType = "com.apple.product-type.application";
@@ -301,6 +352,9 @@
 				Base,
 			);
 			mainGroup = 418AE8252388BFFA00E13BC3;
+			packageReferences = (
+				415A605B23FCBA9100A5DB61 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 418AE82F2388BFFA00E13BC3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -317,10 +371,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				415A605823F7473A00A5DB61 /* logo.png in Resources */,
 				418AE83E2388BFFB00E13BC3 /* LaunchScreen.storyboard in Resources */,
+				C84D504124102F8E00E52999 /* More.storyboard in Resources */,
+				3F2F0AF62409C10C00FE3545 /* Main.storyboard in Resources */,
 				418AE83B2388BFFB00E13BC3 /* Assets.xcassets in Resources */,
-				418AE8392388BFFA00E13BC3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,23 +399,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				415BD5D324591E3E000118E1 /* Constants.swift in Sources */,
 				41B64332238BC87B00F95C95 /* GuideTableViewController.swift in Sources */,
+				415BD5D5245950F1000118E1 /* NewHorse.swift in Sources */,
 				41E84C53238D072D004A4392 /* SearchTableViewController.swift in Sources */,
+				C84D504424102F8E00E52999 /* AccountTableViewController.swift in Sources */,
 				41E84C55238D088A004A4392 /* HorseViewController.swift in Sources */,
+				415BD5D9245A0970000118E1 /* EditHorse.swift in Sources */,
+				C84D504224102F8E00E52999 /* MoreTableViewController.swift in Sources */,
+				41ED39792411F2F700B1CB18 /* PicViewController.swift in Sources */,
 				418AE8322388BFFA00E13BC3 /* AppDelegate.swift in Sources */,
 				41B6432A238B87E500F95C95 /* SupportViewController.swift in Sources */,
 				418224EC23CA94C80043A086 /* Feature.swift in Sources */,
-				418224F623CA95180043A086 /* CustomLayout.swift in Sources */,
-				418224F523CA95180043A086 /* CollectionView.swift in Sources */,
 				418224ED23CA94C80043A086 /* FeatureListScreen.swift in Sources */,
+				41A14C81240F64FA0094D872 /* HorseCollectionViewCell.swift in Sources */,
+				415A605A23FCA04D00A5DB61 /* RegisterViewController.swift in Sources */,
 				41B6432C238B9C1F00F95C95 /* LoginViewController.swift in Sources */,
+				415A60612400736100A5DB61 /* DetailedDescViewController.swift in Sources */,
+				41E5DB6A240DDC9200306799 /* ForgotPasswordViewController.swift in Sources */,
 				417E9B2723EA860800308EBE /* ButtonBadge.swift in Sources */,
 				418224F323CA95180043A086 /* ViewController.swift in Sources */,
-				41EA351F2394BDDF00264344 /* CustomTopCell.swift in Sources */,
+				41ED397D24135F6000B1CB18 /* DartTableViewController.swift in Sources */,
 				418224F423CA95180043A086 /* CollectionViewCell.swift in Sources */,
-				41EA35212394C74B00264344 /* CustomLeftCell.swift in Sources */,
 				418224EB23CA94C80043A086 /* FeatureCell.swift in Sources */,
+				C84D504324102F8E00E52999 /* AboutViewController.swift in Sources */,
 				41B64334238BC9D400F95C95 /* GuideViewController.swift in Sources */,
+				41ED397B2412E35100B1CB18 /* HorseCollectionViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,14 +460,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		418AE8372388BFFA00E13BC3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				418AE8382388BFFA00E13BC3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		418AE83C2388BFFB00E13BC3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -537,6 +592,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AB933V97QY;
 				INFOPLIST_FILE = Frontier/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -545,7 +601,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = LBI.Frontier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -554,6 +610,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AB933V97QY;
 				INFOPLIST_FILE = Frontier/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -562,7 +619,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = LBI.Frontier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -684,6 +741,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		415A605B23FCBA9100A5DB61 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.13.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		415A605C23FCBA9100A5DB61 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 415A605B23FCBA9100A5DB61 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		415A605E23FCBA9100A5DB61 /* KingfisherSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 415A605B23FCBA9100A5DB61 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = KingfisherSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 418AE8262388BFFA00E13BC3 /* Project object */;
 }
