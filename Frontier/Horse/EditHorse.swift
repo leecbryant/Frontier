@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PassEditToHorse {
-    func editPassBack(response: Bool, Name: String, Band: String, Location: String)
+    func editPassBack(response: Bool, Name: String, Band: String, Location: String, Status: Bool)
 }
 
 class EditHorse: UIViewController, CanRecieve {
@@ -269,7 +269,7 @@ class EditHorse: UIViewController, CanRecieve {
                                 if todoItemModel.success == false {
                                     self.createAlert(title: "Error", message: "Unable to create new horse record")
                                 } else {
-                                    self.delegate?.editPassBack(response: todoItemModel.success ?? false, Name: self.Name.text!, Band: self.Band.text!, Location: self.Location.text!)
+                                    self.delegate?.editPassBack(response: todoItemModel.success ?? false, Name: self.Name.text!, Band: self.Band.text!, Location: self.Location.text!, Status: self.BandSwitch.isOn)
                                     self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                                     self.navigationController?.popViewController(animated: true)
                                 }

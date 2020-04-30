@@ -236,7 +236,7 @@ class HorseViewController: UIViewController, PassEditToHorse {
          performSegue(withIdentifier: "showEdit", sender: self)
     }
     
-    func editPassBack(response: Bool, Name: String, Band: String, Location: String) {
+    func editPassBack(response: Bool, Name: String, Band: String, Location: String, Status: Bool) {
         if response {
             // loadData()
             HorseData.bands = Band
@@ -244,7 +244,14 @@ class HorseViewController: UIViewController, PassEditToHorse {
             HorseData.herd = Location
             //HorseMarkingData = Marking(
             NameLabel.text = Name
-            LocationLabel.text = Location
+            LocationLabel.text = "Status: "
+            //            switch(HorseDartData[0].Action) {
+                        switch(Status) {
+                            case true:
+                                LocationLabel.text! += "Seen with Band"
+                            case false:
+                                LocationLabel.text! += "Missing from Band"
+                        }
             navigationItem.title = Name
             filterBands()
             AttributeCollectionView.reloadData()
