@@ -247,6 +247,7 @@ class HorseViewController: UIViewController, PassEditToHorse {
             LocationLabel.text = Location
             navigationItem.title = Name
             filterBands()
+            AttributeCollectionView.reloadData()
         }
     }
     
